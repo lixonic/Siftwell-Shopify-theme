@@ -1,65 +1,90 @@
 # Siftwell
 
-![Siftwell: Clear for people. Legible to agents. A desktop Auto storefront beside its mobile product page.](docs/images/siftwell-banner.jpg)
+![Siftwell: Products worth understanding. A desktop Auto storefront beside its mobile product page.](docs/images/siftwell-banner.jpg)
 
-**A considered Shopify storefront for auto accessories and tools, built around clear choices.**
+**[Download theme ZIP ↓](https://raw.githubusercontent.com/lixonic/Siftwell-Shopify-theme/main/docs/downloads/Siftwell-0.8.0-beta.1.zip)** · [Installation guide](docs/getting-started.md#try-the-theme)
 
-Siftwell brings the order of a well-kept workshop to a Shopify store. A steady sidebar keeps the catalog close. Open product areas, direct headings and purposeful color give practical products room to explain themselves.
+**An open-source Shopify theme for products worth understanding.**
 
-Customers can search by name, start with a buying need or compare a short list of alternatives. Product specifications carry the same information across the product page, quick view and comparison.
+Siftwell is built for auto accessories and tools, where fit, materials and intended use help someone choose. Customers can find products by name or buying need, inspect details in quick view and compare their options. A steady sidebar and open product areas keep the catalog close and the products in view.
 
-## Why Siftwell fits the agentic era
+[Open the live demo](https://siftwell-theme.myshopify.com/) · [Start with Siftwell](docs/design-philosophy.md) · [Try the source](#development)
 
-When an assistant helps someone find a product, the storefront still has a job: make the choice understandable. Siftwell puts product facts, useful comparisons and familiar purchase controls close together, so the shopper can check the recommendation and decide with confidence.
+**Demo visitor password:** `siftwell`
 
-| A clear foundation | What Siftwell provides |
-| --- | --- |
-| Product facts with a consistent home | Shopify product data and configurable metafields, shared across the product page, quick view and comparison. |
-| Pages that carry meaning | Server-rendered Liquid, semantic headings and specification lists, plus Shopify-generated product JSON-LD for machine-readable metadata. |
-| Familiar paths to a purchase | Native Shopify links and forms, enhanced with search, quick view and a cart drawer. The core shopping path retains useful HTML fallbacks. |
-| Context for coding agents | [Architecture rules](AGENTS.md), [design intent](DESIGN.md), focused source checks and an MIT codebase that developers can inspect and adapt. |
+## Built around the buying decision
 
-This is our design approach to assisted shopping. Agent discovery, UCP transactions and AI sales-channel eligibility are provided by [Shopify's agentic commerce platform](https://shopify.dev/docs/agents); installing a theme does not enable those services or guarantee recommendations. Product JSON-LD uses Shopify's [structured_data filter](https://shopify.dev/docs/api/liquid/filters/structured_data), and the custom specification fields are not automatically added to every agent's catalog.
+- **Find a useful starting point.** Search by product name, browse recognizable collections or begin with a need such as Road trips or Garage projects. The finder opens the collections you choose.
+- **Keep the facts consistent.** Enter Weight, Material, Fit, Feature and Best in product metafields. The product page, quick view and comparison use those same fields, so you maintain the details in one place.
+- **Compare without losing your place.** Inspect an item in quick view or put up to three products side by side. Comparison appears when customers select products and can be disabled for catalogs that do not need it.
+- **Give practical products room.** A workshop-style sidebar, direct headings, restrained color and brief motion provide a steady frame for your products, photographs and words.
+
+The finder and specification fields present the information you configure. They do not calculate or verify vehicle compatibility.
+
+## Performance and accessibility
+
+Siftwell keeps the storefront in server-rendered Liquid, with deferred JavaScript and no frontend runtime framework. Responsive images, priority loading for the initial product image and media that loads on request help keep the work focused on what a customer is viewing.
+
+Keyboard navigation is part of the shopping experience: a skip link, visible focus, Escape-to-close dialogs, focus return and focus retention after sorting or filtering. The source also includes reduced-motion styles, semantic headings and native product/cart forms.
+
+**Recorded demo results — 20 October 2026, Auto 0.7.4:**
+
+| Lighthouse performance / 100 | Mobile | Desktop |
+| --- | ---: | ---: |
+| Home | 60 | 85 |
+| Collection | 65 | 77 |
+| Product | 63 | 86* |
+
+These are medians of warning-free runs on the populated demo. Each cell has three samples except desktop product (*two; provisional). **Automated accessibility scored 100/100 in all 21 recorded runs**, including four with incomplete-load warnings. Sampled default-palette contrast was **14.86:1 for body text** and **5.33:1 for accent-button text**.
+
+The results describe the earlier demo checkpoint; the downloadable 0.8.0 source has not had a fresh Lighthouse audit. Scores vary with content, apps and hosting conditions. Screen-reader speech, Safari, Firefox and physical-device verification remain open. Read the [results, methods and coverage](docs/performance-accessibility.md) before using these numbers to assess your store.
 
 ## See the theme
 
-| A catalog with room to browse | Useful details without losing your place |
+| Browse the catalog | Inspect the useful details |
 | --- | --- |
 | ![Siftwell collection page with its steady sidebar, product grid and filters.](docs/images/collection-desktop.jpg) | ![Siftwell quick view with product imagery, price and consistent specifications.](docs/images/quick-view-desktop.jpg) |
 
-Screenshots show the Auto demo with sample branding and content. The demo catalog and media are not included in the installable theme. [Image notes](docs/images/README.md).
+**Put the details side by side.** The comparison view uses the same product specifications as quick view and the product page.
 
-## Project status
+![Siftwell comparison showing three demo products with prices, weight, material, fit, feature and intended use.](docs/images/comparison-desktop.jpg)
 
-This repository prepares the first MIT-licensed beta, **0.8.0-beta.1**. No beta release has been tagged yet. Fresh-install and essential shopping-path checks remain before a packaged beta release. See [known limitations](docs/known-limitations.md).
+Screenshots show the Auto demo with sample branding and content. Add your own catalog, licensed media and accurate fit information; the demo content is not included in the installable theme. [Image notes](docs/images/README.md).
 
-Siftwell is a Shopify theme. Running a store still requires Shopify; this repository does not include or license Shopify's hosted services.
+## Make the source your own
 
-## Start here
+Use Shopify's theme editor to arrange sections and product blocks, choose fonts and colors, and add your branding. App blocks and Custom Liquid provide places for store-specific extensions.
 
-- [The design approach](docs/design-philosophy.md)
-- [Install and configure the theme](docs/getting-started.md)
-- [Set up product specifications](docs/product-specifications.md)
-- [Get help](SUPPORT.md)
+The theme source is MIT-licensed. Developers can inspect it, adapt it and share improvements while keeping the license notice. Shopify's hosted platform and any separate app services have their own terms.
 
-The full merchant guide is also included in `docs/`. Preview it locally:
+For developers working with coding agents, [AGENTS.md](AGENTS.md) explains the architecture and conventions, while [DESIGN.md](DESIGN.md) records the design intent. Those files give an agent context for extending the theme consistently. [Contributions](CONTRIBUTING.md) are welcome.
+
+## When shopping starts with an assistant
+
+A customer may arrive with a recommendation already in mind. Siftwell helps them inspect it through clear product facts, visible options and useful comparisons. Its pages use server-rendered Liquid, semantic HTML and Shopify-generated product JSON-LD.
+
+That is the theme's role in assisted shopping. [Shopify provides agent discovery and transaction services](https://shopify.dev/docs/agents); availability depends on the store and service setup. Installing Siftwell does not activate an AI sales channel or guarantee recommendations. Custom specification fields are not automatically included in every agent's catalog.
+
+## Start with your catalog
+
+- [Start with Siftwell](docs/design-philosophy.md): the shopping experience and the design behind it.
+- [Build your first shopping path](docs/getting-started.md): connect a buying need to a collection, product and bag.
+- [Set up product specifications](docs/product-specifications.md): keep useful details consistent across product views.
+- [Get community help](SUPPORT.md): setup questions, reproducible issues and contributions.
+
+The searchable merchant guide is included in `docs/`. To preview it locally:
 
 ```sh
 python3 -m http.server 8774 --bind 127.0.0.1 --directory docs
 ```
 
-Then open `http://127.0.0.1:8774`. The guide is static and does not need an email service or build framework.
+Open `http://127.0.0.1:8774` to browse the complete guide.
 
-## Included
+## Before using the beta
 
-- Shopify JSON templates, editable sections and product/app blocks
-- Predictive search, collection routes, filtering and a collection-based finder
-- Optional comparison for up to three products
-- Product media galleries, quick view and image zoom
-- Shopify product forms, cart drawer and cart page
-- Font, color, branding and localization settings
+Version **0.8.0-beta.1** is in preparation, with no tagged release yet. Fresh-install and essential shopping-path checks remain before a packaged beta release. Review the [known limitations](docs/known-limitations.md) and test your catalog, apps and store configuration before planning a launch.
 
-The finder opens collections you configure; it does not infer vehicle compatibility. Add your own catalog, photography, store policies and accurate fit information.
+Siftwell includes native Shopify product forms, a cart drawer and cart page, product galleries and zoom, localization settings and editable sections. Shopify supplies accounts, checkout and the hosted commerce platform. Source checks do not establish compatibility with every store or device.
 
 ## Development
 
@@ -72,10 +97,10 @@ shopify theme check --path .
 shopify theme dev --path . --store YOUR-STORE.myshopify.com
 ```
 
-Before building a theme ZIP, run `npm run validate` and `shopify theme package --path .`. Keep the included MIT notice in every distribution. A GitHub source archive contains project files and is different from a packaged Shopify theme ZIP.
+Before building a theme ZIP, run `npm run validate` and `shopify theme package --path .`. To refresh the downloadable theme ZIP, run `npm run package:download`; validation checks that its contents match the theme source. Keep the included MIT notice in every distribution. A GitHub source archive contains project files and is different from a packaged Shopify theme ZIP.
 
 Read [Contributing](CONTRIBUTING.md) before opening a pull request. Never commit a store password, Theme Access token, live merchant settings or customer data.
 
 ## License
 
-[MIT](LICENSE). The source audit and the boundary between project code and Shopify services are described in [Provenance](PROVENANCE.md) and [Notices](NOTICES.md). Shopify and third-party brand names remain their owners' trademarks.
+[MIT](LICENSE). See [Provenance](PROVENANCE.md) and [Notices](NOTICES.md) for the source history and external-service boundaries. Shopify and third-party brand names remain their owners' trademarks.

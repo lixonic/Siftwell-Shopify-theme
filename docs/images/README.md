@@ -1,6 +1,6 @@
 # Theme presentation images
 
-These are actual Siftwell Auto demo views captured for the project's README: the home page, collection grid, shared product quick view and mobile product page. The product banner arranges the home and mobile captures in a presentation frame. It is a composite, rather than one browser viewport.
+These are actual Siftwell Auto demo views captured for the project's README: the home page, collection grid, shared product quick view, comparison and mobile product page. The product banner arranges the home and mobile captures in a presentation frame. It is a composite, rather than one browser viewport.
 
 The screenshots show sample Torque Supply branding, illustrative auto products and demo content. They are presentation material, not an installable catalog or a claim of verified vehicle compatibility. The merchant's logo, products and media remain configurable. No cart, customer or checkout detail is shown beyond the existing bag count.
 

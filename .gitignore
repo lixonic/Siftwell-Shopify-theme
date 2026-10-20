@@ -16,6 +16,8 @@ node_modules/
 __pycache__/
 *.pyc
 *.zip
+# Public theme ZIP requested for the README download.
+!docs/downloads/Siftwell-0.8.0-beta.1.zip
 artifacts/
 coverage/
 playwright-report/

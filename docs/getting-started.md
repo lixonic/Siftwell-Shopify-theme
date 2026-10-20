@@ -1,28 +1,38 @@
-# Start with your catalog
+# Build your first shopping path
 
-Siftwell is preparing its first MIT beta. No release has been tagged yet. Evaluate the source in a development store before using it for a live shop.
+Connect a buying need to a useful product choice, then follow it through to the bag.
 
-## Install a packaged theme
+## Choose one buying need
 
-Use the Shopify theme ZIP from a tagged release when one is available. GitHub’s automatically generated source archive includes development files and is not the installation package.
+Begin with a job your customers recognize: preparing for a road trip, keeping the interior tidy or working in the garage. Create a collection with a small set of relevant products. Give it a label that describes what someone will find.
 
-In Shopify, open **Online Store → Themes** and use the ZIP upload option. Open the uploaded copy in the theme editor. Keep your previous theme while you configure and review the new one.
+Use that collection in your main menu, activity links or product finder. A useful route starts with the products behind the label.
 
-Developers can clone this repository, run `npm ci` and `npm test`, then use `shopify theme check --path .` and `shopify theme dev --path . --store YOUR-STORE.myshopify.com`. Build the installation ZIP with `shopify theme package --path .`.
+## Prepare products people can compare
 
-## Make the first choices
+Add clear product names, prices, available options and photographs in Shopify. Use a short description to explain the item’s purpose, then record the details that affect a choice in [product specifications](product-specifications.md).
 
-1. Add your logo under **Theme settings → Brand**.
-2. Connect your main menu in **Header**.
+Keep fit information precise and use consistent units. The theme displays the values you provide; it does not establish vehicle compatibility.
+
+## Connect the path in the editor
+
+1. Open Siftwell in the theme editor.
+2. Add your logo in **Theme settings → Brand** and connect your main menu in **Header**.
 3. Give **Shopping hero** a short heading and an image that shows what you sell.
 4. Choose collections for **Collection links**, **Shopping workspace** and **Product finder**.
-5. Arrange product information around the purchase choices.
-6. Set up [product specifications](product-specifications.md) when they help customers compare.
+5. Open the product template and arrange its options, purchase controls and **Product specifications** block.
+6. Keep comparison enabled when side-by-side details help your customers choose.
 
-The included preset is for auto accessories and tools. Add your own product content and licensed photographs. Catalog data, demo media, payments, shipping, taxes and store policies are not supplied by the theme.
+## Read it as a customer
 
-## Review your store
+Start at the home page. Find two relevant items, inspect quick view and compare their details. Open a product, choose its options, add it to the bag and adjust the quantity. Repeat on a phone and with a keyboard.
 
-Find a product from the home page, inspect its options, add it to the bag and change its quantity. Repeat on a phone and with a keyboard. Check empty results, long titles and your own apps. Use Shopify’s test payment setup for any test checkout; never enter real payment information for a test.
+Check that each label, image and next step makes sense. Configure shipping, returns and payments in Shopify, and use your store’s test payment setup for checkout testing.
 
-Read [known limitations](known-limitations.md) and [community support](../SUPPORT.md) before publishing.
+## Try the theme
+
+[Download theme ZIP](https://raw.githubusercontent.com/lixonic/Siftwell-Shopify-theme/main/docs/downloads/Siftwell-0.8.0-beta.1.zip) and upload it to your theme library.
+
+Open **Online Store → Themes**, upload the ZIP, then configure that copy and review it before publishing. Keep your previous theme. Developers can also [preview the source with Shopify’s development tools](../README.md#development). GitHub’s source archive is different from this packaged Shopify theme ZIP.
+
+Add your own catalog and licensed media. Read the [known limitations](known-limitations.md) and [community support](../SUPPORT.md) information before planning a launch.

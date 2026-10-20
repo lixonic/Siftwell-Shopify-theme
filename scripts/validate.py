@@ -3,6 +3,7 @@ from pathlib import Path
 import json
 import re
 import sys
+import zipfile
 
 root = Path(__file__).resolve().parents[1]
 theme_dirs = ('assets', 'config', 'layout', 'listings', 'locales', 'sections', 'snippets', 'templates')
@@ -42,6 +43,22 @@ for path in (root / 'assets').iterdir():
 if (root / 'LICENSE').read_bytes() != (root / 'assets/siftwell-license.txt').read_bytes():
     errors.append('The packaged MIT notice must match LICENSE')
 
+# The downloadable package must stay installable and match the source it accompanies.
+download = root / 'docs/downloads/Siftwell-0.8.0-beta.1.zip'
+try:
+    with zipfile.ZipFile(download) as archive:
+        members = [item.filename for item in archive.infolist() if not item.is_dir()]
+        expected = {str(path.relative_to(root)) for directory in theme_dirs
+                    for path in (root / directory).rglob('*') if path.is_file()}
+        if len(members) != len(set(members)) or set(members) != expected:
+            errors.append('Download ZIP file list differs from theme source; run npm run package:download')
+        else:
+            for name in members:
+                if archive.read(name) != (root / name).read_bytes():
+                    errors.append(f'Download ZIP has stale content: {name}; run npm run package:download')
+except (OSError, zipfile.BadZipFile) as exc:
+    errors.append(f'Download ZIP is missing or invalid: {exc}')
+
 # Check authored guide links and its static support boundary, not dependencies.
 guide = (root / 'docs/content.js').read_text()
 pages = json.loads(guide.removeprefix('window.SIFTWELL_DOCS = ').strip().removesuffix(';'))
@@ -61,4 +78,4 @@ for path in [*root.glob('*.md'), *(root / 'docs').glob('*.md')]:
 if errors:
     print('\n'.join(errors))
     sys.exit(1)
-print('Validated theme JSON, template references, Auto defaults, license notice and guide links.')
+print('Validated theme JSON, template references, Auto defaults, license notice, download ZIP and guide links.')
