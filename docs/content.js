@@ -15,7 +15,7 @@ window.SIFTWELL_DOCS = [
       },
       {
         "title": "Keep the catalog in view",
-        "html": "<p>A steady desktop sidebar keeps product groups close. Open product areas, direct headings and restrained color give practical items room to explain themselves. On a phone, navigation moves into a drawer while account and bag controls stay in the header.</p><p>Build on that order: a few recognizable categories, a clear overview photograph and one useful thought at a time. Add a section when it answers a customer’s question.</p>"
+        "html": "<p>A steady desktop sidebar keeps product groups close. Open product areas, direct headings and restrained color give practical items room to explain themselves. On a phone, navigation moves into a drawer while account and bag controls stay in the header.</p><p>Build on that order: a few recognizable categories, a clear overview photograph and one useful thought at a time. Add a section when it answers a customer’s question.</p><p><a href=\"?page=performance-accessibility\">Read about performance and accessibility →</a></p>"
       },
       {
         "title": "Make the source your own",
@@ -292,6 +292,34 @@ window.SIFTWELL_DOCS = [
     ]
   },
   {
+    "id": "performance-accessibility",
+    "group": "Care for your store",
+    "title": "Performance and accessibility",
+    "lead": "Purposeful loading, readable details and a comfortable path through the catalog. See what the theme supports and what the recorded demo results cover.",
+    "sections": [
+      {
+        "title": "Keep loading purposeful",
+        "html": "<p>Siftwell renders its pages with Liquid and enhances them with deferred JavaScript, without a frontend runtime framework. Responsive image sizes help the browser load an appropriate source; the first product image receives high priority, while secondary gallery thumbnails and below-the-fold imagery load lazily where appropriate.</p><p>Product video and 3D players wait behind a poster until a customer requests them. Shopify font settings supply the typography. These choices keep the work focused on the content someone is viewing.</p><p>Your images, chosen fonts, apps and catalog still affect loading. Review the store again after adding your own content and extensions.</p>"
+      },
+      {
+        "title": "Read the recorded demo results",
+        "html": "<p>The measurements below were recorded on <strong>20 October 2026</strong> against the populated <strong>Auto 0.7.4 demo</strong>. They are historical demo measurements; the downloadable MIT 0.8.0 source has not received a fresh Lighthouse audit or completed fresh-install verification.</p><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Recorded demo performance\"><table><caption>Lighthouse performance medians, out of 100</caption><thead><tr><th scope=\"col\">Page</th><th scope=\"col\">Mobile</th><th scope=\"col\">Desktop</th></tr></thead><tbody><tr><th scope=\"row\">Home</th><td>60</td><td>85</td></tr><tr><th scope=\"row\">Collection</th><td>65</td><td>77</td></tr><tr><th scope=\"row\">Product</th><td>63</td><td>86*</td></tr></tbody></table></div><p>Medians use three runs without incomplete-load warnings per cell, except desktop product: <strong>*86 is provisional, based on two completed samples</strong>. Of 21 recorded runs, 17 finished without load warnings. Scores vary with content, apps, hosting conditions and the test environment.</p><details class=\"guide-details\"><summary>How the results were measured</summary><p>Lighthouse 12.8.2 and Chrome 155 used normal cold-cache settings and simulated mobile/desktop throttling. Storefront authentication was established before the scored navigation. Shopify platform resources were not blocked.</p><p>The full score set is shown here, including low scores. An asterisk marks an incomplete-load warning; that run is excluded from the medians above.</p><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"All recorded performance scores\"><table><caption>Performance scores in run order</caption><thead><tr><th scope=\"col\">Device</th><th scope=\"col\">Page</th><th scope=\"col\">Scores</th></tr></thead><tbody><tr><td>Mobile</td><th scope=\"row\">Home</th><td>59, 65, 60</td></tr><tr><td>Mobile</td><th scope=\"row\">Collection</th><td>65, 67, 65*, 64</td></tr><tr><td>Mobile</td><th scope=\"row\">Product</th><td>63, 38, 66</td></tr><tr><td>Desktop</td><th scope=\"row\">Home</th><td>85, 92, 71</td></tr><tr><td>Desktop</td><th scope=\"row\">Collection</th><td>91, 75, 77</td></tr><tr><td>Desktop</td><th scope=\"row\">Product</th><td>80*, 79*, 88, 84, 94*</td></tr></tbody></table></div><p>CPU calibration and network conditions varied substantially. Two header CSS corrections landed during the batch and received separate visual checks. The MIT export retains the measured shopping JavaScript, CSS and gallery implementation, while replacing metadata, font registration and several media icons.</p><p>This is not an exact-package certification or a controlled speed-improvement comparison. Shopify’s standardized benchmark catalog was not audited.</p></details>"
+      },
+      {
+        "title": "Make the shopping path comfortable",
+        "html": "<p>The theme includes a skip link, semantic headings and landmarks, visible focus, named controls, dialog focus handling and Escape behavior. Native product and cart forms provide essential-action fallbacks. Reduced-motion styles remove animated transitions and smooth scrolling when a device requests them.</p><p>Observed Chromium checks on Auto 0.7.4 covered keyboard operation and focus return for dialogs, nested image zoom, focus retention after catalog sorting and filtering, comparison removal, predictive-search state and native required-email validation. Mobile account and bag controls were also checked at 320px and 390px, including pointer activation.</p><p><strong>Lighthouse automated accessibility scored 100/100 in all 21 reports</strong>, including four with incomplete-load warnings. That score does not establish WCAG conformance, spoken screen-reader output or complete browser/device coverage. The result-count status markup was checked; its spoken announcement remains unverified.</p>"
+      },
+      {
+        "title": "Keep the palette readable",
+        "html": "<p>The demo’s sampled default colors produced the following contrast ratios:</p><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Sampled default-palette contrast\"><table><caption>Default demo palette samples</caption><thead><tr><th scope=\"col\">Use</th><th scope=\"col\">Contrast</th></tr></thead><tbody><tr><th scope=\"row\">Body text</th><td>14.86:1</td></tr><tr><th scope=\"row\">Secondary page text</th><td>4.72:1</td></tr><tr><th scope=\"row\">Navigation text</th><td>13.95:1</td></tr><tr><th scope=\"row\">Accent-button text</th><td>5.33:1</td></tr><tr><th scope=\"row\">Form boundary</th><td>4.89:1</td></tr></tbody></table></div><p>These samples do not cover every color combination or photographic overlay. Recheck contrast after changing your palette or images, and keep important words in editable text.</p>"
+      },
+      {
+        "title": "Review your own store before launch",
+        "html": "<p>Screen-reader speech, Safari, Firefox, iOS, physical touch devices and broader browser/version coverage remain unverified. Reduced-motion handling is present in code; an operating-system-setting runtime check remains open. Full template, failure-state, offline, no-JavaScript and editor-reinsertion coverage is incomplete.</p><p>Follow the shopping path with your products and apps using a keyboard, a screen reader and real phones. Check focus, zoom and reflow, form errors, dialog scrolling and motion preferences. Record the browser/device and exact steps when reporting a problem.</p><div class=\"article-links\"><a href=\"?page=accessibility\">Review content and keyboard use →</a><a href=\"?page=support\">Report a reproducible issue →</a></div>"
+      }
+    ]
+  },
+  {
     "id": "accessibility",
     "group": "Care for your store",
     "title": "Keep the store easy to use",
@@ -311,7 +339,7 @@ window.SIFTWELL_DOCS = [
       },
       {
         "title": "Preview after changing the design",
-        "html": "<p>Review the store on a phone, at larger text sizes and with assistive technology where available. Changes to images, colors, content or apps can affect how the store is used. Send any issue with a built-in theme feature to support.</p>"
+        "html": "<p>Review the store on a phone, at larger text sizes and with assistive technology where available. Changes to images, colors, content or apps can affect how the store is used. Send any issue with a built-in theme feature to support.</p><p><a href=\"?page=performance-accessibility\">See the theme’s recorded results and coverage →</a></p>"
       }
     ]
   },
@@ -407,7 +435,7 @@ window.SIFTWELL_DOCS = [
       },
       {
         "title": "A beta, with room to improve",
-        "html": "<p>A theme ZIP is available to download. No beta release is tagged yet. Fresh-install and essential shopping-path checks remain before the beta release. Advanced subscriptions, B2B setups and every browser/device combination have not been verified.</p><p>Use a development store to evaluate your catalog and apps before relying on the theme for a live shop.</p>"
+        "html": "<p>A theme ZIP is available to download. No beta release is tagged yet. Fresh-install and essential shopping-path checks remain before the beta release. Advanced subscriptions, B2B setups and every browser/device combination have not been verified.</p><p>Use a development store to evaluate your catalog and apps before relying on the theme for a live shop.</p><p><a href=\"?page=performance-accessibility\">Review the recorded demo results and checks still to complete →</a></p>"
       },
       {
         "title": "Before you update",
