@@ -1,0 +1,21 @@
+{% liquid
+  assign media_alt = media.alt | default: product.title
+  assign image_sizes = image_sizes | default: '(min-width: 990px) 50vw, 100vw'
+  assign priority = 'auto'
+  if prioritize
+    assign priority = 'high'
+  endif
+  assign loading = 'lazy'
+  if initial
+    assign loading = 'eager'
+  endif
+%}
+{% if media.media_type == 'image' %}
+<a class="media-image" href="{{ media | image_url: width: 2400 }}" data-media-zoom aria-label="{{ 'products.zoom_image' | t }}">{{ media | image_url: width: 1800 | image_tag: widths: '360, 480, 540, 640, 750, 960, 1100, 1500, 1800', sizes: image_sizes, fetchpriority: priority, loading: loading, alt: media_alt }}<span class="media-zoom-hint" aria-hidden="true">{% render 'icon', name: 'zoom' %}</span></a>
+{% else %}
+<div class="media-deferred">
+<button class="media-poster" type="button" data-media-load aria-label="{% if media.media_type == 'model' %}{{ 'products.load_model' | t }}{% else %}{{ 'products.play_video' | t }}{% endif %}">{{ media.preview_image | image_url: width: 1100 | image_tag: widths: '360, 480, 540, 640, 750, 960, 1100', sizes: image_sizes, fetchpriority: priority, loading: loading, alt: media_alt }}<span class="media-play-icon">{% if media.media_type == 'model' %}{{ 'media-model.svg' | inline_asset_content }}{% else %}{{ 'media-play.svg' | inline_asset_content }}{% endif %}</span></button>
+<template data-media-template>{% render 'product-media', media: media, product: product, loading: loading, autoplay: true %}</template>
+<noscript>{% if media.media_type == 'model' %}{{ media.preview_image | image_url: width: 1100 | image_tag: loading: 'lazy', alt: media_alt }}{% else %}{% render 'product-media', media: media, product: product, loading: loading, autoplay: false %}{% endif %}</noscript>
+</div>
+{% endif %}

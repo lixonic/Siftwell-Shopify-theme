@@ -1,0 +1,29 @@
+{% if product != blank %}{% liquid
+assign variant = product.selected_or_first_available_variant
+assign form_id = 'QuickForm-' | append: product.id
+assign selected_allocation = variant.selected_selling_plan_allocation
+if variant.requires_selling_plan and selected_allocation == nil
+ assign selected_allocation = variant.selling_plan_allocations.first
+endif
+assign has_quantity_input = false
+if variant.quantity_rule.min > 1 or variant.quantity_rule.increment > 1 or variant.quantity_rule.max != nil
+ assign has_quantity_input = true
+endif
+%}<div class="product-detail-layout" data-product-root data-quick-view-root data-section-id="quick-view" data-product-url="{{ product.url }}">
+<div class="detail-art">{% render 'media-gallery', product: product, section: section %}</div>
+<div class="detail-copy product-info"><h2 id="QuickViewTitle">{{ product.title | escape }}</h2>
+<div class="rte quick-description">{{ product.description }}</div>
+<div class="detail-price">{% if variant %}{% assign price_target = selected_allocation | default: variant %}{% render 'price', target: price_target, unit: variant %}{% else %}<p>{{ 'products.unavailable' | t }}</p>{% endif %}</div>
+<div class="quick-specifications">{% render 'product-specifications', product: product %}</div>
+{% unless product.has_only_default_variant %}<div class="product-block">{% render 'variant-picker', product: product %}</div>{% endunless %}
+{% if has_quantity_input %}<div class="product-block"><label for="QuickQuantity-{{ product.id }}">{{ 'products.quantity' | t }}</label><input id="QuickQuantity-{{ product.id }}" type="number" name="quantity" form="{{ form_id }}" min="{{ variant.quantity_rule.min | default: 1 }}" step="{{ variant.quantity_rule.increment | default: 1 }}" value="{{ variant.quantity_rule.min | default: 1 }}" {% if variant.quantity_rule.max != nil %}max="{{ variant.quantity_rule.max }}"{% endif %}>{% render 'quantity-rules', variant: variant %}</div>{% endif %}
+<div class="product-block">{% render 'buy-buttons', product: product, variant: variant, form_id: form_id, quick_view: true, has_quantity_input: has_quantity_input %}</div>
+{% render 'compare-toggle', product: product %}
+<a class="text-link full-product-link" href="{{ product.url }}">{{ 'products.full_details' | t }}{% render 'icon', name: 'arrow' %}</a></div></div>{% endif %}
+
+{% schema %}
+{
+  "name": "t:labels.quick_view",
+  "settings": []
+}
+{% endschema %}

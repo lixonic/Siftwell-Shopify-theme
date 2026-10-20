@@ -1,0 +1,18 @@
+<div class="page-width section-space search-page">
+<h1>{{ 'search.title' | t }}</h1>{% render 'search-form', id: section.id %}
+{% if search.performed %}<h2>{{ 'search.results' | t: terms: search.terms }}</h2>{% render 'filters', results: search %}{% paginate search.results by 24 %}<div class="product-grid">{% for item in search.results %}{% case item.object_type %}{% when 'product' %}{% render 'product-card', product: item %}{% else %}<article><h3><a href="{{ item.url }}">{{ item.title | escape }}</a></h3></article>{% endcase %}{% else %}<p>{{ 'search.empty' | t }}</p>{% endfor %}</div>{% render 'pagination', paginate: paginate %}{% endpaginate %}{% endif %}
+</div>
+{% schema %}
+{
+  "name": "t:labels.search",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  }
+}
+{% endschema %}

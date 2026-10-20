@@ -1,0 +1,3 @@
+{% if settings.enable_compare %}<aside class="right-rail" data-comparison-rail aria-label="{{ 'compare.title' | t }}" hidden>
+<div class="shortlist"><div class="shortlist-heading"><h2>{{ 'compare.title' | t }}</h2><span><span data-comparison-count>0</span> / 3</span></div><div data-shortlist-items><p data-comparison-empty>{{ 'compare.empty' | t }}</p></div><button class="secondary-button" type="button" data-open-dialog="ProductComparison" data-comparison-open disabled>{{ 'compare.title' | t }}{% render 'icon', name: 'arrow' %}</button></div>
+</aside>{% endif %}

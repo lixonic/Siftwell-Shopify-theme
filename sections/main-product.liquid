@@ -1,0 +1,119 @@
+{% liquid
+ assign variant = product.selected_or_first_available_variant
+ assign form_id = 'ProductForm-' | append: section.id
+ assign selected_allocation = variant.selected_selling_plan_allocation
+ if variant.requires_selling_plan and selected_allocation == nil
+  assign selected_allocation = variant.selling_plan_allocations.first
+ endif
+ assign quantity_blocks = section.blocks | where: 'type', 'quantity'
+ assign has_quantity_input = false
+ if quantity_blocks.size > 0
+  assign has_quantity_input = true
+ endif
+%}
+<div class="page-width product-breadcrumb"><a href="{{ routes.all_products_collection_url }}">{% render 'icon', name: 'arrow' %}{{ 'collection.all' | t }}</a></div>
+<div class="product-layout product-page page-width section-space" data-product-root data-section-id="{{ section.id }}" data-product-url="{{ product.url }}">
+ {% assign media_max_width = settings.page_width | minus: 48 | times: 1.12 | divided_by: 2.12 %}
+ {% capture product_media_sizes %}(min-width: 1251px) min(calc((100vw - 368px) * 0.529), {{ media_max_width }}px), (min-width: 1101px) calc((100vw - 328px) * 0.529), (min-width: 761px) calc((100vw - 312px) * 0.529), (min-width: 381px) calc(100vw - 48px), calc(100vw - 32px){% endcapture %}
+ {% render 'media-gallery', product: product, section: section, image_sizes: product_media_sizes, prioritize_media: true %}
+ <div class="product-info">
+ {% for block in section.blocks %}<div class="product-block product-block--{{ block.type }}" {{ block.shopify_attributes }}>
+ {% case block.type %}
+ {% when '@app' %}{% render block %}
+ {% when 'title' %}<h1>{{ product.title | escape }}</h1>
+ {% when 'price' %}{% if variant %}{% assign price_target = selected_allocation | default: variant %}{% render 'price', target: price_target, unit: variant %}{% else %}<p>{{ 'products.unavailable' | t }}</p>{% endif %}<p class="product-availability{% unless variant.available %} is-unavailable{% endunless %}">{% if variant == nil %}{{ 'products.unavailable' | t }}{% elsif variant.available %}{{ 'products.available' | t }}{% else %}{{ 'products.sold_out' | t }}{% endif %}</p>{% if cart.taxes_included %}<p class="small-text">{{ 'products.tax_included' | t }}</p>{% endif %}{% if shop.shipping_policy.body != blank %}<a class="small-text" href="{{ shop.shipping_policy.url }}">{{ 'products.shipping_policy' | t }}</a>{% endif %}
+ {% when 'description' %}{% if product.description != blank %}<details class="product-description-panel" open><summary>{{ 'products.details' | t }}{% render 'icon', name: 'chevron' %}</summary><div class="rte">{{ product.description }}</div></details>{% endif %}
+ {% when 'specifications' %}{% render 'product-specifications', product: product %}
+ {% when 'variant_picker' %}{% render 'variant-picker', product: product %}
+ {% when 'quantity' %}<label class="sr-only" for="Quantity-{{ section.id }}">{{ 'products.quantity' | t }}</label><div class="product-quantity"><button type="button" data-product-quantity-step="-1" aria-label="{{ 'cart.decrease' | t: title: product.title | escape }}">{% render 'icon', name: 'minus' %}</button><input class="quantity-input" id="Quantity-{{ section.id }}" type="number" name="quantity" form="{{ form_id }}" value="{{ variant.quantity_rule.min | default: 1 }}" min="{{ variant.quantity_rule.min | default: 1 }}" step="{{ variant.quantity_rule.increment | default: 1 }}" {% if variant.quantity_rule.max != nil %}max="{{ variant.quantity_rule.max }}"{% endif %}>
+ <button type="button" data-product-quantity-step="1" aria-label="{{ 'cart.increase' | t: title: product.title | escape }}">{% render 'icon', name: 'plus' %}</button></div>{% render 'quantity-rules', variant: variant %}
+ {% when 'buy_buttons' %}{% render 'buy-buttons', product: product, variant: variant, form_id: form_id, block: block, has_quantity_input: has_quantity_input %}
+ {% when 'pickup' %}{% render 'pickup-availability', variant: variant %}
+ {% when 'custom_liquid' %}{{ block.settings.custom_liquid }}
+ {% endcase %}</div>{% endfor %}
+ </div>
+</div>
+{% schema %}
+{
+  "name": "t:labels.product",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "title",
+      "name": "t:labels.title",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "t:labels.price",
+      "limit": 1
+    },
+    {
+      "type": "description",
+      "name": "t:labels.description",
+      "limit": 1
+    },
+    {
+      "type": "specifications",
+      "name": "t:labels.product_specifications",
+      "limit": 1
+    },
+    {
+      "type": "variant_picker",
+      "name": "t:labels.variant_picker",
+      "limit": 1
+    },
+    {
+      "type": "quantity",
+      "name": "t:labels.quantity_selector",
+      "limit": 1
+    },
+    {
+      "type": "buy_buttons",
+      "name": "t:labels.buy_buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "label": "t:labels.show_accelerated_checkout",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_recipient",
+          "label": "t:labels.show_gift_card_recipient_form",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "pickup",
+      "name": "t:labels.pickup_availability",
+      "limit": 1
+    },
+    {
+      "type": "custom_liquid",
+      "name": "t:labels.custom_liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "t:labels.custom_liquid"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,15 @@
+<article class="page-width section-space prose"><h1>{{ page.title | escape }}</h1><div class="rte">{{ page.content }}</div></article>
+{% schema %}
+{
+  "name": "t:labels.page",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  }
+}
+{% endschema %}

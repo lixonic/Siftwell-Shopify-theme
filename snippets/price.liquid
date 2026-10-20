@@ -1,0 +1,11 @@
+{% liquid
+ assign price = target.price
+ assign compare_price = target.compare_at_price
+ assign unit = unit | default: target.selected_or_first_available_variant | default: target
+ assign unit_price = target.unit_price | default: unit.unit_price
+%}
+<div class="price">
+{% if target.price_varies %}<span>{{ target.price_min | money_without_trailing_zeros }}–{{ target.price_max | money_without_trailing_zeros }}</span>{% else %}<span>{{ price | money_without_trailing_zeros }}</span>{% endif %}
+{% if compare_price > price %}<s>{{ compare_price | money_without_trailing_zeros }}</s><span class="badge">{{ 'products.sale' | t }}</span>{% endif %}
+{% if unit.unit_price_measurement and unit_price != nil %}<small>{{ unit_price | money_without_trailing_zeros }} / {% if unit.unit_price_measurement.reference_value != 1 %}{{ unit.unit_price_measurement.reference_value }}{% endif %}{{ unit.unit_price_measurement.reference_unit }}</small>{% endif %}
+</div>

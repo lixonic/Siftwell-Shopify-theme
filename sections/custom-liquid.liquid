@@ -1,0 +1,26 @@
+<div class="page-width section-space">{{ section.settings.custom_liquid }}</div>
+{% schema %}
+{
+  "name": "t:labels.custom_liquid",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [
+    {
+      "type": "liquid",
+      "id": "custom_liquid",
+      "label": "t:labels.custom_liquid"
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "presets": [
+    {
+      "name": "t:labels.custom_liquid"
+    }
+  ]
+}
+{% endschema %}

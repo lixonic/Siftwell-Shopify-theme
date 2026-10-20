@@ -1,0 +1,15 @@
+<div class="page-width section-space"><h1>{{ 'general.shop_all' | t }}</h1>{% paginate collections by 24 %}<div class="collection-grid">{% for collection in collections %}<a href="{{ collection.url }}">{% if collection.featured_image %}{{ collection.featured_image | image_url: width: 900 | image_tag: widths: '240, 480, 720, 900', sizes: '(min-width: 990px) 30vw, 100vw', loading: 'lazy' }}{% else %}{{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}{% endif %}<h2>{{ collection.title | escape }}</h2></a>{% endfor %}</div>{% render 'pagination', paginate: paginate %}{% endpaginate %}</div>
+{% schema %}
+{
+  "name": "t:labels.collection_list",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  }
+}
+{% endschema %}

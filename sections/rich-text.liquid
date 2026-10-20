@@ -1,0 +1,33 @@
+<div class="page-width section-space prose"><h2>{{ section.settings.heading | escape }}</h2><div class="rte">{{ section.settings.text }}</div></div>
+{% schema %}
+{
+  "name": "t:labels.rich_text",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "About your store"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "t:labels.text",
+      "default": "<p>Share the story behind your products.</p>"
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "presets": [
+    {
+      "name": "t:labels.rich_text"
+    }
+  ]
+}
+{% endschema %}

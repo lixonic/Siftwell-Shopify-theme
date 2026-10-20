@@ -1,0 +1,18 @@
+<article class="page-width section-space prose"><h1>{{ article.title | escape }}</h1><p>{{ 'blog.author' | t: author: article.author }}</p><p>{{ article.published_at | time_tag: format: 'date' }}</p>{% if article.image %}{{ article.image | image_url: width: 1600 | image_tag: widths: '600, 1000, 1600', sizes: '100vw', loading: 'eager' }}{% endif %}<div class="rte">{{ article.content }}</div>
+{% if blog.comments_enabled? %}<h2>{{ 'blog.comments' | t }}</h2>{% paginate article.comments by 10 %}{% for comment in article.comments %}<div class="comment"><strong>{{ comment.author | escape }}</strong><div>{{ comment.content }}</div></div>{% endfor %}{% render 'pagination', paginate: paginate %}{% endpaginate %}
+{% form 'new_comment', article %}<h3>{{ 'blog.comment' | t }}</h3>{% if form.posted_successfully? %}<p role="status">{{ 'blog.comment_success' | t }}</p>{% endif %}{% if form.errors %}<div role="alert">{{ form.errors | default_errors }}</div>{% endif %}<label for="CommentName">{{ 'forms.name' | t }}</label><input id="CommentName" name="comment[author]" required value="{{ form.author | escape }}"><label for="CommentEmail">{{ 'forms.email' | t }}</label><input id="CommentEmail" name="comment[email]" type="email" required value="{{ form.email | escape }}"><label for="CommentBody">{{ 'forms.message' | t }}</label><textarea id="CommentBody" name="comment[body]" required>{{ form.body | escape }}</textarea><button class="button" type="submit">{{ 'general.submit' | t }}</button>{% endform %}{% endif %}
+</article><script type="application/ld+json">{{ article | structured_data }}</script>
+{% schema %}
+{
+  "name": "t:labels.article",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  }
+}
+{% endschema %}

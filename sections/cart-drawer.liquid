@@ -1,0 +1,7 @@
+<dialog id="CartDrawer" class="drawer cart-drawer cart-dialog" aria-labelledby="CartDrawerTitle" data-cart-section="{{ section.id }}"><div class="dialog-heading"><h2 id="CartDrawerTitle">{{ 'cart.title' | t }}</h2><button class="icon-button" type="button" data-close-dialog aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button></div>{% render 'cart-content' %}</dialog>
+{% schema %}
+{
+  "name": "t:labels.cart_drawer",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,29 @@
+{% liquid
+ assign card_variant = product.selected_or_first_available_variant
+ assign allow_quick_add = false
+ assign card_heading_tag = 'h3'
+ if heading_tag == 'h2'
+  assign card_heading_tag = 'h2'
+ endif
+ assign card_image_loading = 'lazy'
+ assign card_image_priority = 'auto'
+ if prioritize_image
+  assign card_image_loading = 'eager'
+  assign card_image_priority = 'high'
+ endif
+ if product.has_only_default_variant and product.available
+  unless card_variant.requires_selling_plan or card_variant.quantity_rule.min > 1 or card_variant.quantity_rule.increment > 1 or card_variant.quantity_rule.max != nil
+   assign allow_quick_add = true
+  endunless
+ endif
+%}
+<article class="product-card">
+<div class="product-media">
+<a class="product-image-button" href="{{ product.url }}" data-quick-view-url="{{ product.url }}" aria-label="{{ 'products.view' | t: title: product.title | escape }}">
+{% if product.featured_media %}{{ product.featured_media.preview_image | image_url: width: 900 | image_tag: widths: '240, 480, 720, 900', sizes: '(min-width: 990px) 25vw, 50vw', loading: card_image_loading, fetchpriority: card_image_priority }}{% else %}{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}{% endif %}</a>
+{% unless product.available %}<span class="badge">{{ 'products.sold_out' | t }}</span>{% endunless %}
+{% if allow_quick_add %}{% form 'product', product, data-product-form: '' %}<input type="hidden" name="id" value="{{ card_variant.id }}"><button class="quick-add" type="submit" name="add" aria-label="{{ 'products.add_named' | t: title: product.title | escape }}">{% render 'icon', name: 'plus' %}</button><p data-form-error role="alert" hidden></p>{% endform %}{% else %}<a class="quick-add" href="{{ product.url }}" data-quick-view-url="{{ product.url }}" aria-label="{{ 'products.options_named' | t: title: product.title | escape }}">{% render 'icon', name: 'plus' %}</a>{% endif %}
+</div>
+<{{ card_heading_tag }} class="product-title"><a href="{{ product.url }}" data-quick-view-url="{{ product.url }}">{{ product.title | escape }}</a></{{ card_heading_tag }}>
+<div class="product-bottom"><div class="product-price">{% render 'price', target: product %}</div>
+{% render 'compare-toggle', product: product %}</div></article>

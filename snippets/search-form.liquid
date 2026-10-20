@@ -1,0 +1,6 @@
+<div class="search-shell" data-predictive-search>
+<form action="{{ routes.search_url }}" method="get" class="search-box" role="search" data-search-form>
+{% render 'icon', name: 'search', class: 'search-icon' %}<label class="sr-only" for="Search-{{ id }}">{{ 'general.search' | t }}</label>
+<input id="Search-{{ id }}" name="q" type="search" value="{{ search.terms | escape }}" placeholder="{{ 'general.search' | t }}" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="Predictive-{{ id }}">
+<button type="submit" aria-label="{{ 'general.search_submit' | t }}">{% render 'icon', name: 'arrow' %}</button>
+</form><div id="Predictive-{{ id }}" class="predictive-results" data-predictive-results hidden></div></div>

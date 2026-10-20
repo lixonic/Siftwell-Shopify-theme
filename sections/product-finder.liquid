@@ -1,0 +1,37 @@
+<dialog id="ProductFinder" class="info-dialog finder-dialog" aria-labelledby="FinderTitle">
+<button class="icon-button dialog-close" data-close-dialog type="button" aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+<div class="popup-scroll" tabindex="0" role="region" aria-labelledby="FinderTitle"><h2 id="FinderTitle">{{ section.settings.question | escape }}</h2>
+<div class="finder-choices">{% assign choice_count = 0 %}{% for block in section.blocks %}{% if block.settings.collection != blank %}{% assign choice_count = choice_count | plus: 1 %}<a class="guide-choice" href="{{ block.settings.collection.url }}" data-finder-choice {{ block.shopify_attributes }}><span>{{ block.settings.label | default: block.settings.collection.title | escape }}</span>{% render 'icon', name: 'arrow' %}</a>{% endif %}{% endfor %}{% if choice_count == 0 %}{% if request.design_mode %}<p>{{ 'finder.empty' | t }}</p>{% endif %}<a href="{{ routes.collections_url }}">{{ 'general.shop_all' | t }}</a>{% endif %}</div>
+</div></dialog>
+{% schema %}
+{
+  "name": "t:labels.product_finder",
+  "settings": [
+    {
+      "type": "text",
+      "id": "question",
+      "label": "t:labels.question",
+      "default": "Shop by activity"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "choice",
+      "name": "t:labels.collection_choice",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "t:labels.collection"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:labels.label"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12
+}
+{% endschema %}

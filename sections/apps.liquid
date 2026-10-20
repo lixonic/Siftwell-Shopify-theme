@@ -1,0 +1,25 @@
+<div class="page-width section-space">{% for block in section.blocks %}{% render block %}{% endfor %}</div>
+{% schema %}
+{
+  "name": "t:labels.apps",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:labels.apps"
+    }
+  ]
+}
+{% endschema %}

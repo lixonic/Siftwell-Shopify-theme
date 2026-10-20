@@ -1,0 +1,15 @@
+<div class="page-width section-space prose"><h1>{{ 'not_found.title' | t }}</h1><p>{{ 'not_found.text' | t }}</p><a class="button" href="{{ routes.all_products_collection_url }}">{{ 'general.continue' | t }}</a></div>
+{% schema %}
+{
+  "name": "t:labels.not_found",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  }
+}
+{% endschema %}

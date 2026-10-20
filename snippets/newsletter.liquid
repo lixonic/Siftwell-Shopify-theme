@@ -1,0 +1,4 @@
+{% assign newsletter_id = 'Newsletter-' | append: section.id %}{% form 'customer', id: newsletter_id %}
+<input type="hidden" name="contact[tags]" value="newsletter"><label for="NewsletterEmail-{{ section.id }}">{{ 'forms.email' | t }}</label><div class="newsletter-input"><input type="email" name="contact[email]" id="NewsletterEmail-{{ section.id }}" autocomplete="email" required {% if form.errors %}aria-invalid="true"{% endif %}><button class="button" type="submit">{{ 'forms.subscribe' | t }}</button></div>
+{% if form.posted_successfully? %}<p role="status">{{ 'forms.subscribed' | t }}</p>{% endif %}{% if form.errors %}<div role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+{% endform %}

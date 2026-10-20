@@ -1,0 +1,65 @@
+<section class="intro page-width" aria-labelledby="HeroTitle-{{ section.id }}">
+<div class="hero-copy">
+<h1 id="HeroTitle-{{ section.id }}">{% if section.settings.heading_line_1 != blank %}{{ section.settings.heading_line_1 | escape }}<br>{% endif %}{{ section.settings.heading }}</h1>
+{% if section.settings.text != blank %}<div class="hero-description rte">{{ section.settings.text }}</div>{% endif %}
+<div class="hero-actions">{% if settings.enable_finder %}<a class="hero-cta" href="{{ routes.collections_url }}" data-open-dialog="ProductFinder">{% render 'icon', name: 'compass' %}{{ 'general.choose' | t }}{% render 'icon', name: 'arrow' %}</a>{% else %}<a class="hero-cta" href="{{ routes.all_products_collection_url }}">{{ 'general.shop_all' | t }}{% render 'icon', name: 'arrow' %}</a>{% endif %}</div>
+<div class="hero-search">{% render 'search-form', id: section.id %}</div>
+</div>
+<figure class="hero-image">
+{% if section.settings.image != blank %}
+{% assign hero_max_width = settings.page_width | default: 1500 | divided_by: 2.1 %}
+{% capture hero_sizes %}(min-width: 1251px) min(calc((100vw - 320px) / 2.1), {{ hero_max_width }}px), (min-width: 1001px) min(calc((100vw - 280px) / 2.1), {{ hero_max_width }}px), (min-width: 761px) calc((100vw - 280px) * 0.425), (min-width: 381px) calc(100vw - 48px), calc(100vw - 32px){% endcapture %}
+{{ section.settings.image | image_url: width: 1800 | image_tag: widths: '360, 480, 540, 640, 750, 960, 1100, 1500, 1800', sizes: hero_sizes, fetchpriority: 'high', loading: 'eager' }}{% else %}{{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}{% endif %}
+{% if section.settings.show_brand_seal and settings.brand_mark != 'none' %}<div class="hero-seal" aria-hidden="true">{% render 'icon', name: settings.brand_mark %}</div>{% endif %}
+</figure>
+</section>
+
+{% schema %}
+{
+  "name": "t:labels.shopping_hero",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "t:labels.heading_line_1",
+      "default": "For the"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "Long <em>way.</em>"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "t:labels.text",
+      "default": "<p>Tools and accessories for your car and garage.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:labels.image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_brand_seal",
+      "label": "t:labels.show_brand_seal",
+      "default": true
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "presets": [
+    {
+      "name": "t:labels.shopping_hero"
+    }
+  ]
+}
+{% endschema %}

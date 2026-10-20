@@ -1,0 +1,20 @@
+{% liquid
+ assign quantity_min = item.variant.quantity_rule.min | default: 1
+ assign quantity_increment = item.variant.quantity_rule.increment | default: 1
+ assign quantity_max = item.variant.quantity_rule.max
+ assign decrease_quantity = item.quantity | minus: 1 | divided_by: quantity_increment | floor | times: quantity_increment
+ if decrease_quantity < quantity_min
+  assign decrease_quantity = 0
+ endif
+ assign increase_quantity = item.quantity | divided_by: quantity_increment | floor | plus: 1 | times: quantity_increment | at_least: quantity_min
+ if quantity_max != nil
+  assign increase_quantity = increase_quantity | at_most: quantity_max
+ endif
+%}
+<label class="sr-only" for="CartQuantity-{{ section_id }}-{{ item_index }}">{{ 'cart.quantity' | t: title: item.product.title | escape }}</label>
+<div class="quantity cart-quantity">
+ <button type="submit" form="CartChange-{{ section_id }}-{{ item_index }}" name="quantity" value="{{ decrease_quantity }}" data-quantity-step="-1" aria-label="{{ 'cart.decrease' | t: title: item.product.title | escape }}">{% render 'icon', name: 'minus' %}</button>
+ <input id="CartQuantity-{{ section_id }}-{{ item_index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0" step="1" {% if quantity_max != nil %}max="{{ quantity_max }}"{% endif %} data-quantity-min="{{ quantity_min }}" data-quantity-increment="{{ quantity_increment }}" data-cart-key="{{ item.key }}" data-cart-identity="{{ item.variant.id }}:{{ item.selling_plan_allocation.selling_plan.id }}:{{ item.properties | json | escape }}" aria-label="{{ 'cart.quantity' | t: title: item.product.title | escape }}">
+ <button type="submit" form="CartChange-{{ section_id }}-{{ item_index }}" name="quantity" value="{{ increase_quantity }}" data-quantity-step="1" {% if quantity_max != nil and item.quantity >= quantity_max %}disabled{% endif %} aria-label="{{ 'cart.increase' | t: title: item.product.title | escape }}">{% render 'icon', name: 'plus' %}</button>
+</div>
+{% render 'quantity-rules', variant: item.variant %}

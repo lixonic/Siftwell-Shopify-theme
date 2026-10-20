@@ -1,0 +1,68 @@
+{%- liquid
+  assign metadata_store = shop.name | strip
+  assign metadata_title = page_title | strip | default: metadata_store
+  assign metadata_summary = page_description | default: shop.description | strip_html | strip | default: metadata_store
+  assign metadata_address = canonical_url | default: request.origin
+  assign metadata_kind = 'website'
+
+  case request.page_type
+    when 'password'
+      assign metadata_address = request.origin
+    when 'article'
+      assign metadata_kind = 'article'
+    when 'product'
+      assign metadata_kind = 'product'
+  endcase
+
+  capture metadata_browser_title
+    echo metadata_title
+    if current_page > 1
+      echo ' — '
+      echo 'general.page' | t: number: current_page
+    endif
+    unless metadata_title contains metadata_store
+      echo ' — '
+      echo metadata_store
+    endunless
+  endcapture
+-%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ metadata_browser_title | escape }}</title>
+<link rel="canonical" href="{{ canonical_url | default: request.origin | escape }}">
+<meta content="{{ metadata_summary | escape }}" name="description">
+
+<meta content="{{ metadata_kind }}" property="og:type">
+<meta content="{{ metadata_store | escape }}" property="og:site_name">
+<meta content="{{ metadata_address | escape }}" property="og:url">
+<meta content="{{ metadata_title | escape }}" property="og:title">
+<meta content="{{ metadata_summary | escape }}" property="og:description">
+<meta content="{{ metadata_title | escape }}" name="twitter:title">
+<meta content="{{ metadata_summary | escape }}" name="twitter:description">
+
+{%- if page_image != blank -%}
+  {%- liquid
+    assign metadata_image = page_image | image_url: width: 2000
+    assign metadata_image_prefix = metadata_image | slice: 0, 2
+    if metadata_image_prefix == '//'
+      assign metadata_image = metadata_image | prepend: 'https:'
+    endif
+    assign metadata_image_alt = page_image.alt | default: metadata_title
+  -%}
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="{{ metadata_image | escape }}" name="twitter:image">
+  <meta content="{{ metadata_image_alt | escape }}" name="twitter:image:alt">
+  <meta content="{{ metadata_image | escape }}" property="og:image">
+  <meta content="{{ metadata_image | escape }}" property="og:image:secure_url">
+  <meta content="{{ metadata_image_alt | escape }}" property="og:image:alt">
+  <meta content="{{ page_image.width }}" property="og:image:width">
+  <meta content="{{ page_image.height }}" property="og:image:height">
+{%- else -%}
+  <meta content="summary" name="twitter:card">
+{%- endif -%}
+
+{%- if request.page_type == 'product' and product != blank -%}
+  <meta content="{{ product.price | divided_by: 100.0 }}" property="og:price:amount">
+  <meta content="{{ cart.currency.iso_code | default: shop.currency | escape }}" property="og:price:currency">
+  <script type="application/ld+json">{{ product | structured_data }}</script>
+{%- endif -%}

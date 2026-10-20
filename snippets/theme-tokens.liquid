@@ -1,0 +1,39 @@
+{% liquid
+  assign body_font = settings.type_body_font
+  assign heading_font = settings.type_heading_font
+ assign mono_font = settings.type_mono_font
+%}
+{% style %}
+{% assign typography_sources = 'type_body_font,type_heading_font,type_mono_font' | split: ',' %}
+{% for typography_source in typography_sources %}
+ {% liquid
+  assign regular_face = settings[typography_source]
+  assign heavy_face = regular_face | font_modify: 'weight', 'bold'
+  assign slanted_face = regular_face | font_modify: 'style', 'italic'
+  assign heavy_slanted_face = heavy_face | font_modify: 'style', 'italic'
+ %}
+ {{ regular_face | font_face: font_display: 'swap' }}
+ {{ heavy_face | font_face: font_display: 'swap' }}
+ {{ slanted_face | font_face: font_display: 'swap' }}
+ {{ heavy_slanted_face | font_face: font_display: 'swap' }}
+{% endfor %}
+:root, body[data-preset] {
+ --sans: {{ body_font.family }}, {{ body_font.fallback_families }};
+ --display: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+ --mono: {{ mono_font.family }}, {{ mono_font.fallback_families }};
+ --body-font: {{ body_font.family }}, {{ body_font.fallback_families }};
+ --heading-font: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+ --body-weight: {{ body_font.weight }}; --heading-weight: {{ heading_font.weight }};
+ --paper: {{ settings.color_background }}; --ink: {{ settings.color_text }};
+ --panel: {{ settings.color_panel }}; --panel-ink: {{ settings.color_panel_text }};
+ --accent: {{ settings.color_accent }}; --accent-ink: {{ settings.color_accent_text }};
+ --nav: {{ settings.color_navigation }}; --nav-ink: {{ settings.color_navigation_text }};
+ --sidebar: {{ settings.color_navigation }}; --sidebar-ink: {{ settings.color_navigation_text }};
+ --sidebar-muted: {{ settings.color_navigation_muted }}; --muted: {{ settings.color_muted }};
+ --panel-muted: {{ settings.color_panel_muted }}; --media: {{ settings.color_media }};
+ --media-ink: {{ settings.color_media_text }}; --guide: {{ settings.color_guide }};
+ --guide-ink: {{ settings.color_guide_text }};
+ --line: {{ settings.color_text | color_modify: 'alpha', 0.14 }};
+ --radius: {{ settings.corner_radius }}px; --page-width: {{ settings.page_width }}px;
+}
+{% endstyle %}

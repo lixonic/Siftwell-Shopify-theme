@@ -1,0 +1,10 @@
+{% unless product.has_only_default_variant %}<div class="variant-picker">
+{% for option in product.options_with_values %}<fieldset data-product-option><legend>{{ option.name | escape }}</legend><div class="option-values">{% for value in option.values %}
+{% assign option_url = value.variant.url %}
+{% if option_url == blank %}
+ {% capture option_ids %}{% for other_option in product.options_with_values %}{% if other_option.position == option.position %}{{ value.id }}{% else %}{% assign current_value = other_option.values | where: 'selected', true | first %}{{ current_value.id }}{% endif %}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+ {% capture option_url %}{{ value.product_url | default: product.url }}?option_values={{ option_ids | url_encode }}{% endcapture %}
+{% endif %}
+<a class="option-value {% unless value.available %}option-unavailable{% endunless %}" href="{{ option_url | escape }}" data-option-value-id="{{ value.id }}" data-product-url="{{ value.product_url | default: product.url }}" {% if value.selected %}aria-current="true"{% endif %}>
+ {% if value.swatch.image %}{{ value.swatch.image | image_url: width: 64 | image_tag: class: 'swatch', width: 24, height: 24 }}{% elsif value.swatch.color %}<span class="swatch" style="background: rgb({{ value.swatch.color.rgb }});"></span>{% endif %}<span>{{ value | escape }}</span>
+</a>{% endfor %}</div></fieldset>{% endfor %}</div>{% endunless %}

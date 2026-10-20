@@ -1,0 +1,7 @@
+{% if variant.quantity_rule.min > 1 or variant.quantity_rule.increment > 1 or variant.quantity_rule.max != nil %}
+<p class="small-text quantity-rules">
+ {% if variant.quantity_rule.min > 1 %}<span>{{ 'products.quantity_minimum' | t: quantity: variant.quantity_rule.min }}</span>{% endif %}
+ {% if variant.quantity_rule.increment > 1 %}<span>{{ 'products.quantity_increment' | t: quantity: variant.quantity_rule.increment }}</span>{% endif %}
+ {% if variant.quantity_rule.max != nil %}<span>{{ 'products.quantity_maximum' | t: quantity: variant.quantity_rule.max }}</span>{% endif %}
+</p>
+{% endif %}

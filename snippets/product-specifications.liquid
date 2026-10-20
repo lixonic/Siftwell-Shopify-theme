@@ -1,0 +1,28 @@
+{%- comment -%}Shared by the product template, quick view, and comparison. Only configured metafields are read; descriptions remain independent.{%- endcomment -%}
+{%- liquid
+  assign namespace = settings.spec_namespace | default: 'siftwell' | strip
+  assign fields = 'weight,material,fit,feature,best' | split: ','
+-%}
+{%- capture rows -%}
+  {%- for field in fields -%}
+    {%- liquid
+      assign setting_key = 'spec_' | append: field | append: '_key'
+      assign key = settings[setting_key] | default: field | strip
+      assign specification = product.metafields[namespace][key]
+      assign label_key = 'products.specifications.' | append: field
+    -%}
+    {%- if specification != blank -%}
+      {%- liquid
+        if specification.type == 'single_line_text_field' or specification.type == 'multi_line_text_field'
+          assign value = specification.value | strip
+        else
+          assign value = specification | metafield_text | strip
+        endif
+      -%}
+      {%- if value != blank -%}
+        <div data-specification="{{ field }}"><dt>{{ label_key | t }}</dt><dd>{{ value | escape_once }}</dd></div>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- if rows != blank -%}<dl class="product-specifications" data-product-specifications>{{ rows }}</dl>{%- endif -%}

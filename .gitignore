@@ -1,0 +1,35 @@
+# Local Shopify and environment configuration
+.shopify/
+.secrets/
+.private/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.log
+
+# Dependencies and generated files
+node_modules/
+__pycache__/
+*.pyc
+*.zip
+artifacts/
+coverage/
+playwright-report/
+test-results/
+
+# Store exports and local evidence
+config/markets.json
+backups/
+releases/
+qa-private/
+*.csv
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

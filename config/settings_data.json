@@ -1,0 +1,120 @@
+{
+  "current": {
+    "color_background": "#F6F6F2",
+    "color_text": "#1D2222",
+    "color_panel": "#242B29",
+    "color_panel_text": "#FFFFFF",
+    "color_accent": "#E96836",
+    "color_accent_text": "#171C1B",
+    "color_navigation": "#202625",
+    "color_navigation_text": "#F5F4ED",
+    "page_width": 1500,
+    "corner_radius": 2,
+    "type_body_font": "dm_sans_n4",
+    "type_heading_font": "archivo_narrow_n7",
+    "enable_finder": true,
+    "enable_compare": true,
+    "sections": {
+      "product-finder": {
+        "type": "product-finder",
+        "settings": {
+          "question": "Shop by activity"
+        },
+        "blocks": {
+          "choice_1": {
+            "type": "choice",
+            "settings": {
+              "label": "Daily driving"
+            }
+          },
+          "choice_2": {
+            "type": "choice",
+            "settings": {
+              "label": "Road trips"
+            }
+          },
+          "choice_3": {
+            "type": "choice",
+            "settings": {
+              "label": "Garage projects"
+            }
+          }
+        },
+        "block_order": [
+          "choice_1",
+          "choice_2",
+          "choice_3"
+        ]
+      }
+    },
+    "color_muted": "#66706D",
+    "color_panel_muted": "#BCC8C0",
+    "color_navigation_muted": "#AAB5AF",
+    "color_media": "#E8ECE7",
+    "color_media_text": "#1D2222",
+    "color_guide": "#EDECE5",
+    "color_guide_text": "#1D2222",
+    "type_mono_font": "roboto_mono_n4",
+    "brand_mark": "none"
+  },
+  "presets": {
+    "Siftwell": {
+      "color_background": "#F6F6F2",
+      "color_text": "#1D2222",
+      "color_panel": "#242B29",
+      "color_panel_text": "#FFFFFF",
+      "color_accent": "#E96836",
+      "color_accent_text": "#171C1B",
+      "color_navigation": "#202625",
+      "color_navigation_text": "#F5F4ED",
+      "page_width": 1500,
+      "corner_radius": 2,
+      "type_body_font": "dm_sans_n4",
+      "type_heading_font": "archivo_narrow_n7",
+      "enable_finder": true,
+      "enable_compare": true,
+      "sections": {
+        "product-finder": {
+          "type": "product-finder",
+          "settings": {
+            "question": "Shop by activity"
+          },
+          "blocks": {
+            "choice_1": {
+              "type": "choice",
+              "settings": {
+                "label": "Daily driving"
+              }
+            },
+            "choice_2": {
+              "type": "choice",
+              "settings": {
+                "label": "Road trips"
+              }
+            },
+            "choice_3": {
+              "type": "choice",
+              "settings": {
+                "label": "Garage projects"
+              }
+            }
+          },
+          "block_order": [
+            "choice_1",
+            "choice_2",
+            "choice_3"
+          ]
+        }
+      },
+      "color_muted": "#66706D",
+      "color_panel_muted": "#BCC8C0",
+      "color_navigation_muted": "#AAB5AF",
+      "color_media": "#E8ECE7",
+      "color_media_text": "#1D2222",
+      "color_guide": "#EDECE5",
+      "color_guide_text": "#1D2222",
+      "type_mono_font": "roboto_mono_n4",
+      "brand_mark": "none"
+    }
+  }
+}

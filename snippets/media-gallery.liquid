@@ -1,0 +1,39 @@
+{% liquid
+  assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media
+  assign gallery_id = 'Gallery-' | append: section.id | append: '-' | append: product.id
+  assign initial_index = 1
+  for media in product.media
+    if media.id == featured_media.id
+      assign initial_index = forloop.index
+    endif
+  endfor
+  assign models = product.media | where: 'media_type', 'model'
+%}
+<siftwell-gallery id="{{ gallery_id }}" class="media-gallery" role="region" aria-label="{{ 'products.media' | t }}" data-count-label="{{ 'products.media_count' | t: current: '[current]', total: product.media.size | escape }}" data-error-label="{{ 'products.media_error' | t | escape }}" data-zoom-label="{{ 'products.zoom_image' | t | escape }}" data-close-label="{{ 'general.close' | t | escape }}" data-zoom-in="{{ 'products.zoom_in' | t | escape }}" data-zoom-out="{{ 'products.zoom_out' | t | escape }}">
+{% if product.media.size == 0 %}{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}{% else %}
+<div class="media-stage">
+{% for media in product.media %}
+  <div id="{{ gallery_id }}-{{ media.id }}" class="media-slide" data-media-id="{{ media.id }}" data-media-type="{{ media.media_type }}" {% if media.id == featured_media.id %}data-initial{% endif %} role="group" aria-label="{{ 'products.media_count' | t: current: forloop.index, total: product.media.size | escape }}">
+    {% liquid
+      assign is_initial = false
+      assign prioritize_image = false
+      if media.id == featured_media.id
+        assign is_initial = true
+        if prioritize_media
+          assign prioritize_image = true
+        endif
+      endif
+    %}{% render 'gallery-media', media: media, product: product, initial: is_initial, prioritize: prioritize_image, image_sizes: image_sizes %}
+  </div>
+{% endfor %}
+</div>
+{% if product.media.size > 1 %}
+<div class="media-controls" data-media-controls hidden><button class="icon-button" type="button" data-media-step="-1" aria-label="{{ 'general.previous' | t }}">{% render 'icon', name: 'arrow', class: 'media-previous' %}</button><span data-media-counter role="status" aria-live="polite">{{ 'products.media_count' | t: current: initial_index, total: product.media.size }}</span><button class="icon-button" type="button" data-media-step="1" aria-label="{{ 'general.next' | t }}">{% render 'icon', name: 'arrow' %}</button></div>
+<div class="media-thumbnails" aria-label="{{ 'products.media_thumbnails' | t }}">
+{% for media in product.media %}<a href="#{{ gallery_id }}-{{ media.id }}" class="media-thumbnail" data-media-select="{{ media.id }}" aria-label="{{ 'products.view_media' | t: number: forloop.index }}" {% if media.id == featured_media.id %}aria-current="true"{% endif %}>{{ media.preview_image | image_url: width: 160 | image_tag: widths: '80, 160', sizes: '64px', loading: 'lazy', alt: '' }}{% if media.media_type == 'model' %}<span class="media-badge">{{ 'media-model-badge.svg' | inline_asset_content }}</span>{% elsif media.media_type == 'video' or media.media_type == 'external_video' %}<span class="media-badge">{{ 'media-video-badge.svg' | inline_asset_content }}</span>{% endif %}</a>{% endfor %}
+</div>
+{% endif %}
+{% if models.size > 0 %}<button type="button" class="secondary-button media-xr" data-shopify-xr data-shopify-model3d-id="{{ models.first.id }}" data-shopify-title="{{ product.title | escape }}" data-shopify-xr-hidden>{{ 'media-model.svg' | inline_asset_content }}{{ 'products.xr' | t }}</button><script type="application/json" data-product-models>{{ models | json }}</script>{% endif %}
+<p class="media-error" data-media-error role="alert" hidden></p>
+{% endif %}
+</siftwell-gallery>

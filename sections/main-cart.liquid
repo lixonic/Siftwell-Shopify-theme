@@ -1,0 +1,15 @@
+<div class="page-width section-space cart-page" data-cart-section="{{ section.id }}">{% render 'cart-content', cart_page: true %}</div>
+{% schema %}
+{
+  "name": "t:labels.cart",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  }
+}
+{% endschema %}

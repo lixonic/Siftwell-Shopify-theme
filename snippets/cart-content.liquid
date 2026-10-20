@@ -1,0 +1,43 @@
+<div data-cart-content data-cart-count-value="{{ cart.item_count }}">
+{% if cart_page %}<div class="cart-page-heading"><h1>{{ 'cart.title' | t }}<span class="cart-heading-count">{{ 'cart.count' | t: count: cart.item_count }}</span></h1><a class="cart-continue" href="{{ routes.all_products_collection_url }}">{{ 'general.continue' | t }}{% render 'icon', name: 'arrow' %}</a></div>{% endif %}
+<p class="product-form-error" data-cart-error role="alert" hidden></p>
+{% if cart.empty? %}<div class="cart-empty">{% render 'icon', name: 'bag' %}<h2>{{ 'cart.empty' | t }}</h2><a class="button" href="{{ routes.all_products_collection_url }}">{{ 'general.continue' | t }}</a></div>
+{% else %}{% assign cart_form_id = 'CartForm-' | append: section.id %}
+{% for item in cart.items %}<form id="CartChange-{{ section.id }}-{{ forloop.index }}" action="{{ routes.cart_change_url }}" method="post"><input type="hidden" name="id" value="{{ item.key }}"></form>{% endfor %}
+<form action="{{ routes.cart_url }}" method="post" id="{{ cart_form_id }}" data-cart-form>
+<div class="cart-main"><div class="cart-items">{% for item in cart.items %}<div class="cart-row">
+ {% if item.image %}<a class="cart-item-image" href="{{ item.url }}">{{ item.image | image_url: width: 240 | image_tag: widths: '120, 240', sizes: '(min-width: 761px) 104px, 88px', loading: 'lazy', alt: item.product.title }}</a>{% else %}<div class="cart-item-image" aria-hidden="true">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>{% endif %}
+ <div class="cart-row-info"><h3><a href="{{ item.url }}">{{ item.product.title | escape }}</a></h3>{% unless item.product.has_only_default_variant %}<p>{{ item.variant.title | escape }}</p>{% endunless %}
+ {% if item.selling_plan_allocation %}<p>{{ item.selling_plan_allocation.selling_plan.name | escape }}</p>{% endif %}
+ {% for property in item.properties %}
+ {% assign first_character = property.first | slice: 0 %}
+ {% if property.last != blank and first_character != '_' %}
+  {% liquid
+   assign property_prefix = property.last | slice: 0, 8
+   assign property_protocol = property.last | slice: 0, 2
+   assign uploaded_file = false
+   if property.last contains '/uploads/'
+    if property_prefix == 'https://' or property_protocol == '//'
+     assign uploaded_file = true
+    endif
+   endif
+  %}
+  <p>{{ property.first | escape }}: {% if uploaded_file %}<a href="{{ property.last | escape }}">{{ property.last | split: '/' | last | split: '?' | first | escape }}</a>{% else %}{{ property.last | escape }}{% endif %}</p>
+ {% endif %}
+ {% endfor %}
+ <div class="price">{% if item.original_price != item.final_price %}<s>{{ item.original_price | money }}</s>{% endif %}<span>{{ item.final_price | money }}</span>{% if item.unit_price_measurement %}<small>{{ item.unit_price | money }} / {% if item.unit_price_measurement.reference_value != 1 %}{{ item.unit_price_measurement.reference_value }}{% endif %}{{ item.unit_price_measurement.reference_unit }}</small>{% endif %}</div>
+ {% for allocation in item.line_level_discount_allocations %}{% if allocation.amount > 0 %}<p class="discount">{{ allocation.discount_application.title | escape }} (−{{ allocation.amount | money }})</p>{% endif %}{% endfor %}
+ {% render 'cart-quantity', item: item, item_index: forloop.index, section_id: section.id %}
+ </div><div class="cart-line-end"><div class="cart-line-total">{% if item.original_line_price != item.final_line_price %}<s>{{ item.original_line_price | money }}</s>{% endif %}<span>{{ item.final_line_price | money }}</span></div><a class="cart-remove" href="{{ item.url_to_remove }}" data-remove-cart-key="{{ item.key }}" aria-label="{{ 'cart.remove' | t: title: item.product.title | escape }}"><span>{{ 'general.remove' | t }}</span>{% render 'icon', name: 'close' %}</a></div>
+
+</div>{% endfor %}</div>
+<details class="cart-note"><summary>{% render 'icon', name: 'plus' %}{{ 'cart.note' | t }}</summary><label class="sr-only" for="CartNote-{{ section.id }}">{{ 'cart.note' | t }}</label><textarea id="CartNote-{{ section.id }}" name="note" rows="2">{{ cart.note | escape }}</textarea></details>
+</div><div class="cart-summary">{% if cart_page %}<h2>{{ 'cart.summary' | t }}</h2>{% endif %}
+ {% for allocation in cart.cart_level_discount_applications %}<p class="discount">{{ allocation.title | escape }} (−{{ allocation.total_allocated_amount | money }})</p>{% endfor %}
+ <div class="cart-total"><span>{{ 'cart.subtotal' | t }}</span><strong>{{ cart.total_price | money_with_currency }}</strong></div>
+ {% if cart.taxes_included %}<p class="small-text">{{ 'products.tax_included' | t }}</p>{% endif %}<p class="small-text">{{ 'cart.terms' | t }}</p>
+ <button class="secondary-button native-cart-update" type="submit" name="update">{{ 'cart.update' | t }}</button><button class="primary-button" type="submit" name="checkout">{{ 'cart.checkout' | t }}{% render 'icon', name: 'arrow' %}</button>
+ {% unless cart_page %}<a class="cart-view-page" href="{{ routes.cart_url }}">{{ 'cart.view' | t }}</a>{% endunless %}
+ {% if additional_checkout_buttons %}<div class="accelerated-checkout">{{ content_for_additional_checkout_buttons }}</div>{% endif %}
+</div></form>{% endif %}
+</div>

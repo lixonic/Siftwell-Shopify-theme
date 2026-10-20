@@ -1,0 +1,38 @@
+<div class="page-width section-space" data-recommendations data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4&intent={{ section.settings.intent }}">
+{% if recommendations.performed and recommendations.products_count > 0 %}<h2>{% if section.settings.intent == 'complementary' %}{{ 'products.complementary' | t }}{% else %}{{ 'products.recommendations' | t }}{% endif %}</h2><div class="product-grid">{% for item in recommendations.products %}{% render 'product-card', product: item %}{% endfor %}</div>{% endif %}</div>
+{% schema %}
+{
+  "name": "t:labels.product_recommendations",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "intent",
+      "label": "t:labels.recommendation_type",
+      "default": "related",
+      "options": [
+        {
+          "value": "related",
+          "label": "t:labels.related"
+        },
+        {
+          "value": "complementary",
+          "label": "t:labels.complementary"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "presets": [
+    {
+      "name": "t:labels.product_recommendations"
+    }
+  ]
+}
+{% endschema %}

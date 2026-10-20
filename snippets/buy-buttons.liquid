@@ -1,0 +1,53 @@
+{% liquid
+ assign selected_allocation = variant.selected_selling_plan_allocation
+ if variant.requires_selling_plan and selected_allocation == nil
+  assign selected_allocation = variant.selling_plan_allocations.first
+ endif
+ assign can_add = variant.available
+ if variant.requires_selling_plan and selected_allocation == nil
+  assign can_add = false
+ endif
+ assign show_recipient = false
+ if product.gift_card?
+  if block.settings.show_recipient or quick_view
+   unless block.settings.show_recipient == false
+    assign show_recipient = true
+   endunless
+  endif
+ endif
+%}
+{% form 'product', product, id: form_id, data-product-form: '' %}
+ <input type="hidden" name="id" value="{{ variant.id }}" {% unless can_add %}disabled{% endunless %}>
+ {% unless has_quantity_input %}<input type="hidden" name="quantity" value="{{ variant.quantity_rule.min | default: 1 }}">{% render 'quantity-rules', variant: variant %}{% endunless %}
+ {% if form.errors %}<div id="ProductFormErrors-{{ form_id }}" class="form-errors" role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+ <div class="product-form-error" data-form-error role="alert" hidden></div>
+ {% if variant.selling_plan_allocations != blank %}
+ <label for="Plan-{{ form_id }}">{{ 'products.selling_plan' | t }}</label>
+ <select name="selling_plan" id="Plan-{{ form_id }}" {% if variant.requires_selling_plan %}required{% endif %}>
+  {% unless variant.requires_selling_plan %}<option value="" {% if selected_allocation == nil %}selected{% endif %}>{{ 'products.one_time' | t }}</option>{% endunless %}
+  {% for group in product.selling_plan_groups %}
+   {% assign group_allocations = variant.selling_plan_allocations | where: 'selling_plan_group_id', group.id %}
+   {% if group_allocations != blank %}<optgroup label="{{ group.name | escape }}">
+    {% for allocation in group_allocations %}<option value="{{ allocation.selling_plan.id }}" {% if selected_allocation.selling_plan.id == allocation.selling_plan.id %}selected{% endif %}>{{ allocation.selling_plan.name | escape }} — {{ allocation.price | money_without_trailing_zeros }}</option>{% endfor %}
+   </optgroup>{% endif %}
+  {% endfor %}
+ </select>
+ {% endif %}
+ {% if show_recipient %}
+ {% liquid
+  assign recipient_enabled = false
+  if form.email != blank or form.errors contains 'email' or form.errors contains 'name' or form.errors contains 'message' or form.errors contains 'send_on'
+   assign recipient_enabled = true
+  endif
+ %}
+ <details class="recipient-fields" {% if recipient_enabled %}open{% endif %}><summary>{{ 'products.recipient' | t }}</summary>
+ <label class="checkbox-label"><input type="checkbox" name="properties[__shopify_send_gift_card_to_recipient]" value="true" data-recipient-toggle {% if recipient_enabled %}checked{% endif %}>{{ 'products.recipient' | t }}</label>
+ <label for="RecipientEmail-{{ form_id }}">{{ 'products.recipient_email' | t }}</label><input id="RecipientEmail-{{ form_id }}" type="email" name="properties[Recipient email]" value="{{ form.email | escape }}" data-recipient-email {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="ProductFormErrors-{{ form_id }}"{% endif %}>
+ <label for="RecipientName-{{ form_id }}">{{ 'products.recipient_name' | t }}</label><input id="RecipientName-{{ form_id }}" name="properties[Recipient name]" value="{{ form.name | escape }}" maxlength="255" {% if form.errors contains 'name' %}aria-invalid="true" aria-describedby="ProductFormErrors-{{ form_id }}"{% endif %}>
+ <label for="RecipientMessage-{{ form_id }}">{{ 'products.recipient_message' | t }}</label><textarea id="RecipientMessage-{{ form_id }}" name="properties[Message]" maxlength="200" {% if form.errors contains 'message' %}aria-invalid="true" aria-describedby="ProductFormErrors-{{ form_id }}"{% endif %}>{{ form.message | escape }}</textarea>
+ <label for="RecipientDate-{{ form_id }}">{{ 'products.recipient_date' | t }}</label><input id="RecipientDate-{{ form_id }}" type="date" name="properties[Send on]" value="{{ form.send_on | escape }}" data-recipient-date {% if form.errors contains 'send_on' %}aria-invalid="true" aria-describedby="ProductFormErrors-{{ form_id }}"{% endif %}>
+ <input type="hidden" name="properties[__shopify_offset]" value="" data-recipient-offset></details>{% endif %}
+ <button class="primary-button add-to-cart" type="submit" name="add" {% unless can_add %}disabled{% endunless %}>{% if variant == nil %}{{ 'products.unavailable' | t }}{% elsif variant.available == false %}{{ 'products.sold_out' | t }}{% elsif can_add %}{{ 'products.add' | t }}{% else %}{{ 'products.unavailable' | t }}{% endif %}{% render 'icon', name: 'plus' %}</button>
+ {% if block.settings.show_dynamic_checkout and can_add %}{% unless show_recipient %}{{ form | payment_button }}{% endunless %}{% endif %}
+ {{ form | payment_terms }}
+{% endform %}

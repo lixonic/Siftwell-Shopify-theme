@@ -1,0 +1,7 @@
+{% assign media_title = media.alt | default: product.title %}
+{% case media.media_type %}
+{% when 'image' %}{{ media | image_url: width: 1800 | image_tag: widths: '480, 750, 1100, 1500, 1800', sizes: '(min-width: 990px) 50vw, 100vw', loading: loading }}
+{% when 'video' %}{{ media | video_tag: controls: true, playsinline: true, preload: 'none', title: media_title, image_size: '1100x' }}
+{% when 'external_video' %}{{ media | external_video_url: autoplay: autoplay, playsinline: true | external_video_tag: loading: 'lazy', title: media_title }}
+{% when 'model' %}{{ media | model_viewer_tag: image_size: '1100x', reveal: 'interaction', toggleable: true, alt: media_title, tabindex: '0' }}
+{% endcase %}

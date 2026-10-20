@@ -1,0 +1,46 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+<head>
+ {% render 'meta-tags' %}
+ <script>document.documentElement.classList.replace('no-js', 'js');</script>
+ {% if settings.favicon != blank %}<link rel="icon" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">{% endif %}
+ {% unless settings.type_body_font.system? %}<link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>{% endunless %}
+ {% unless settings.type_body_font.system? %}{{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2' }}{% endunless %}
+ {% unless settings.type_heading_font.system? %}{% if settings.type_heading_font != settings.type_body_font %}{{ settings.type_heading_font | font_url | preload_tag: as: 'font', type: 'font/woff2' }}{% endif %}{% endunless %}
+ {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
+ {{ 'commerce.css' | asset_url | stylesheet_tag }}
+ {{ 'media-gallery.css' | asset_url | stylesheet_tag }}
+ {% render 'theme-tokens' %}
+ <script src="{{ 'media-gallery.js' | asset_url }}" defer></script>
+ <script src="{{ 'theme.js' | asset_url }}" defer onerror="document.documentElement.classList.replace('js', 'no-js')"></script>
+ {{ content_for_header }}
+</head>
+<body data-page-type="{{ request.page_type }}" data-preset="auto">
+ <a class="skip-link" href="#MainContent">{{ 'general.skip' | t }}</a>
+ {% sections 'header-group' %}
+ <main id="MainContent" class="main" tabindex="-1">{{ content_for_layout }}</main>
+ <div class="footer-wrap">{% sections 'footer-group' %}</div>
+ {% section 'cart-drawer' %}
+ {% render 'quick-view' %}<dialog id="PagePopup" class="info-dialog" aria-labelledby="PagePopupTitle"><button type="button" class="icon-button dialog-close" data-close-dialog aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button><div class="popup-scroll" data-page-popup-content tabindex="0" role="region" aria-labelledby="PagePopupTitle"></div></dialog>
+ {% if settings.enable_finder %}{% section 'product-finder' %}{% endif %}
+ {% if settings.enable_compare %}{% render 'comparison' %}{% endif %}
+ <div class="toast" id="ThemeStatus" popover="manual" role="status" aria-live="polite" hidden><span class="toast-mark" aria-hidden="true">{% render 'icon', name: 'check' %}</span><div><span data-status-message></span><a href="{{ routes.cart_url }}" data-status-cart data-open-dialog="CartDrawer" hidden>{{ 'cart.view' | t }}</a></div><button class="icon-button" type="button" data-dismiss-status aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button></div>
+ <script type="application/json" id="ThemeConfig">{
+  "predictiveSearch": {{ routes.predictive_search_url | json }},
+  "loading": {{ 'general.loading' | t | json }},
+  "compareEmpty": {{ 'compare.empty' | t | json }},
+  "remove": {{ 'general.remove' | t | json }},
+  "openCartOnAdd": {{ settings.open_cart_on_add | json }},
+  "compareLabels": { "picks": {{ 'compare.picks' | t | json }}, "price": {{ 'compare.price' | t | json }}, "vendor": {{ 'compare.vendor' | t | json }}, "type": {{ 'compare.type' | t | json }}, "next": {{ 'compare.next' | t | json }}, "add": {{ 'products.add' | t | json }}, "options": {{ 'products.options' | t | json }} },
+  "cartAdd": {{ routes.cart_add_url | append: '.js' | json }},
+  "cartChange": {{ routes.cart_change_url | append: '.js' | json }},
+  "cartUpdate": {{ routes.cart_update_url | append: '.js' | json }},
+  "cart": {{ routes.cart_url | json }},
+  "quantityInvalid": {{ 'products.quantity_invalid' | t | json }},
+  "quantityMinimum": {{ 'products.quantity_minimum' | t: quantity: '[quantity]' | json }},
+  "quantityMaximum": {{ 'products.quantity_maximum' | t: quantity: '[quantity]' | json }},
+  "quantityIncrement": {{ 'products.quantity_increment' | t: quantity: '[quantity]' | json }},
+  "error": {{ 'general.error' | t | json }}, "added": {{ 'cart.added' | t | json }},
+  "updated": {{ 'cart.updated' | t | json }}, "compareLimit": {{ 'compare.limit' | t | json }}
+ }</script>
+</body></html>

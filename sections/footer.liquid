@@ -1,0 +1,55 @@
+{% if section.settings.compact %}
+<footer class="main-footer page-width"><span>© {{ 'now' | date: '%Y' }} {{ settings.brand_name | default: shop.name | escape }}</span><div class="footer-links">{% if section.settings.delivery_page != blank %}<a href="{{ section.settings.delivery_page.url }}" data-page-popup>{{ section.settings.delivery_page.title | escape }}</a>{% endif %}{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}{% for policy in shop.policies %}{% if policy != blank %}<a href="{{ policy.url }}">{{ policy.title | escape }}</a>{% endif %}{% endfor %}{% render 'social-links' %}<span class="powered-by">{{ powered_by_link }}</span></div></footer>
+{% if localization.available_countries.size > 1 or localization.available_languages.size > 1 %}{% render 'localization' %}{% endif %}
+{% if section.settings.show_newsletter %}<div class="section-space">{% render 'newsletter' %}</div>{% endif %}
+{% else %}<footer class="store-footer page-width section-space">
+<div class="footer-columns"><div>{% render 'store-logo' %}<nav aria-label="{{ 'general.menu' | t }}">{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}</nav></div>{% if section.settings.show_newsletter %}<div><h2>{{ 'forms.newsletter' | t }}</h2>{% render 'newsletter' %}</div>{% endif %}</div>
+{% render 'social-links' %}{% render 'localization' %}<div class="footer-bottom"><small>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</small><ul class="policy-links">{% for policy in shop.policies %}{% if policy != blank %}<li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>{% endif %}{% endfor %}</ul>{{ powered_by_link }}</div>
+{% if section.settings.show_payments %}<ul class="payment-icons" role="list">{% for payment_type in shop.enabled_payment_types %}<li>{{ payment_type | payment_type_svg_tag }}</li>{% endfor %}</ul>{% endif %}
+</footer>
+{% endif %}
+{% if section.settings.show_follow %}{{ shop | login_button: action: 'follow' }}{% endif %}
+
+{% schema %}
+{
+  "name": "t:labels.footer",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "t:labels.menu",
+      "default": "footer"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "t:labels.show_newsletter_signup",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payments",
+      "label": "t:labels.show_payment_icons",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "compact",
+      "label": "t:labels.compact",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_follow",
+      "label": "t:labels.show_follow",
+      "default": false
+    },
+    {
+      "type": "page",
+      "id": "delivery_page",
+      "label": "t:labels.delivery_page"
+    }
+  ]
+}
+{% endschema %}

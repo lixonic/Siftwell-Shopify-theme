@@ -1,0 +1,44 @@
+{% liquid
+ assign active_collection = collection
+ if active_collection == blank
+ assign active_collection = section.settings.collection
+ endif
+ if active_collection == blank
+ assign active_collection = collections.all
+ endif
+ assign current_sort = active_collection.sort_by | default: active_collection.default_sort_by
+ assign price_filter = active_collection.filters | where: 'type', 'price_range' | first
+ assign current_max = price_filter.max_value.value | divided_by: 100.0
+ assign price_is_shortcut = false
+ assign card_heading_tag = 'h3'
+ if collection_page
+  assign card_heading_tag = 'h2'
+ endif
+%}
+<div class="workspace page-width workspace--full" data-comparison-workspace>
+<p class="sr-only" data-catalog-status role="status" aria-atomic="true"></p>
+<section class="catalog" data-catalog-content data-catalog-url="{{ active_collection.url }}">
+<form action="{{ active_collection.url }}" method="get" data-catalog-filters>
+<div class="collection-header">{% if collection_page %}<h1>{{ active_collection.title | escape }}</h1>{% else %}<h2>{{ section.settings.heading | default: active_collection.title | escape }}</h2>{% endif %}<label class="sort-label" for="CatalogSort-{{ section.id }}">{{ 'collections.sort' | t }}<select id="CatalogSort-{{ section.id }}" name="sort_by" aria-label="{{ 'collections.sort' | t }}">{% for option in active_collection.sort_options %}<option value="{{ option.value | escape }}" {% if option.value == current_sort %}selected{% endif %}>{% if option.value == active_collection.default_sort_by %}{{ 'collections.our_picks' | t }}{% else %}{{ option.name | escape }}{% endif %}</option>{% endfor %}</select></label></div>
+{% if collection_page %}{% if active_collection.description != blank %}<div class="collection-description rte">{{ active_collection.description }}</div>{% endif %}{% if active_collection.image != blank %}<div class="collection-image">{{ active_collection.image | image_url: width: 1800 | image_tag: widths: '480, 750, 1100, 1500, 1800', sizes: '(min-width: 990px) calc(100vw - 288px), 100vw', loading: 'eager' }}</div>{% endif %}{% endif %}
+{% if section.settings.show_filters %}
+<div class="filterbar"><div class="filter-controls">
+<label class="filter-control" for="CatalogPrice-{{ section.id }}">{% render 'icon', name: 'sliders' %}<span class="sr-only">{{ 'collections.price_range' | t }}</span><select id="CatalogPrice-{{ section.id }}" name="filter.v.price.lte"><option value="">{{ 'collections.any_price' | t }}</option>{% assign steps = section.settings.price_steps | split: ',' %}{% for step in steps %}{% assign value = step | strip | plus: 0 %}{% if value > 0 %}{% assign money_value = value | times: 100 | money_without_trailing_zeros %}<option value="{{ value }}" {% if current_max == value %}{% assign price_is_shortcut = true %}selected{% endif %}>{{ 'collections.under' | t: price: money_value }}</option>{% endif %}{% endfor %}{% if price_filter.max_value.value and price_is_shortcut == false %}{% assign selected_money = price_filter.max_value.value | money_without_trailing_zeros %}<option value="{{ current_max }}" selected>{{ 'collections.under' | t: price: selected_money }}</option>{% endif %}</select></label>
+{% if section.blocks.size > 0 %}<label class="filter-control" for="CatalogActivity-{{ section.id }}" data-use-filter>{% render 'icon', name: 'compass' %}<span class="sr-only">{{ 'collections.activity' | t }}</span><select id="CatalogActivity-{{ section.id }}" data-activity-collection><option value="{{ section.settings.collection.url | default: routes.all_products_collection_url }}">{{ 'collections.any_use' | t }}</option>{% for block in section.blocks %}{% if block.settings.collection != blank %}<option value="{{ block.settings.collection.url }}" {% if block.settings.collection.handle == active_collection.handle %}selected{% endif %}>{{ block.settings.heading | default: block.settings.collection.title | escape }}</option>{% endif %}{% endfor %}</select></label>{% endif %}
+{% if request.page_type == 'collection' and section.settings.show_advanced_filters %}{% for filter in active_collection.filters %}{% assign filter_index = forloop.index %}{% if filter.type != 'price_range' %}<details class="filter-disclosure"><summary>{{ filter.label | escape }}{% render 'icon', name: 'chevron' %}</summary><div class="filter-values">{% for value in filter.values %}{% capture input_id %}CatalogFilter-{{ section.id }}-{{ filter_index }}-{{ forloop.index }}{% endcapture %}<label class="checkbox-label" for="{{ input_id }}"><input id="{{ input_id }}" type="checkbox" name="{{ value.param_name }}" value="{{ value.value | escape }}" {% if value.active %}checked{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %}>{{ value.label | escape }} ({{ value.count }})</label>{% endfor %}</div></details>{% endif %}{% endfor %}{% endif %}
+<button type="submit" class="text-link" data-filter-submit>{{ 'collections.apply' | t }}</button>
+</div><span class="result-count">{{ 'collections.count' | t: count: active_collection.products_count }}</span></div>
+{% endif %}
+</form>
+<div class="active-filters">{% for filter in active_collection.filters %}{% for value in filter.active_values %}<a href="{{ value.url_to_remove }}" data-catalog-link>{{ value.label | escape }}{% render 'icon', name: 'close' %}</a>{% endfor %}{% if filter.type == 'price_range' and filter.max_value.value != nil %}<a href="{{ filter.url_to_remove }}" data-catalog-link>{{ 'collections.clear_price' | t }}{% render 'icon', name: 'close' %}</a>{% endif %}{% endfor %}</div>
+{% paginate active_collection.products by section.settings.products_per_page %}
+<div class="product-grid">{% for item in active_collection.products %}{% assign prioritize_image = false %}{% if collection_page and section.index == 1 and forloop.first and active_collection.image == blank %}{% assign prioritize_image = true %}{% endif %}{% render 'product-card', product: item, heading_tag: card_heading_tag, prioritize_image: prioritize_image %}{% else %}<div class="empty-state"><{{ card_heading_tag }} class="catalog-empty-title">{{ 'collections.empty' | t }}</{{ card_heading_tag }}><p>{{ 'collections.try_again' | t }}</p><a class="primary-button" href="{{ active_collection.url }}" data-catalog-link>{{ 'collections.clear' | t }}</a></div>{% endfor %}</div>
+{% if paginate.pages > 1 %}<nav class="pagination" aria-label="{{ 'general.pagination' | t }}">
+{% if paginate.previous %}<a href="{{ paginate.previous.url }}">{{ 'general.previous' | t }}</a>{% endif %}
+{% for part in paginate.parts %}{% if part.is_link %}<a href="{{ part.url }}" aria-label="{{ 'general.page' | t: number: part.title }}">{{ part.title }}</a>{% else %}<span {% if part.title == paginate.current_page %}aria-current="page"{% endif %}>{{ part.title }}</span>{% endif %}{% endfor %}
+{% if paginate.next %}<a href="{{ paginate.next.url }}">{{ 'general.next' | t }}</a>{% endif %}</nav>{% endif %}
+
+{% endpaginate %}
+</section>
+{% render 'comparison-rail' %}
+</div>

@@ -1,0 +1,84 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading": "LONG <em>WAY.</em>",
+        "text": "<p>Tools and accessories for your car and garage.</p>",
+        "heading_line_1": "FOR THE",
+        "show_brand_seal": true
+      }
+    },
+    "paths": {
+      "type": "collection-links",
+      "blocks": {
+        "path_1": {
+          "type": "collection",
+          "settings": {
+            "heading": "Daily driving",
+            "icon": "road-mark"
+          }
+        },
+        "path_2": {
+          "type": "collection",
+          "settings": {
+            "heading": "Road trips",
+            "icon": "wheel-mark"
+          }
+        },
+        "path_3": {
+          "type": "collection",
+          "settings": {
+            "heading": "Garage projects",
+            "icon": "tool-mark"
+          }
+        }
+      },
+      "block_order": [
+        "path_1",
+        "path_2",
+        "path_3"
+      ]
+    },
+    "products": {
+      "type": "shopping-workspace",
+      "settings": {
+        "heading": "All products",
+        "collection": "all",
+        "products_per_page": 12,
+        "show_filters": true,
+        "price_steps": "50,100,200"
+      },
+      "blocks": {
+        "path_1": {
+          "type": "activity",
+          "settings": {
+            "heading": "Daily driving"
+          }
+        },
+        "path_2": {
+          "type": "activity",
+          "settings": {
+            "heading": "Road trips"
+          }
+        },
+        "path_3": {
+          "type": "activity",
+          "settings": {
+            "heading": "Garage projects"
+          }
+        }
+      },
+      "block_order": [
+        "path_1",
+        "path_2",
+        "path_3"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "paths",
+    "products"
+  ]
+}

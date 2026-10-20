@@ -1,0 +1,26 @@
+<div class="page-width section-space prose">{% form 'contact' %}
+{% if form.posted_successfully? %}<p role="status">{{ 'forms.success' | t }}</p>{% endif %}{% if form.errors %}<div class="form-errors" role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+<label for="ContactName-{{ section.id }}">{{ 'forms.name' | t }}</label><input id="ContactName-{{ section.id }}" name="contact[name]" autocomplete="name" value="{{ form.name | default: customer.name | escape }}">
+<label for="ContactEmail-{{ section.id }}">{{ 'forms.email' | t }}</label><input id="ContactEmail-{{ section.id }}" name="contact[email]" type="email" autocomplete="email" required value="{{ form.email | default: customer.email | escape }}" {% if form.errors contains 'email' %}aria-invalid="true"{% endif %}>
+<label for="ContactPhone-{{ section.id }}">{{ 'forms.phone' | t }}</label><input id="ContactPhone-{{ section.id }}" name="contact[phone]" type="tel" autocomplete="tel" value="{{ form.phone | escape }}">
+<label for="ContactMessage-{{ section.id }}">{{ 'forms.message' | t }}</label><textarea id="ContactMessage-{{ section.id }}" name="contact[body]" rows="6" required>{{ form.body | escape }}</textarea>
+<button class="button" type="submit">{{ 'forms.send' | t }}</button>{% endform %}</div>
+{% schema %}
+{
+  "name": "t:labels.contact_form",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "presets": [
+    {
+      "name": "t:labels.contact_form"
+    }
+  ]
+}
+{% endschema %}

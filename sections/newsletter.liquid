@@ -1,0 +1,27 @@
+<div class="page-width section-space prose"><h2>{{ section.settings.heading | escape }}</h2>{% render 'newsletter' %}</div>
+{% schema %}
+{
+  "name": "t:labels.newsletter",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "Get updates"
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "presets": [
+    {
+      "name": "t:labels.newsletter"
+    }
+  ]
+}
+{% endschema %}

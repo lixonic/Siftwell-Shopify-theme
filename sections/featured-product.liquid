@@ -1,0 +1,46 @@
+{% assign product = section.settings.product %}
+{% if product != blank %}<div class="page-width section-space"><div class="product-layout">
+{% render 'media-gallery', product: product, section: section %}
+<div class="product-info"><h2><a href="{{ product.url }}">{{ product.title | escape }}</a></h2>{% render 'price', target: product.selected_or_first_available_variant %}<div class="rte">{{ product.description }}</div><a class="button" href="{{ product.url }}">{{ 'products.options' | t }}</a>{% for block in section.blocks %}{% case block.type %}{% when '@app' %}{% render block %}{% when 'custom_liquid' %}{{ block.settings.custom_liquid }}{% endcase %}{% endfor %}</div>
+</div></div>{% endif %}
+{% schema %}
+{
+  "name": "t:labels.featured_product",
+  "tag": "section",
+  "class": "theme-section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:labels.product"
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "custom_liquid",
+      "name": "t:labels.custom_liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "t:labels.custom_liquid"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:labels.featured_product"
+    }
+  ]
+}
+{% endschema %}
