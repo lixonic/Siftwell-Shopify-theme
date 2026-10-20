@@ -2,13 +2,13 @@
 
 ![Siftwell: Products worth understanding. A desktop Auto storefront beside its mobile product page.](docs/images/siftwell-banner.jpg)
 
-**[Download theme ZIP ↓](https://raw.githubusercontent.com/lixonic/Siftwell-Shopify-theme/main/docs/downloads/Siftwell-0.8.0-beta.1.zip)** · [Installation guide](docs/getting-started.md#try-the-theme)
+**[Download theme ZIP ↓](https://raw.githubusercontent.com/lixonic/Siftwell-Shopify-theme/main/docs/downloads/Siftwell-0.8.0-beta.1.zip)** · [Installation guide](https://siftwell-theme-docs.vercel.app/?page=installation)
 
 **An open-source Shopify theme for products worth understanding.**
 
 Siftwell is built for auto accessories and tools, where fit, materials and intended use help someone choose. Customers can find products by name or buying need, inspect details in quick view and compare their options. A steady sidebar and open product areas keep the catalog close and the products in view.
 
-[Open the live demo](https://siftwell-theme.myshopify.com/) · [Start with Siftwell](docs/design-philosophy.md) · [Try the source](#development)
+[Open the live demo](https://siftwell-theme.myshopify.com/) · [Documentation](https://siftwell-theme-docs.vercel.app/) · [Try the source](#development)
 
 **Demo visitor password:** `siftwell`
 
@@ -37,7 +37,7 @@ Keyboard navigation is part of the shopping experience: a skip link, visible foc
 
 These are medians of warning-free runs on the populated demo. Each cell has three samples except desktop product (*two; provisional). **Automated accessibility scored 100/100 in all 21 recorded runs**, including four with incomplete-load warnings. Sampled default-palette contrast was **14.86:1 for body text** and **5.33:1 for accent-button text**.
 
-The results describe the earlier demo checkpoint; the downloadable 0.8.0 source has not had a fresh Lighthouse audit. Scores vary with content, apps and hosting conditions. Screen-reader speech, Safari, Firefox and physical-device verification remain open. Read the [results, methods and coverage](docs/performance-accessibility.md) before using these numbers to assess your store.
+The results describe the earlier demo checkpoint; the downloadable 0.8.0 source has not had a fresh Lighthouse audit. Scores vary with content, apps and hosting conditions. Screen-reader speech, Safari, Firefox and physical-device verification remain open. Read the [results, methods and coverage](https://siftwell-theme-docs.vercel.app/?page=performance-accessibility) before using these numbers to assess your store.
 
 ## See the theme
 
@@ -67,12 +67,12 @@ That is the theme's role in assisted shopping. [Shopify provides agent discovery
 
 ## Start with your catalog
 
-- [Start with Siftwell](docs/design-philosophy.md): the shopping experience and the design behind it.
-- [Build your first shopping path](docs/getting-started.md): connect a buying need to a collection, product and bag.
-- [Set up product specifications](docs/product-specifications.md): keep useful details consistent across product views.
+- [Start with Siftwell](https://siftwell-theme-docs.vercel.app/): the shopping experience and the design behind it.
+- [Build your first shopping path](https://siftwell-theme-docs.vercel.app/?page=getting-started): connect a buying need to a collection, product and bag.
+- [Set up product specifications](https://siftwell-theme-docs.vercel.app/?page=specifications): keep useful details consistent across product views.
 - [Get community help](SUPPORT.md): setup questions, reproducible issues and contributions.
 
-The searchable merchant guide is included in `docs/`. To preview it locally:
+Read the complete [searchable merchant guide online](https://siftwell-theme-docs.vercel.app/). Its source is included in `docs/`. To preview it locally:
 
 ```sh
 python3 -m http.server 8774 --bind 127.0.0.1 --directory docs
