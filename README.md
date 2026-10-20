@@ -1,10 +1,33 @@
 # Siftwell
 
-**A considered storefront for auto accessories and tools.**
+![Siftwell: Clear for people. Legible to agents. A desktop Auto storefront beside its mobile product page.](docs/images/siftwell-banner.jpg)
+
+**A considered Shopify storefront for auto accessories and tools, built around clear choices.**
 
 Siftwell brings the order of a well-kept workshop to a Shopify store. A steady sidebar keeps the catalog close. Open product areas, direct headings and purposeful color give practical products room to explain themselves.
 
 Customers can search by name, start with a buying need or compare a short list of alternatives. Product specifications carry the same information across the product page, quick view and comparison.
+
+## Why Siftwell fits the agentic era
+
+When an assistant helps someone find a product, the storefront still has a job: make the choice understandable. Siftwell puts product facts, useful comparisons and familiar purchase controls close together, so the shopper can check the recommendation and decide with confidence.
+
+| A clear foundation | What Siftwell provides |
+| --- | --- |
+| Product facts with a consistent home | Shopify product data and configurable metafields, shared across the product page, quick view and comparison. |
+| Pages that carry meaning | Server-rendered Liquid, semantic headings and specification lists, plus Shopify-generated product JSON-LD for machine-readable metadata. |
+| Familiar paths to a purchase | Native Shopify links and forms, enhanced with search, quick view and a cart drawer. The core shopping path retains useful HTML fallbacks. |
+| Context for coding agents | [Architecture rules](AGENTS.md), [design intent](DESIGN.md), focused source checks and an MIT codebase that developers can inspect and adapt. |
+
+This is our design approach to assisted shopping. Agent discovery, UCP transactions and AI sales-channel eligibility are provided by [Shopify's agentic commerce platform](https://shopify.dev/docs/agents); installing a theme does not enable those services or guarantee recommendations. Product JSON-LD uses Shopify's [structured_data filter](https://shopify.dev/docs/api/liquid/filters/structured_data), and the custom specification fields are not automatically added to every agent's catalog.
+
+## See the theme
+
+| A catalog with room to browse | Useful details without losing your place |
+| --- | --- |
+| ![Siftwell collection page with its steady sidebar, product grid and filters.](docs/images/collection-desktop.jpg) | ![Siftwell quick view with product imagery, price and consistent specifications.](docs/images/quick-view-desktop.jpg) |
+
+Screenshots show the Auto demo with sample branding and content. The demo catalog and media are not included in the installable theme. [Image notes](docs/images/README.md).
 
 ## Project status
 

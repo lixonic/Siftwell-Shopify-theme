@@ -6,6 +6,7 @@ node_modules/**
 artifacts/**
 README.md
 AGENTS.md
+DESIGN.md
 LICENSE
 PROVENANCE.md
 NOTICES.md
