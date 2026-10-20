@@ -10,7 +10,7 @@
   },
   "engines": { "node": ">=20.19" },
   "scripts": {
-    "test": "npm run check:syntax && node scripts/test-cart-identity.cjs && node scripts/test-quantity-rules.cjs && node scripts/test-commerce-liquid.cjs && node scripts/test-metadata.cjs && npm run validate",
+    "test": "npm run check:syntax && node scripts/test-cart-identity.cjs && node scripts/test-quantity-rules.cjs && node scripts/test-commerce-liquid.cjs && node scripts/test-metadata.cjs && node scripts/test-product-rating.cjs && npm run validate",
     "check:syntax": "node --check assets/theme.js && node --check assets/media-gallery.js && node --check assets/gift-card.js && node --check docs/app.js && node --check docs/content.js",
     "validate": "python3 scripts/validate.py",
     "package:download": "shopify theme package --path . && python3 scripts/package-download.py && npm run validate"

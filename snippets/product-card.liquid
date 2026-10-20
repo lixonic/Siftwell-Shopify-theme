@@ -25,5 +25,6 @@
 {% if allow_quick_add %}{% form 'product', product, data-product-form: '' %}<input type="hidden" name="id" value="{{ card_variant.id }}"><button class="quick-add" type="submit" name="add" aria-label="{{ 'products.add_named' | t: title: product.title | escape }}">{% render 'icon', name: 'plus' %}</button><p data-form-error role="alert" hidden></p>{% endform %}{% else %}<a class="quick-add" href="{{ product.url }}" data-quick-view-url="{{ product.url }}" aria-label="{{ 'products.options_named' | t: title: product.title | escape }}">{% render 'icon', name: 'plus' %}</a>{% endif %}
 </div>
 <{{ card_heading_tag }} class="product-title"><a href="{{ product.url }}" data-quick-view-url="{{ product.url }}">{{ product.title | escape }}</a></{{ card_heading_tag }}>
+{% if settings.show_product_ratings %}{% render 'product-rating', product: product %}{% endif %}
 <div class="product-bottom"><div class="product-price">{% render 'price', target: product %}</div>
 {% render 'compare-toggle', product: product %}</div></article>

@@ -12,6 +12,7 @@ endif
 %}<div class="product-detail-layout" data-product-root data-quick-view-root data-section-id="quick-view" data-product-url="{{ product.url }}">
 <div class="detail-art">{% render 'media-gallery', product: product, section: section %}</div>
 <div class="detail-copy product-info"><h2 id="QuickViewTitle">{{ product.title | escape }}</h2>
+{% if settings.show_product_ratings %}{% render 'product-rating', product: product %}{% endif %}
 <div class="rte quick-description">{{ product.description }}</div>
 <div class="detail-price">{% if variant %}{% assign price_target = selected_allocation | default: variant %}{% render 'price', target: price_target, unit: variant %}{% else %}<p>{{ 'products.unavailable' | t }}</p>{% endif %}</div>
 <div class="quick-specifications">{% render 'product-specifications', product: product %}</div>

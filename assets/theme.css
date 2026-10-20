@@ -1204,3 +1204,11 @@ body[data-preset] .workspace.workspace--full{grid-template-columns:minmax(0,1fr)
 .social-links a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:var(--radius)}
 .social-links a:hover{background:color-mix(in srgb,currentColor,transparent 94%)}
 .social-links .icon{width:20px;height:20px}
+
+/* Shared, app-supplied rating summaries. No client-side review dependency. */
+.product-rating{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;font-size:13px;line-height:1.5;color:var(--ink)}
+.product-rating__stars{display:inline-block;position:relative;direction:ltr;white-space:nowrap;font:16px/1 Arial,sans-serif;letter-spacing:1px}
+.product-rating__stars-base{opacity:.3}.product-rating__stars-fill{position:absolute;inset:0 auto 0 0;overflow:hidden;white-space:nowrap}
+.product-rating__count{color:var(--muted)}
+.product-card>.product-rating{margin:0 0 10px}.detail-copy>.product-rating{margin:0 0 16px}
+.customer-reviews__app{min-width:0;max-width:100%}.customer-reviews__app+.customer-reviews__app{margin-top:24px}

@@ -37,10 +37,15 @@
         "specifications": {
           "type": "specifications",
           "settings": {}
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {}
         }
       },
       "block_order": [
         "title",
+        "rating",
         "price",
         "options",
         "quantity",
@@ -59,10 +64,17 @@
       "settings": {
         "intent": "complementary"
       }
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {
+        "show_heading": true
+      }
     }
   },
   "order": [
     "main",
+    "reviews",
     "recommendations",
     "complementary"
   ]

@@ -18,6 +18,7 @@ Siftwell is built for auto accessories and tools, where fit, materials and inten
 - **Keep the facts consistent.** Enter Weight, Material, Fit, Feature and Best in product metafields. The product page, quick view and comparison use those same fields, so you maintain the details in one place.
 - **Compare without losing your place.** Inspect an item in quick view or put up to three products side by side. Comparison appears when customers select products and can be disabled for catalogs that do not need it.
 - **Give practical products room.** A workshop-style sidebar, direct headings, restrained color and brief motion provide a steady frame for your products, photographs and words.
+- **Include customer experience.** Show rating summaries supplied through Shopify’s standard review fields, and place a review app’s full widget in the Customer reviews section. Review collection and moderation belong to the provider; [a real provider integration remains unverified](docs/product-reviews.md).
 
 The finder and specification fields present the information you configure. They do not calculate or verify vehicle compatibility.
 

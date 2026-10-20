@@ -55,7 +55,8 @@
     "color_guide": "#EDECE5",
     "color_guide_text": "#1D2222",
     "type_mono_font": "roboto_mono_n4",
-    "brand_mark": "none"
+    "brand_mark": "none",
+    "show_product_ratings": true
   },
   "presets": {
     "Siftwell": {
@@ -114,7 +115,8 @@
       "color_guide": "#EDECE5",
       "color_guide_text": "#1D2222",
       "type_mono_font": "roboto_mono_n4",
-      "brand_mark": "none"
+      "brand_mark": "none",
+      "show_product_ratings": true
     }
   }
 }

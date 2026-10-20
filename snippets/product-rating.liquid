@@ -1,0 +1,19 @@
+{% comment %}Review apps maintain these standard Shopify fields. Never supply placeholder ratings.{% endcomment %}
+{%- liquid
+ assign rating_field = product.metafields.reviews.rating
+ assign count_field = product.metafields.reviews.rating_count
+ assign rating_value = rating_field.value.rating | plus: 0
+ assign scale_max = rating_field.value.scale_max | plus: 0
+ assign scale_min = rating_field.value.scale_min | plus: 0
+ assign review_count = count_field.value | plus: 0
+ assign whole_count = review_count | floor
+-%}
+{%- if rating_field.type == 'rating' and count_field.type == 'number_integer' and rating_field.value.rating != blank and rating_field.value.scale_max != blank and scale_max > 0 and scale_min >= 0 and scale_min < scale_max and rating_value > 0 and rating_value >= scale_min and rating_value <= scale_max and review_count > 0 and review_count == whole_count -%}
+ {%- assign display_rating = rating_value | round: 1 -%}
+ {%- assign rating_percent = rating_value | times: 100.0 | divided_by: scale_max -%}
+ <div class="product-rating">
+  {%- if scale_max == 5 -%}<span class="product-rating__stars" aria-hidden="true"><span class="product-rating__stars-base">★★★★★</span><span class="product-rating__stars-fill" style="width:{{ rating_percent }}%">★★★★★</span></span>{%- endif -%}
+  <span class="sr-only">{{ 'products.rating.label' | t: rating: display_rating, max: scale_max | escape }}</span><span dir="ltr" aria-hidden="true">{{ display_rating }}/{{ scale_max }}</span>
+  <span class="product-rating__count">{{ 'products.rating.count' | t: count: review_count | escape }}</span>
+ </div>
+{%- endif -%}

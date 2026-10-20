@@ -86,7 +86,18 @@
     "quantity_invalid": "Enter a whole number of items.",
     "quantity_minimum": "Minimum {{ quantity }} items.",
     "quantity_maximum": "Maximum {{ quantity }} items.",
-    "quantity_increment": "Order in multiples of {{ quantity }}."
+    "quantity_increment": "Order in multiples of {{ quantity }}.",
+    "rating": {
+      "label": "Rated {{ rating }} out of {{ max }}",
+      "count": {
+        "one": "{{ count }} review",
+        "other": "{{ count }} reviews"
+      }
+    },
+    "reviews": {
+      "title": "Customer reviews",
+      "setup": "Add a review app block to display customer reviews."
+    }
   },
   "cart": {
     "title": "Your bag",

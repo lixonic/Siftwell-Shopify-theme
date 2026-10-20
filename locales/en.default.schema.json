@@ -80,7 +80,7 @@
     "price_steps": "Price shortcuts",
     "shopping_catalog": "Shopping workspace",
     "activity": "Activity collection",
-    "price_steps_help": "Comma-separated prices in the shopper\u2019s currency. Configure Price in Shopify Search & Discovery.",
+    "price_steps_help": "Comma-separated prices in the shopper’s currency. Configure Price in Shopify Search & Discovery.",
     "quick_view": "Quick view",
     "predictive_search": "Predictive search",
     "compact": "Compact footer",
@@ -105,7 +105,7 @@
     "complementary": "Complementary products",
     "show_advanced_filters": "Show additional Shopify filters",
     "product_specifications": "Product specifications",
-    "specifications_help": "Create product metafield definitions in Settings \u2192 Custom data. Use Weight for weight and Single line text for the other fields. These fields are shared across product pages, quick view, and comparison. Empty values are hidden.",
+    "specifications_help": "Create product metafield definitions in Settings → Custom data. Use Weight for weight and Single line text for the other fields. These fields are shared across product pages, quick view, and comparison. Empty values are hidden.",
     "spec_namespace": "Metafield namespace",
     "spec_weight_key": "Weight metafield key",
     "spec_material_key": "Material metafield key",
@@ -119,6 +119,11 @@
     "social_pinterest": "Pinterest",
     "social_youtube": "YouTube",
     "social_tiktok": "TikTok",
-    "social_x": "X"
+    "social_x": "X",
+    "rating_summary": "Rating summary",
+    "customer_reviews": "Customer reviews",
+    "show_reviews_heading": "Show section heading",
+    "show_product_ratings": "Show ratings on product cards and quick view",
+    "product_ratings_help": "Uses the standard rating and review count supplied by your review app. Products without rating data stay unchanged. Add or remove the Rating summary block separately on product templates."
   }
 }

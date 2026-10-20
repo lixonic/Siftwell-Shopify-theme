@@ -195,7 +195,7 @@ window.SIFTWELL_DOCS = [
       },
       {
         "title": "Show relevant buying details",
-        "html": "<p>Use Pickup availability when locations are configured in Shopify. Selling plans, gift-card recipients and accelerated checkout need the matching product or store setup. The Buy buttons block includes <strong>Show accelerated checkout</strong> and <strong>Show gift card recipient form</strong>.</p><p>Add related or complementary products when they offer a useful next step. Keep compatibility claims in the product information.</p>"
+        "html": "<p>Use Pickup availability when locations are configured in Shopify. Selling plans, gift-card recipients and accelerated checkout need the matching product or store setup. The Buy buttons block includes <strong>Show accelerated checkout</strong> and <strong>Show gift card recipient form</strong>.</p><p>Add related or complementary products when they offer a useful next step. Keep compatibility claims in the product information.</p><p><a href=\"?page=reviews\">Add app-supplied ratings and customer reviews →</a></p>"
       }
     ]
   },
@@ -248,6 +248,34 @@ window.SIFTWELL_DOCS = [
       {
         "title": "Compare the details that matter",
         "html": "<p>Customers can select up to three products. A desktop comparison area appears after a selection; a compact comparison control serves smaller screens. No selection leaves the catalog open.</p><p>Comparison uses Shopify prices and the same product specifications as the product page. It does not verify technical or vehicle compatibility.</p><p>Turn comparison off in <strong>Theme settings → Shopping tools → Show Compare checkboxes</strong> when it is not useful for your catalog.</p><figure class=\"guide-preview\"><a href=\"images/comparison-desktop.jpg\"><img src=\"images/comparison-desktop.jpg\" alt=\"Three Siftwell demo products compared by price, weight, material, fit, feature and intended use.\" width=\"1440\" height=\"1000\" loading=\"lazy\"></a><figcaption>The same specification fields appear side by side. Demo products illustrate the layout and do not imply that the items are interchangeable.</figcaption></figure>"
+      }
+    ]
+  },
+  {
+    "id": "reviews",
+    "group": "Build your store",
+    "title": "Add customer reviews",
+    "lead": "Give customer experience a useful place beside the product facts. Siftwell displays app-supplied ratings and provides space for your review provider’s full widget.",
+    "sections": [
+      {
+        "title": "Connect a review provider",
+        "html": "<p>Use a review app that supplies Shopify’s standard product rating and count fields and offers theme app blocks. The provider collects and manages reviews; Siftwell displays the supplied summary and gives the full widget a place in the product template.</p><p>Shopify’s own reviews are collected in Shop. Displaying Shop reviews on an online store uses a supported partner app. <a href=\"https://help.shopify.com/en/manual/online-sales-channels/shop/product-reviews/sync-partner-apps\">Read Shopify’s review-sync guide</a>. The retired standalone Shopify Product Reviews app is not required by the theme.</p>"
+      },
+      {
+        "title": "Put the summary near the product title",
+        "html": "<p>In the theme editor, open a product template and add <strong>Rating summary</strong> inside the main product section. The clean default template places it after Title. Move or remove it to suit the product information.</p><p>The summary reads the app-maintained <code>reviews.rating</code> and <code>reviews.rating_count</code> product metafields. It appears only when both contain a valid positive rating and review count. Missing, zero-count or invalid data leaves no rating row.</p><p>If your app already supplies a star-summary block, use that or Siftwell’s Rating summary to avoid showing it twice.</p>"
+      },
+      {
+        "title": "Add the full review widget",
+        "html": "<p>Open <strong>Customer reviews</strong> below the main product section and add your provider’s app block. You can also add this section to another product template. Turn off <strong>Show section heading</strong> when the app widget provides its own heading.</p><p>An empty Customer reviews section is hidden from shoppers. The editor shows a setup hint until you add an app block. Your app controls submission, moderation, verified-purchase labels, sorting and customer photos.</p>"
+      },
+      {
+        "title": "Choose where compact ratings appear",
+        "html": "<p>Use <strong>Theme settings → Shopping tools → Show ratings on product cards and quick view</strong> for those two surfaces. The product page’s Rating summary is an independently editable block.</p><p>Fractional five-point ratings use partial star fills and a numeric average. Other positive scales show the number and maximum without a five-star illustration. Accessible text states the average, scale and count; decorative stars are hidden from screen readers.</p>"
+      },
+      {
+        "title": "Check with real review data",
+        "html": "<p>Review a product with published reviews and one with none. Compare the average and count with the provider’s records. Check the product page, catalog and quick view on a phone and with a keyboard. Confirm the full widget loads and that the app handles submission and errors as intended.</p><p>The source includes rating-render checks and an app-slot fixture check. A real provider integration is still unverified; these checks do not establish collection, moderation or Shop syndication. Theme installation does not guarantee agent discovery or a search-ranking benefit.</p><div class=\"article-links\"><a href=\"?page=products\">Arrange the product page →</a><a href=\"?page=support\">Get community help →</a></div>"
       }
     ]
   },

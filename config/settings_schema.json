@@ -225,6 +225,13 @@
         "id": "open_cart_on_add",
         "label": "t:labels.open_cart_on_add",
         "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_ratings",
+        "label": "t:labels.show_product_ratings",
+        "info": "t:labels.product_ratings_help",
+        "default": true
       }
     ]
   },
