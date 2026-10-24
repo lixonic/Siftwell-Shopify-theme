@@ -32,6 +32,34 @@ window.SIFTWELL_DOCS = [
     ]
   },
   {
+    "id": "roadmap",
+    "group": "Start with Siftwell",
+    "title": "Roadmap: confident parts shopping",
+    "lead": "Priorities for auto parts, accessories and tools: finding the right item, understanding fit and verifying a recommendation.",
+    "sections": [
+      {
+        "title": "What the current source provides",
+        "html": "<p>The compact mobile introduction brings search and collection routes closer to the first products. Recommendation comparison is off by default, with an opt-in for related alternatives and no comparison on complementary cards. Existing foundations include native commerce, quick view, shared product-level specifications and Shopify-generated product structured data.</p><p>The first MIT beta still needs its fresh-install and essential shopping-path release gate. A smaller hero and source checks do not prove a conversion improvement.</p>"
+      },
+      {
+        "title": "Design around the buyer’s question",
+        "html": "<ul><li><strong>Known part:</strong> find the exact item or variant through useful names, identifiers and search.</li><li><strong>DIY buyer:</strong> understand requirements, exclusions, installation and required tools.</li><li><strong>Experienced buyer:</strong> compare meaningful category-specific differences.</li><li><strong>Installer-assisted purchase:</strong> share an exact choice and check fulfillment.</li><li><strong>Project purchase:</strong> distinguish included parts, required extras and optional additions.</li><li><strong>Arrival from an assistant:</strong> verify the recommendation against current facts.</li></ul><p>These are buying situations to test, not fixed shopper personality types.</p>"
+      },
+      {
+        "title": "Next priorities",
+        "html": "<ol><li>Finish fresh-install and essential shopping-path checks, and extend browser, device, screen-reader and review-provider coverage.</li><li>Test the mobile introduction and recommendation relevance with real buyers.</li><li>Explore an explicit Compare with this product flow for genuine alternatives, with the current product visibly included.</li><li>Expand the five product-level fields into category-specific, variant-aware specifications.</li><li>Add compatibility requirements, exclusions and unknown states, followed by verified matching through suitable data providers.</li><li>Improve included-parts, installation, delivery, warranty and return information.</li><li>Explore exact-variant shortlists and complete-job project checklists.</li></ol>"
+      },
+      {
+        "title": "Prepare for assisted and agentic shopping",
+        "html": "<p>Prioritize accurate identifiers, descriptions, options, constraints and policies. Check what supported Shopify Catalog mappings and previews actually receive; displaying a custom metafield does not establish inclusion in every agent’s catalog.</p><p>Retain Shopify’s managed discovery files and commerce services. Repository AGENTS.md helps coding agents extend the source; it does not activate a sales channel. Use customer questions and Shopify Knowledge Base setup to identify missing facts.</p><p>An optional assistant comes after dependable data. It would need approved sources, live price/availability, verified matching, a backend for credentials and an unresolved-question handoff. Cross-device saves, alerts and shared/private lists also require a backing service.</p>"
+      },
+      {
+        "title": "Measure useful decisions",
+        "html": "<p>Test exact-item search, variant and fit interpretation, meaningful comparison and complete-job understanding. Where instrumentation is available, evaluate search recovery, comparison selection-to-open rates, saved-item return visits, purchases, support questions and return reasons. Use consent-aware measurement; AI referrers capture only part of assistant-influenced shopping.</p><p>Small sessions reveal friction rather than proving revenue uplift. Much of the supporting research is North American or broad US retail, so validate priorities against your own market.</p><p><a href=\"https://github.com/lixonic/Siftwell-Shopify-theme/blob/main/ROADMAP.md\">Read the complete roadmap and research sources →</a></p>"
+      }
+    ]
+  },
+  {
     "id": "getting-started",
     "group": "Start with Siftwell",
     "title": "Build your first shopping path",
@@ -47,7 +75,7 @@ window.SIFTWELL_DOCS = [
       },
       {
         "title": "Connect the path in the editor",
-        "html": "<ol><li>Open Siftwell in the theme editor.</li><li>Add your logo in <strong>Theme settings → Brand</strong> and connect your main menu in <strong>Header</strong>.</li><li>Give <strong>Shopping hero</strong> a short heading and an image that shows what you sell.</li><li>Choose collections for <strong>Collection links</strong>, <strong>Shopping workspace</strong> and <strong>Product finder</strong>.</li><li>Open the product template and arrange its options, purchase controls and <strong>Product specifications</strong> block.</li><li>Keep comparison enabled when side-by-side details help your customers choose.</li></ol>"
+        "html": "<ol><li>Open Siftwell in the theme editor.</li><li>Add your logo in <strong>Theme settings → Brand</strong> and connect your main menu in <strong>Header</strong>.</li><li>Give <strong>Shopping hero</strong> a desktop heading and useful image. Enable <strong>Compact mobile shopping intro</strong> and set <strong>Mobile shopping heading</strong> to describe your catalog.</li><li>Choose collections for <strong>Collection links</strong>, <strong>Shopping workspace</strong> and <strong>Product finder</strong>.</li><li>Open the product template and arrange its options, purchase controls and <strong>Product specifications</strong> block.</li><li>Keep catalog comparison when it helps customers choose. Recommendation cards hide it by default; opt in only for related alternatives, not accessories.</li></ol>"
       },
       {
         "title": "Read it as a customer",
@@ -138,8 +166,12 @@ window.SIFTWELL_DOCS = [
         "html": "<p>In <strong>Shopping hero</strong>, write a short heading and one supporting thought. Choose an image that establishes what you sell or how it is used. Leave room for the words rather than filling every part of the frame.</p><p>The hero includes product search and a route into the finder. Customers can search by name or begin with a buying need.</p>"
       },
       {
+        "title": "Start shopping sooner on a phone",
+        "html": "<p>Keep <strong>Shopping hero → Compact mobile shopping intro</strong> enabled for a short mobile introduction. Set <strong>Mobile shopping heading</strong> to describe your catalog; blank uses the translated Auto parts &amp; accessories label. Search appears first, followed by a secondary Help me choose link. With the finder disabled, that link opens all products.</p><p>The desktop heading, description and photograph remain available on larger screens. Compact mode hides those elements on phones and does not request the desktop photograph. Turn it off when a different catalog needs the larger introduction.</p>"
+      },
+      {
         "title": "Give collection links a purpose",
-        "html": "<p>Use <strong>Collection links</strong> for a few recognizable routes through the store. Choose a real collection for each link. Daily driving or Garage tools works best when its products belong together for a clear reason.</p>"
+        "html": "<p>Use <strong>Collection links</strong> for a few recognizable routes through the store. Choose a real collection for each link. Daily driving or Garage tools works best when its products belong together for a clear reason.</p><p>Keep <strong>Collection links → Compact links on mobile</strong> enabled for two columns of short links. This uses your existing collections and labels; it does not create categories or verify fit.</p>"
       },
       {
         "title": "Bring the products into view",
@@ -247,7 +279,7 @@ window.SIFTWELL_DOCS = [
       },
       {
         "title": "Compare the details that matter",
-        "html": "<p>Customers can select up to three products. A desktop comparison area appears after a selection; a compact comparison control serves smaller screens. No selection leaves the catalog open.</p><p>Comparison uses Shopify prices and the same product specifications as the product page. It does not verify technical or vehicle compatibility.</p><p>Turn comparison off in <strong>Theme settings → Shopping tools → Show Compare checkboxes</strong> when it is not useful for your catalog.</p><figure class=\"guide-preview\"><a href=\"images/comparison-desktop.jpg\"><img src=\"images/comparison-desktop.jpg\" alt=\"Three Siftwell demo products compared by price, weight, material, fit, feature and intended use.\" width=\"1440\" height=\"1000\" loading=\"lazy\"></a><figcaption>The same specification fields appear side by side. Demo products illustrate the layout and do not imply that the items are interchangeable.</figcaption></figure>"
+        "html": "<p>Customers can select up to three products. A desktop comparison area appears after a selection; a compact comparison control serves smaller screens. No selection leaves the catalog open.</p><p>Comparison uses Shopify prices and the same product specifications as the product page. It does not verify technical or vehicle compatibility.</p><p>Turn comparison off in <strong>Theme settings → Shopping tools → Show Compare checkboxes</strong> when it is not useful for your catalog.</p><figure class=\"guide-preview\"><a href=\"images/comparison-desktop.jpg\"><img src=\"images/comparison-desktop.jpg\" alt=\"Three Siftwell demo products compared by price, weight, material, fit, feature and intended use.\" width=\"1440\" height=\"1000\" loading=\"lazy\"></a><figcaption>The same specification fields appear side by side. Demo products illustrate the layout and do not imply that the items are interchangeable.</figcaption></figure><p>Product recommendations do not inherit comparison automatically. In a related <strong>Product recommendations</strong> section, use <strong>Show comparison for related alternatives</strong> only when the selected products solve the same buying need. Set the section <strong>Heading</strong> to explain that purpose and curate the products in Shopify Search &amp; Discovery. Complementary sections never show comparison, even if the checkbox is enabled.</p><p>The checkbox adds an item to the existing comparison list. It does not automatically include the product being viewed. An explicit Compare with this product flow remains on the roadmap.</p>"
       }
     ]
   },
@@ -460,6 +492,10 @@ window.SIFTWELL_DOCS = [
       {
         "title": "The first open-source edition",
         "html": "<p>The Auto layout, collection finder, optional comparison and shared product specifications form the starting point. The project source and this guide use the MIT license.</p>"
+      },
+      {
+        "title": "Mobile shopping and clearer recommendations",
+        "html": "<p>The current source adds a compact mobile shopping introduction and compact collection links. Recommendation cards hide comparison by default; curated related alternatives can opt in separately. Complementary cards keep it hidden. These changes follow the immediate task: find an item, evaluate an alternative or add a useful extra.</p><p><a href=\"?page=roadmap\">Read the roadmap for auto-parts buying decisions and assisted shopping →</a></p>"
       },
       {
         "title": "A beta, with room to improve",

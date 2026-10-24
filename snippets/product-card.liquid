@@ -27,4 +27,4 @@
 <{{ card_heading_tag }} class="product-title"><a href="{{ product.url }}" data-quick-view-url="{{ product.url }}">{{ product.title | escape }}</a></{{ card_heading_tag }}>
 {% if settings.show_product_ratings %}{% render 'product-rating', product: product %}{% endif %}
 <div class="product-bottom"><div class="product-price">{% render 'price', target: product %}</div>
-{% render 'compare-toggle', product: product %}</div></article>
+{% unless show_compare == false %}{% render 'compare-toggle', product: product %}{% endunless %}</div></article>

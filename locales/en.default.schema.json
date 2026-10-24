@@ -124,6 +124,15 @@
     "customer_reviews": "Customer reviews",
     "show_reviews_heading": "Show section heading",
     "show_product_ratings": "Show ratings on product cards and quick view",
-    "product_ratings_help": "Uses the standard rating and review count supplied by your review app. Products without rating data stay unchanged. Add or remove the Rating summary block separately on product templates."
+    "product_ratings_help": "Uses the standard rating and review count supplied by your review app. Products without rating data stay unchanged. Add or remove the Rating summary block separately on product templates.",
+    "compact_mobile_intro": "Compact mobile shopping intro",
+    "compact_mobile_intro_help": "On phones, show a short heading, search and a secondary shopping link. Hide the desktop slogan, description and photograph.",
+    "mobile_heading": "Mobile shopping heading",
+    "mobile_heading_help": "Describe what customers can shop for. Leave blank to use the translated Auto parts & accessories label.",
+    "compact_mobile_links": "Compact links on mobile",
+    "compact_mobile_links_help": "Use two columns of short collection links on phones so products appear sooner.",
+    "recommendation_heading_help": "Explain whether these are alternatives, accessories or broader suggestions. Leave blank for the standard heading.",
+    "compare_related_alternatives": "Show comparison for related alternatives",
+    "compare_related_alternatives_help": "Off by default. Enable only for related products that solve the same buying need. Requires global comparison. Complementary recommendations never show comparison. Selecting an item adds it to the existing comparison list; it does not automatically include the current product."
   }
 }

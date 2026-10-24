@@ -1,0 +1,1 @@
+{% if settings.enable_finder %}<a class="hero-cta" href="{{ routes.collections_url }}" data-open-dialog="ProductFinder">{% render 'icon', name: 'compass' %}{{ 'general.choose' | t }}{% render 'icon', name: 'arrow' %}</a>{% else %}<a class="hero-cta" href="{{ routes.all_products_collection_url }}">{{ 'general.shop_all' | t }}{% render 'icon', name: 'arrow' %}</a>{% endif %}

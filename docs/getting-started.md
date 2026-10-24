@@ -18,10 +18,10 @@ Keep fit information precise and use consistent units. The theme displays the va
 
 1. Open Siftwell in the theme editor.
 2. Add your logo in **Theme settings → Brand** and connect your main menu in **Header**.
-3. Give **Shopping hero** a short heading and an image that shows what you sell.
-4. Choose collections for **Collection links**, **Shopping workspace** and **Product finder**.
+3. Give **Shopping hero** a short desktop heading and useful image. Keep **Compact mobile shopping intro** enabled and set **Mobile shopping heading** to describe the catalog.
+4. Choose collections for **Collection links**, **Shopping workspace** and **Product finder**. Use **Compact links on mobile** to keep those routes short on phones.
 5. Open the product template and arrange its options, purchase controls and **Product specifications** block.
-6. Keep comparison enabled when side-by-side details help your customers choose.
+6. Keep catalog comparison enabled when side-by-side details help your customers choose. Recommendation sections hide it by default; enable **Show comparison for related alternatives** only for curated substitutes. Complementary recommendations never show comparison.
 
 ## Read it as a customer
 

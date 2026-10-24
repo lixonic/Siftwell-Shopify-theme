@@ -1,10 +1,18 @@
-<nav class="shop-paths page-width" aria-label="{{ 'general.shop_by_activity' | t }}">{% for block in section.blocks %}{% assign featured = block.settings.collection %}<a class="path-card path-{{ forloop.index0 }}" href="{{ featured.url | default: routes.collections_url }}" {% if featured %}data-catalog-link{% endif %} {{ block.shopify_attributes }}><span class="path-art">{% render 'icon', name: block.settings.icon %}</span><span class="path-copy"><strong>{{ block.settings.heading | default: featured.title | escape }}</strong></span>{% render 'icon', name: 'arrow-up' %}</a>{% endfor %}</nav>
+<nav class="shop-paths page-width{% unless section.settings.compact_mobile == false %} shop-paths--compact-mobile{% endunless %}" aria-label="{{ 'general.shop_by_activity' | t }}">{% for block in section.blocks %}{% assign featured = block.settings.collection %}<a class="path-card path-{{ forloop.index0 }}" href="{{ featured.url | default: routes.collections_url }}" {% if featured %}data-catalog-link{% endif %} {{ block.shopify_attributes }}><span class="path-art">{% render 'icon', name: block.settings.icon %}</span><span class="path-copy"><strong>{{ block.settings.heading | default: featured.title | escape }}</strong></span>{% render 'icon', name: 'arrow-up' %}</a>{% endfor %}</nav>
 {% schema %}
 {
   "name": "t:labels.collection_links",
   "tag": "section",
   "class": "theme-section",
-  "settings": [],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "compact_mobile",
+      "label": "t:labels.compact_mobile_links",
+      "info": "t:labels.compact_mobile_links_help",
+      "default": true
+    }
+  ],
   "disabled_on": {
     "groups": [
       "header",

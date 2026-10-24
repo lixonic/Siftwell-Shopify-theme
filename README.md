@@ -15,8 +15,10 @@ Siftwell is built for auto accessories and tools, where fit, materials and inten
 ## Built around the buying decision
 
 - **Find a useful starting point.** Search by product name, browse recognizable collections or begin with a need such as Road trips or Garage projects. The finder opens the collections you choose.
+- **Start shopping sooner on a phone.** The compact mobile introduction puts a short shopping heading and search first, followed by a secondary help link and compact collection routes. Desktop keeps the workshop hero.
 - **Keep the facts consistent.** Enter Weight, Material, Fit, Feature and Best in product metafields. The product page, quick view and comparison use those same fields, so you maintain the details in one place.
 - **Compare without losing your place.** Inspect an item in quick view or put up to three products side by side. Comparison appears when customers select products and can be disabled for catalogs that do not need it.
+- **Give recommendations a purpose.** Related and complementary cards hide comparison by default. Enable it separately for curated related alternatives; accessories stay focused on viewing and adding.
 - **Give practical products room.** A workshop-style sidebar, direct headings, restrained color and brief motion provide a steady frame for your products, photographs and words.
 - **Include customer experience.** Show rating summaries supplied through Shopify’s standard review fields, and place a review app’s full widget in the Customer reviews section. Review collection and moderation belong to the provider; [a real provider integration remains unverified](docs/product-reviews.md).
 
@@ -72,6 +74,7 @@ That is the theme's role in assisted shopping. [Shopify provides agent discovery
 - [Build your first shopping path](https://siftwell-theme-docs.vercel.app/?page=getting-started): connect a buying need to a collection, product and bag.
 - [Set up product specifications](https://siftwell-theme-docs.vercel.app/?page=specifications): keep useful details consistent across product views.
 - [Get community help](SUPPORT.md): setup questions, reproducible issues and contributions.
+- [Follow the roadmap](ROADMAP.md): auto-parts buying decisions, verified fit information and accurate data for AI-assisted shopping.
 
 Read the complete [searchable merchant guide online](https://siftwell-theme-docs.vercel.app/). Its source is included in `docs/`. To preview it locally:
 

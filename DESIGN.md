@@ -8,11 +8,15 @@ The desktop sidebar gives navigation a familiar home. The product area stays ope
 
 The home hero introduces the store with a short statement, useful image and product search. Sidebar search is suppressed on the home page because the hero already supplies it. Collection routes and the finder offer a way to start from a buying need; the finder opens configured collections and does not infer vehicle fit.
 
+On phones, the default introduction prioritizes shopping: a short catalog heading, product search and a secondary finder link. Compact collection routes bring products into view sooner. The larger slogan, supporting copy and photograph remain a desktop composition; merchants can turn off compact mode for a different catalog.
+
 ## Product facts lead
 
 Use imagery to show shape, scale and useful detail. Let concise headings and consistent specifications explain the differences between products. Read specifications from the configured product metafields and use the shared renderer across product pages, quick view and comparison.
 
 Keep comparison optional. Its rail appears when products are selected, and the global setting can disable the feature. Avoid adding a permanent comparison panel to an otherwise quiet catalog.
+
+Recommendation controls follow the buying task. Mixed discovery and complementary recommendations do not need a compare checkbox. Related recommendations can opt in when the products are meaningful alternatives. A shared attribute such as weight does not make unrelated products substitutes.
 
 ## Type and color have roles
 

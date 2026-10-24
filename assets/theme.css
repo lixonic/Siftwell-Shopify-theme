@@ -1191,6 +1191,33 @@ body[data-preset] dialog{--popup-gap:48px;overflow:clip}
 body[data-preset] dialog .popup-scroll{max-height:calc(100dvh - var(--popup-gap) - 2px)}
 @media(max-width:760px){body[data-preset] dialog{--popup-gap:24px}}
 
+/* A mobile landing starts with the shopping task; the desktop composition stays intact. */
+.hero-heading--mobile,body[data-preset] .intro .hero-actions--mobile{display:none}
+.hero-picture{display:block;width:100%;height:100%}
+.hero-picture>img{display:block;width:100%;height:100%;position:absolute;inset:0;object-fit:cover;object-position:center 55%}
+@media(max-width:760px){
+  body[data-preset] .intro.intro--compact-mobile{display:block;min-height:0;background:var(--paper);color:var(--ink);margin-bottom:20px}
+  body[data-preset] .intro--compact-mobile .hero-copy{padding:0}
+  body[data-preset] .intro--compact-mobile h1{font-family:var(--heading-font);font-weight:var(--heading-weight);font-size:30px;line-height:1.15;letter-spacing:-.025em;max-width:none;margin:0 0 16px}
+  body[data-preset] .intro--compact-mobile .hero-heading--desktop,body[data-preset] .intro--compact-mobile .hero-description,body[data-preset] .intro--compact-mobile .hero-image,body[data-preset] .intro--compact-mobile .hero-actions--desktop{display:none}
+  .intro--compact-mobile .hero-heading--mobile{display:inline}
+  body[data-preset] .intro--compact-mobile .hero-search{max-width:none}
+  body[data-preset] .intro--compact-mobile .hero-search .search-box{min-height:54px;background:var(--paper);color:var(--ink);border-color:color-mix(in srgb,var(--ink),transparent 52%)}
+  body[data-preset] .intro--compact-mobile .hero-search input{color:var(--ink);font-size:16px}
+  body[data-preset] .intro--compact-mobile .hero-search input::placeholder,body[data-preset] .intro--compact-mobile .search-icon{color:var(--muted)}
+  body[data-preset] .intro--compact-mobile .hero-search .search-box:focus-within{outline:2px solid var(--ink);outline-offset:3px;border-color:var(--ink)}
+  body[data-preset] .intro--compact-mobile .hero-actions--mobile{display:flex;margin:8px 0 0}
+  body[data-preset] .intro--compact-mobile .hero-actions--mobile .hero-cta{min-height:44px;padding:8px 0;gap:10px;background:transparent;color:var(--ink);font-size:14px;text-decoration:underline;text-underline-offset:3px}
+  .intro--compact-mobile .hero-actions--mobile .hero-cta>.icon:first-child:not(:last-child){display:none}
+  .intro--compact-mobile .hero-copy :focus-visible{outline-color:var(--ink)}
+  body[data-preset] .shop-paths.shop-paths--compact-mobile{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;border:0;margin-bottom:24px}
+  body[data-preset] .shop-paths--compact-mobile .path-card,body[data-preset] .shop-paths--compact-mobile .path-card:first-child{min-height:48px;padding:10px 12px;gap:8px;border:1px solid var(--line);border-radius:var(--radius)}
+  .shop-paths--compact-mobile .path-card:last-child:nth-child(odd){grid-column:1/-1}
+  .shop-paths--compact-mobile .path-art{display:none}
+  body[data-preset] .shop-paths--compact-mobile .path-copy strong{font-size:13px;line-height:1.4}
+  body[data-preset] .shop-paths--compact-mobile .path-card>.icon{display:block;width:16px;height:16px}
+}
+
 body[data-preset] dialog.drawer{padding:0}
 body[data-preset] .workspace.workspace--full{grid-template-columns:minmax(0,1fr)}
 

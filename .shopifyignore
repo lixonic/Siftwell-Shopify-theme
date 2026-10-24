@@ -5,6 +5,7 @@ scripts/**
 node_modules/**
 artifacts/**
 README.md
+ROADMAP.md
 AGENTS.md
 DESIGN.md
 LICENSE
