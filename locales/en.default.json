@@ -98,7 +98,8 @@
     "reviews": {
       "title": "Customer reviews",
       "setup": "Add a review app block to display customer reviews."
-    }
+    },
+    "specifications_for": "Specifications for"
   },
   "cart": {
     "title": "Your bag",

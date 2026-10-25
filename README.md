@@ -16,7 +16,7 @@ Siftwell is built for auto accessories and tools, where fit, materials and inten
 
 - **Find a useful starting point.** Search by product name, browse recognizable collections or begin with a need such as Road trips or Garage projects. The finder opens the collections you choose.
 - **Start shopping sooner on a phone.** The compact mobile introduction puts a short shopping heading and search first, followed by a secondary help link and compact collection routes. Desktop keeps the workshop hero.
-- **Keep the facts consistent.** Enter Weight, Material, Fit, Feature and Best in product metafields. The product page, quick view and comparison use those same fields, so you maintain the details in one place.
+- **Keep the facts consistent.** Use editable specification rows for each product family and override facts for the selected variant. Product pages, quick view and comparison share the renderer; existing Weight, Material, Fit, Feature and Best mappings keep working.
 - **Compare without losing your place.** Inspect an item in quick view or put up to three products side by side. Comparison appears when customers select products and can be disabled for catalogs that do not need it.
 - **Give recommendations a purpose.** Related and complementary cards hide comparison by default. Enable it separately for curated related alternatives; accessories stay focused on viewing and adding.
 - **Give practical products room.** A workshop-style sidebar, direct headings, restrained color and brief motion provide a steady frame for your products, photographs and words.

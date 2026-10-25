@@ -99,3 +99,6 @@ body[data-preset] .sidebar-bottom{margin-top:auto}
 .product-specifications>div{display:grid;grid-template-columns:minmax(80px,28%) minmax(0,1fr);gap:20px;padding:11px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
 .product-specifications dt{color:var(--muted)}.product-specifications dd{margin:0}
 .product-block--specifications:empty,.quick-specifications:empty,.quick-description:empty{display:none}
+
+.specification-context{margin:0 0 8px;color:var(--muted);font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+.specification-context strong{color:var(--ink);font-weight:600}

@@ -116,7 +116,7 @@
     head.append(titleRow);
     const labels = {price: config.compareLabels.price};
     const specKeys = new Set([...selections.values()].flatMap(p => Object.keys(p.specs || {})));
-    if (specKeys.size) for (const key of ['weight', 'material', 'fit', 'feature', 'best']) {
+    if (specKeys.size) for (const key of specKeys) {
       const specification = [...selections.values()].find(p => p.specs?.[key])?.specs[key];
       if (specification) labels['spec:' + key] = specification.label;
     }
@@ -147,8 +147,8 @@
   }
   async function loadComparisonSpecs(product) {
     try {
-      const html = new DOMParser().parseFromString(await popupSection(product.url, 'quick-view'), 'text/html');
-      const specs = {};
+      const html = new DOMParser().parseFromString(await popupSection(product.url, 'comparison-product'), 'text/html');
+      const specs = Object.create(null);
       $$('[data-product-specifications] [data-specification]', html).forEach(row => {
         const label = $('dt', row)?.textContent.trim();
         const value = $('dd', row)?.textContent.trim();
@@ -425,7 +425,7 @@
       root.replaceWith(fresh);
       const quantityInput = $('input[name="quantity"]', fresh);
       if (quantity && quantityInput) { const min = Number(quantityInput.min) || 1, max = Number(quantityInput.max) || Infinity, step = Number(quantityInput.step) || 1; quantityInput.value = Math.min(max, min + Math.max(0, Math.floor((Number(quantity) - min) / step)) * step); }
-      initRecipients(fresh); window.Shopify?.PaymentButton?.init?.();
+      initRecipients(fresh); renderComparison(); window.Shopify?.PaymentButton?.init?.();
       const selectedPlan = $('select[name="selling_plan"]', fresh)?.value;
       if (selectedPlan) url.searchParams.set('selling_plan', selectedPlan); else url.searchParams.delete('selling_plan');
       url.searchParams.delete('section_id'); if (!fresh.hasAttribute('data-quick-view-root')) history.replaceState(null, '', url);

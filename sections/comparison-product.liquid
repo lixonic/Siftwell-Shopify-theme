@@ -1,0 +1,8 @@
+{%- if product != blank -%}
+  {%- assign product_level = true -%}
+  {%- if product.selected_variant or product.has_only_default_variant -%}{%- assign product_level = false -%}{%- endif -%}
+  <div data-comparison-product>{% render 'product-specifications', product: product, product_level: product_level %}</div>
+{%- endif -%}
+{% schema %}
+{"name":"t:labels.product_specifications","settings":[]}
+{% endschema %}

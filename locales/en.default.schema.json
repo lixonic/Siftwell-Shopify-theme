@@ -105,7 +105,7 @@
     "complementary": "Complementary products",
     "show_advanced_filters": "Show additional Shopify filters",
     "product_specifications": "Product specifications",
-    "specifications_help": "Create product metafield definitions in Settings → Custom data. Use Weight for weight and Single line text for the other fields. These fields are shared across product pages, quick view, and comparison. Empty values are hidden.",
+    "specifications_help": "Use editable specification rows for each product family, or keep the five existing fields. Variant values override shared product facts. These descriptions do not verify vehicle fit.",
     "spec_namespace": "Metafield namespace",
     "spec_weight_key": "Weight metafield key",
     "spec_material_key": "Material metafield key",
@@ -133,6 +133,8 @@
     "compact_mobile_links_help": "Use two columns of short collection links on phones so products appear sooner.",
     "recommendation_heading_help": "Explain whether these are alternatives, accessories or broader suggestions. Leave blank for the standard heading.",
     "compare_related_alternatives": "Show comparison for related alternatives",
-    "compare_related_alternatives_help": "Off by default. Enable only for related products that solve the same buying need. Requires global comparison. Complementary recommendations never show comparison. Selecting an item adds it to the existing comparison list; it does not automatically include the current product."
+    "compare_related_alternatives_help": "Off by default. Enable only for related products that solve the same buying need. Requires global comparison. Complementary recommendations never show comparison. Selecting an item adds it to the existing comparison list; it does not automatically include the current product.",
+    "spec_rows_key": "Specification rows metafield key",
+    "spec_rows_key_help": "List of Specification row metaobject references on products and variants. Each entry uses code, label and value fields. See the guide for setup and inheritance."
   }
 }

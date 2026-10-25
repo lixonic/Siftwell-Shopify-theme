@@ -2,6 +2,8 @@
 
 ## 0.8.0-beta.1 — in preparation
 
+- Add editable specification-row metaobject lists, selected-variant overrides and explicit row suppression while preserving legacy field mappings. Retain exact variants in quick-view comparison, with dynamic comparison rows and shared facts for unselected catalog picks.
+
 - Add a configurable compact mobile shopping introduction: a short heading, native search and secondary shopping link. Keep the desktop photograph from loading at the compact mobile breakpoint.
 - Add compact two-column collection links on phones.
 - Hide recommendation comparison by default; related alternatives can opt in per section, while complementary cards keep it hidden. Add an editable recommendation heading.

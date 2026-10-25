@@ -12,7 +12,7 @@ On phones, the default introduction prioritizes shopping: a short catalog headin
 
 ## Product facts lead
 
-Use imagery to show shape, scale and useful detail. Let concise headings and consistent specifications explain the differences between products. Read specifications from the configured product metafields and use the shared renderer across product pages, quick view and comparison.
+Use imagery to show shape, scale and useful detail. Let concise headings and consistent specifications explain the differences between products. Read specifications from merchant-defined rows and configured product/variant metafields. Use the shared renderer across product pages, quick view and comparison. Identify the selected variant, preserve shared facts when no override exists and never carry a previous variant’s facts into an invalid option combination. Catalog comparison uses shared facts; explicit quick-view selections retain exact-variant identity.
 
 Keep comparison optional. Its rail appears when products are selected, and the global setting can disable the feature. Avoid adding a permanent comparison panel to an otherwise quiet catalog.
 

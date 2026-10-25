@@ -1,0 +1,18 @@
+{%- liquid
+  assign row_label = label | strip
+  assign row_value = value | strip
+  for override in variant_rows limit: 20
+    assign override_code = override.code.value | strip | handleize
+    if override_code == code
+      assign override_label = override.label.value | strip
+      if override_label != blank
+        assign row_label = override_label
+      endif
+      assign row_value = override.value.value | strip
+      break
+    endif
+  endfor
+-%}
+{%- if code != blank and row_label != blank and row_value != blank -%}
+  <div data-specification="{{ code | escape }}"><dt>{{ row_label | escape_once }}</dt><dd>{{ row_value | escape_once }}</dd></div>
+{%- endif -%}

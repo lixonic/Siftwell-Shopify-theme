@@ -1,28 +1,75 @@
-{%- comment -%}Shared by the product template, quick view, and comparison. Only configured metafields are read; descriptions remain independent.{%- endcomment -%}
+{%- comment -%}
+  Shared product facts, with selected-variant overrides. A populated product row list
+  replaces the five legacy slots. Variant rows merge by code; a blank override value
+  hides that row. product_level avoids choosing a variant for catalog comparison.
+{%- endcomment -%}
 {%- liquid
   assign namespace = settings.spec_namespace | default: 'siftwell' | strip
-  assign fields = 'weight,material,fit,feature,best' | split: ','
+  assign rows_key = settings.spec_rows_key | default: 'specifications' | strip
+  assign product_field = product.metafields[namespace][rows_key]
+  assign current_variant = product.selected_or_first_available_variant
+  assign variant_rows = nil
+  if product_level != true and current_variant
+    assign variant_field = current_variant.metafields[namespace][rows_key]
+    if variant_field.type == 'list.metaobject_reference'
+      assign variant_rows = variant_field.value
+    endif
+  endif
+  assign base_codes = '|'
 -%}
 {%- capture rows -%}
-  {%- for field in fields -%}
-    {%- liquid
-      assign setting_key = 'spec_' | append: field | append: '_key'
-      assign key = settings[setting_key] | default: field | strip
-      assign specification = product.metafields[namespace][key]
-      assign label_key = 'products.specifications.' | append: field
-    -%}
-    {%- if specification != blank -%}
-      {%- liquid
-        if specification.type == 'single_line_text_field' or specification.type == 'multi_line_text_field'
-          assign value = specification.value | strip
-        else
-          assign value = specification | metafield_text | strip
-        endif
-      -%}
-      {%- if value != blank -%}
-        <div data-specification="{{ field }}"><dt>{{ label_key | t }}</dt><dd>{{ value | escape_once }}</dd></div>
-      {%- endif -%}
+  {%- if product_level == true or current_variant -%}
+    {%- if product_field.type == 'list.metaobject_reference' and product_field.value != blank -%}
+      {%- for row in product_field.value limit: 20 -%}
+        {%- liquid
+          assign code = row.code.value | strip | handleize
+          assign token = '|' | append: code | append: '|'
+        -%}
+        {%- unless code == blank or base_codes contains token -%}
+          {%- assign base_codes = base_codes | append: code | append: '|' -%}
+          {%- render 'specification-row', code: code, label: row.label.value, value: row.value.value, variant_rows: variant_rows -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- assign fields = 'weight,material,fit,feature,best' | split: ',' -%}
+      {%- for field in fields -%}
+        {%- liquid
+          assign setting_key = 'spec_' | append: field | append: '_key'
+          assign key = settings[setting_key] | default: field | strip
+          assign specification = product.metafields[namespace][key]
+          if product_level != true and current_variant.metafields[namespace][key] != blank
+            assign specification = current_variant.metafields[namespace][key]
+          endif
+          assign label_key = 'products.specifications.' | append: field
+          assign label = label_key | t
+          assign value = ''
+          if specification != blank
+            if specification.type == 'single_line_text_field' or specification.type == 'multi_line_text_field'
+              assign value = specification.value | strip
+            else
+              assign value = specification | metafield_text | strip
+            endif
+          endif
+          assign base_codes = base_codes | append: field | append: '|'
+        -%}
+        {%- render 'specification-row', code: field, label: label, value: value, variant_rows: variant_rows -%}
+      {%- endfor -%}
     {%- endif -%}
-  {%- endfor -%}
+    {%- for row in variant_rows limit: 20 -%}
+      {%- liquid
+        assign code = row.code.value | strip | handleize
+        assign token = '|' | append: code | append: '|'
+      -%}
+      {%- unless code == blank or base_codes contains token -%}
+        {%- assign base_codes = base_codes | append: code | append: '|' -%}
+        {%- render 'specification-row', code: code, label: row.label.value, value: row.value.value -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  {%- endif -%}
 {%- endcapture -%}
-{%- if rows != blank -%}<dl class="product-specifications" data-product-specifications>{{ rows }}</dl>{%- endif -%}
+{%- if rows != blank -%}
+  <div class="specification-group" data-product-specifications{% unless product_level %} data-specification-variant="{{ current_variant.id }}"{% endunless %}>
+    {%- if product_level != true and product.has_only_default_variant == false and current_variant -%}<p class="specification-context">{{ 'products.specifications_for' | t }} <strong>{{ current_variant.title | escape }}</strong></p>{%- endif -%}
+    <dl class="product-specifications">{{ rows }}</dl>
+  </div>
+{%- endif -%}

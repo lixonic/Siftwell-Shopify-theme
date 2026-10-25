@@ -6,7 +6,7 @@ Start with [Siftwell’s approach](design-philosophy.md), then build [one comple
 
 - [Start with Siftwell](design-philosophy.md): who it serves, what it helps customers do and how to make the source your own.
 - [Build your first shopping path](getting-started.md): connect a buying need to a collection, product and bag.
-- [Set up shared specifications](product-specifications.md): enter useful details once and keep them consistent across product views.
+- [Set up shared specifications](product-specifications.md): create editable row lists, configure variant overrides and keep exact-item facts consistent across product views.
 - [Add customer reviews](product-reviews.md): connect app-supplied ratings and a full review widget to the product template.
 - [Performance and accessibility](performance-accessibility.md): the design choices, recorded demo results and checks still to complete.
 - [Read the current limitations](known-limitations.md) and [get community help](../SUPPORT.md).

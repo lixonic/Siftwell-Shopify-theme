@@ -1,6 +1,6 @@
 # Siftwell roadmap
 
-Updated 24 October 2026. Siftwell is an MIT-licensed theme for auto parts, accessories and tools. Priorities follow the buyer's decision: find the right item, establish what is known about fit, understand the differences and finish the job.
+Updated 25 October 2026. Siftwell is an MIT-licensed theme for auto parts, accessories and tools. Priorities follow the buyer's decision: find the right item, establish what is known about fit, understand the differences and finish the job.
 
 The hypothesis is that accurate information and clear next steps will help both shoppers and shopping assistants make better recommendations and purchase decisions. Confidence, conversion and return improvements remain hypotheses to test with real stores.
 
@@ -8,7 +8,8 @@ The hypothesis is that accurate information and clear next steps will help both 
 
 - **Compact mobile shopping introduction.** A short, editable shopping heading, native product search and a secondary finder/shop link replace the tall slogan and photograph on phones. The desktop composition stays available. Compact collection links bring the catalog closer.
 - **Recommendations with a clear purpose.** Recommendation cards no longer inherit comparison by default. Related recommendations can opt into comparison when they contain genuine alternatives; complementary recommendations keep comparison hidden. Merchants can give each section an accurate heading.
-- **Existing foundations.** Native Shopify product/cart flows, quick view, optional three-product comparison, shared product-level specifications, semantic server-rendered pages, Shopify product structured data and review-app insertion points.
+- **Variant-aware specifications.** Editable product row lists, selected-variant overrides, explicit row suppression and legacy five-field support now share one renderer across product pages, quick view and comparison. Quick-view comparison retains the selected variant; catalog comparison uses shared product facts. [Merchant setup and worked example](docs/product-specifications.md).
+- **Existing foundations.** Native Shopify product/cart flows, quick view, optional three-product comparison, semantic server-rendered pages, Shopify product structured data and review-app insertion points.
 
 The first MIT beta still needs the fresh-install and essential shopping-path release gate. Source checks and individual demo checks do not establish every checkout, device, app or market configuration.
 
@@ -34,11 +35,9 @@ These situations are design hypotheses, not fixed personality types. Scrolling t
 
 ## Then: build confidence in the exact item
 
-### Flexible, variant-aware specifications
+### Validate variant-aware specifications
 
-Extend the five existing product-level fields with category-specific profiles and selected-variant values. Tools may need drive size, torque range or battery platform; electrical accessories may need voltage, output and connector type. Reuse resolved facts across product pages, quick view, cards and comparison. Preserve existing mappings during migration.
-
-Success means buyers can identify relevant differences and selecting a variant cannot leave another variant's facts visible.
+The display and inheritance feature is implemented. Next, test setup with real merchant catalogs, check that codes and units remain consistent across comparable products, and evaluate whether buyers can identify the differences that matter. Add concise specification summaries to cards only when their value is demonstrated. Channel-specific catalog mappings remain a separate integration task.
 
 ### Compatibility with explicit evidence
 

@@ -1,0 +1,75 @@
+// Native Liquid objects are fixtures; render the real shared snippets and comparison section.
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { Liquid } = require('liquidjs');
+const root = path.join(__dirname, '..');
+const locale = JSON.parse(fs.readFileSync(path.join(root, 'locales/en.default.json'), 'utf8'));
+const engine = new Liquid({ root: path.join(root, 'snippets'), extname: '.liquid' });
+const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
+engine.registerFilter('t', key => escape(key.split('.').reduce((value, part) => value?.[part], locale) || key));
+engine.registerFilter('handleize', value => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
+engine.registerFilter('metafield_text', field => field.display || field.value);
+engine.registerFilter('money_without_trailing_zeros', value => '$' + Number(value) / 100);
+const field = value => ({ type: 'single_line_text_field', value });
+const row = (code, label, value) => ({ code: field(code), label: field(label), value: { type: 'multi_line_text_field', value } });
+const list = value => ({ type: 'list.metaobject_reference', value });
+const legacy = { material: field('Steel & rubber'), weight: { type: 'weight', value: 1, display: '1 kg' } };
+const settings = { enable_compare: true };
+const variant = { id: 24, title: '24 V', url: '/fr/products/inflator?variant=24', price: 9900, available: true, metafields: { siftwell: {} } };
+const product = { id: 12, title: 'Workshop inflator', url: '/fr/products/inflator', price: 7900, available: true, has_only_default_variant: false, metafields: { siftwell: legacy }, selected_or_first_available_variant: variant };
+const render = (file, item = product, extra = {}) => {
+  engine.options.globals = { settings };
+  return engine.parseAndRenderSync(fs.readFileSync(path.join(root, file), 'utf8').replace(/{%\s*schema\s*%}[\s\S]*?{%\s*endschema\s*%}/g, ''), { product: item, ...extra });
+};
+let html = render('snippets/product-specifications.liquid');
+assert.ok(html.includes('1 kg') && html.includes('Steel &amp; rubber'), 'Existing product mappings remain usable');
+assert.ok(html.includes('Specifications for') && html.includes('24 V'));
+const overrideLegacy = { ...product, selected_or_first_available_variant: { ...variant, metafields: { siftwell: { material: field('Aluminum') } } } };
+html = render('snippets/product-specifications.liquid', overrideLegacy);
+assert.ok(html.includes('Aluminum') && html.includes('1 kg') && !html.includes('Steel'), 'Typed variant fields override individual legacy slots');
+const baseRows = [row('voltage', 'Voltage', '12 V'), row('connector', 'Connector', 'DC plug'), row('output', 'Rated output', '150 W')];
+const variantRows = [row('voltage', '', '24 V'), row('connector', '', ''), row('output', 'Rated output', '300 W'), row('hose', 'Hose length', '2 m'), row('hose', 'Duplicate', 'Wrong')];
+const custom = { ...product, metafields: { siftwell: { ...legacy, specifications: list(baseRows) } }, selected_or_first_available_variant: { ...variant, metafields: { siftwell: { specifications: list(variantRows) } } } };
+html = render('snippets/product-specifications.liquid', custom);
+assert.ok(html.includes('24 V') && html.includes('300 W') && html.includes('2 m'));
+assert.ok(!html.includes('12 V') && !html.includes('DC plug') && !html.includes('150 W') && !html.includes('Steel'));
+assert.equal((html.match(/data-specification="hose"/g) || []).length, 1, 'First code wins; duplicate rows are suppressed');
+assert.ok(!html.includes('Wrong') && !html.includes('connector'), 'A blank override suppresses a shared fact');
+html = render('snippets/product-specifications.liquid', custom, { product_level: true });
+assert.ok(html.includes('12 V') && html.includes('DC plug') && !html.includes('24 V'), 'Unselected catalog comparison shows shared facts only');
+assert.ok(!html.includes('specification-context'));
+assert.equal(render('snippets/product-specifications.liquid', { ...custom, selected_or_first_available_variant: null }).trim(), '', 'An invalid option combination cannot show another variant’s facts');
+html = render('snippets/product-specifications.liquid', { ...product, metafields: {}, selected_or_first_available_variant: { ...variant, metafields: {} } });
+assert.equal(html.trim(), '', 'No empty specification wrapper');
+const escaped = { ...custom, metafields: { siftwell: { specifications: list([row('safety', '<Use & care>', '<script>alert(1)</script> & rinse')]) } }, selected_or_first_available_variant: variant };
+html = render('snippets/product-specifications.liquid', escaped);
+assert.ok(html.includes('&lt;Use &amp; care&gt;') && html.includes('&lt;script&gt;') && !html.includes('<script>'));
+html = render('snippets/product-specifications.liquid', { ...custom, metafields: { siftwell: { specifications: list(Array.from({ length: 21 }, (_, index) => row('fact-' + index, 'Fact ' + index, 'Value'))) } }, selected_or_first_available_variant: variant });
+assert.equal((html.match(/data-specification=/g) || []).length, 20, 'Bounded list rendering');
+html = render('sections/comparison-product.liquid', custom);
+assert.ok(html.includes('12 V') && !html.includes('24 V'));
+html = render('sections/comparison-product.liquid', { ...custom, selected_variant: custom.selected_or_first_available_variant });
+assert.ok(html.includes('24 V') && html.includes('300 W') && !html.includes('12 V'));
+html = render('snippets/compare-toggle.liquid', custom, { selected_variant: variant, variant_selection: true });
+assert.ok(html.includes('data-compare-product="12:24"') && html.includes('Workshop inflator — 24 V') && html.includes('data-price="$99"'));
+assert.ok(html.includes('data-url="/fr/products/inflator?variant=24"') && !html.includes('data-variant='), 'Exact-variant links retain locale; configurable products still require their purchase form');
+html = render('snippets/compare-toggle.liquid', custom);
+assert.ok(html.includes('data-compare-product="12"') && !html.includes('— 24 V'), 'Catalog selection does not invent a chosen variant');
+assert.ok(render('snippets/compare-toggle.liquid', custom, { selected_variant: null, variant_selection: true }).includes(' disabled'));
+console.log('Specification renders passed: legacy migration, typed overrides, editable rows, merge/hide/deduplication, missing combinations, escaping, bounded lists and exact-variant comparison.');
+
+// Optional local browser fixtures use real source snippets and theme.js; never enter the theme ZIP.
+if (process.env.SIFTWELL_SPEC_PREVIEW_DIR) {
+  const output = path.resolve(process.env.SIFTWELL_SPEC_PREVIEW_DIR);
+  fs.mkdirSync(output, { recursive: true });
+  const item12 = { ...custom, selected_variant: null, selected_or_first_available_variant: { ...variant, id: 12, title: '12 V', url: '/products/inflator?variant=12', metafields: { siftwell: {} } } };
+  const item24 = { ...custom, selected_variant: custom.selected_or_first_available_variant };
+  const productRoot = item => '<div data-product-root data-quick-view-root data-section-id="quick-view" data-product-url="/products/inflator"><h2>Workshop inflator</h2><p>Illustrative specification data</p><fieldset data-product-option><legend>Voltage</legend>' + [12, 24].map(id => '<a href="?variant=' + id + '" data-option-value-id="' + id + '"' + (item.selected_or_first_available_variant.id === id ? ' aria-current="true"' : '') + '>' + id + ' V</a>').join(' ') + '</fieldset>' + render('snippets/product-specifications.liquid', item) + render('snippets/compare-toggle.liquid', item, { selected_variant: item.selected_or_first_available_variant, variant_selection: true }) + '</div>';
+  const config = { compareLabels: { picks: 'Your picks', price: 'Price', vendor: 'Brand', type: 'Product type', next: 'Next step', options: 'Choose options', add: 'Add to bag' }, compareEmpty: 'No picks', remove: 'Remove', compareLimit: 'Choose up to three', cartAdd: '/cart/add.js' };
+  const page = '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="' + path.join(root, 'assets/theme.css') + '"><link rel="stylesheet" href="' + path.join(root, 'assets/commerce.css') + '"><style>:root{--paper:#f6f6f2;--ink:#1d2222;--muted:#66706d;--line:#d8dcd5;--accent:#e96836;--body-font:Arial,sans-serif;--heading-font:Arial,sans-serif}body{margin:24px;max-width:900px}fieldset{margin:20px 0}fieldset a{display:inline-block;padding:12px;border:1px solid}fieldset [aria-current]{background:#e96836}table{width:100%;table-layout:fixed}th,td{overflow-wrap:anywhere}</style><body data-preset="auto">' + productRoot(item12) + '<table><thead data-comparison-head></thead><tbody data-comparison-rows></tbody></table><script id="ThemeConfig" type="application/json">' + JSON.stringify(config) + '</script><script src="' + path.join(root, 'assets/theme.js') + '"></script></body></html>';
+  fs.writeFileSync(path.join(output, 'index.html'), page);
+  fs.writeFileSync(path.join(output, 'variant-12.html'), productRoot(item12));
+  fs.writeFileSync(path.join(output, 'variant-24.html'), productRoot(item24));
+  for (const item of [item12, item24]) fs.writeFileSync(path.join(output, 'comparison-' + item.selected_or_first_available_variant.id + '.html'), render('sections/comparison-product.liquid', { ...item, selected_variant: item.selected_or_first_available_variant }));
+}

@@ -1,1 +1,16 @@
-{% if settings.enable_compare %}<button class="compare-toggle" type="button" data-compare-product="{{ product.id }}" {% if product.has_only_default_variant and product.available %}data-variant="{{ product.selected_or_first_available_variant.id }}"{% endif %} data-title="{{ product.title | escape }}" data-price="{{ product.price | money_without_trailing_zeros | escape }}" data-vendor="{{ product.vendor | escape }}" data-type="{{ product.type | escape }}" data-url="{{ product.url }}" data-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 240 }}{% endif %}" aria-pressed="false" aria-label="{{ 'products.compare_named' | t: title: product.title | escape }}"><span class="compare-box">{% render 'icon', name: 'check' %}</span>{{ 'products.compare' | t }}</button>{% endif %}
+{% if settings.enable_compare %}{% liquid
+  assign compare_title = product.title
+  assign compare_price = product.price
+  assign compare_url = product.url
+  assign compare_image = product.featured_image
+  assign compare_id = product.id | append: ''
+  if selected_variant
+    assign compare_price = selected_variant.price
+    assign compare_url = selected_variant.url
+    assign compare_image = selected_variant.featured_image | default: compare_image
+    unless product.has_only_default_variant
+      assign compare_title = compare_title | append: ' — ' | append: selected_variant.title
+      assign compare_id = compare_id | append: ':' | append: selected_variant.id
+    endunless
+  endif
+%}<button class="compare-toggle" type="button" data-compare-product="{{ compare_id }}" {% if product.has_only_default_variant and product.available and product.requires_selling_plan != true %}data-variant="{{ product.selected_or_first_available_variant.id }}"{% endif %} data-title="{{ compare_title | escape }}" data-price="{{ compare_price | money_without_trailing_zeros | escape }}" data-vendor="{{ product.vendor | escape }}" data-type="{{ product.type | escape }}" data-url="{{ compare_url }}" data-image="{% if compare_image %}{{ compare_image | image_url: width: 240 }}{% endif %}" aria-pressed="false" aria-label="{{ 'products.compare_named' | t: title: compare_title | escape }}"{% if variant_selection and selected_variant == nil %} disabled{% endif %}><span class="compare-box">{% render 'icon', name: 'check' %}</span>{{ 'products.compare' | t }}</button>{% endif %}

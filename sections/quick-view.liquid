@@ -19,8 +19,8 @@ endif
 {% unless product.has_only_default_variant %}<div class="product-block">{% render 'variant-picker', product: product %}</div>{% endunless %}
 {% if has_quantity_input %}<div class="product-block"><label for="QuickQuantity-{{ product.id }}">{{ 'products.quantity' | t }}</label><input id="QuickQuantity-{{ product.id }}" type="number" name="quantity" form="{{ form_id }}" min="{{ variant.quantity_rule.min | default: 1 }}" step="{{ variant.quantity_rule.increment | default: 1 }}" value="{{ variant.quantity_rule.min | default: 1 }}" {% if variant.quantity_rule.max != nil %}max="{{ variant.quantity_rule.max }}"{% endif %}>{% render 'quantity-rules', variant: variant %}</div>{% endif %}
 <div class="product-block">{% render 'buy-buttons', product: product, variant: variant, form_id: form_id, quick_view: true, has_quantity_input: has_quantity_input %}</div>
-{% render 'compare-toggle', product: product %}
-<a class="text-link full-product-link" href="{{ product.url }}">{{ 'products.full_details' | t }}{% render 'icon', name: 'arrow' %}</a></div></div>{% endif %}
+{% render 'compare-toggle', product: product, selected_variant: variant, variant_selection: true %}
+<a class="text-link full-product-link" href="{{ variant.url | default: product.url }}">{{ 'products.full_details' | t }}{% render 'icon', name: 'arrow' %}</a></div></div>{% endif %}
 
 {% schema %}
 {

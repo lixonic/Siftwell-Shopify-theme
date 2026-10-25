@@ -250,6 +250,13 @@
       },
       {
         "type": "text",
+        "id": "spec_rows_key",
+        "label": "t:labels.spec_rows_key",
+        "info": "t:labels.spec_rows_key_help",
+        "default": "specifications"
+      },
+      {
+        "type": "text",
         "id": "spec_weight_key",
         "label": "t:labels.spec_weight_key",
         "default": "weight"
