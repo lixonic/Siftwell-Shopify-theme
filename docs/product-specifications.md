@@ -4,6 +4,16 @@ A socket set, electrical accessory and cleaning product need different facts. Si
 
 Keep important facts beside the buying controls using the **Product specifications** block. Customers can read them without opening a tab. A small caption identifies the selected variant on products with options.
 
+## Try the live auto-parts preview
+
+Open the [Workshop Inflator demo](https://siftwell-theme.myshopify.com/products/siftwell-specifications-demo). If prompted, enter visitor password **`siftwell`**. This fictional product is labelled **not for sale**; both versions have zero tracked stock and cannot be purchased. Its figures and prices demonstrate the theme, not verified performance or vehicle fit.
+
+1. Select **12 V**: Input voltage is 12 V, Connector is DC plug and Rated output is 150 W.
+2. Select **24 V**: Input voltage becomes 24 V, Rated output becomes 300 W, Connector disappears and Cable length appears as 2 m.
+3. Open the [demo in the catalog](https://siftwell-theme.myshopify.com/collections/all?sort_by=created-descending), then select its image to open quick view. Select 12 V and press **Compare**; switch to 24 V and press **Compare** again. Close quick view and open **Compare products** to see both versions with separate names, prices, facts and links. A dash marks a fact absent from that version.
+
+Direct variant links also work on a full page load: [12 V](https://siftwell-theme.myshopify.com/products/siftwell-specifications-demo?variant=67876548018405) · [24 V](https://siftwell-theme.myshopify.com/products/siftwell-specifications-demo?variant=67876548051173).
+
 ## Choose the information that changes the decision
 
 | Product family | Useful examples |
@@ -32,7 +42,7 @@ In Shopify **Settings → Metafields and metaobjects**, add a metaobject definit
 | Label | `label` | Single line text | Buyer-facing name, such as Input voltage |
 | Value | `value` | Multi-line text | Plain facts and units, such as 12 V |
 
-Keep Label and Value optional so a variant override can inherit a label or intentionally suppress a row. Enable storefront access. If the definition has an Active/Draft status, publish the entries you reference. Web-page publishing is not needed.
+Keep Label and Value optional so a variant override can inherit a label or intentionally suppress a row. For easier selection in Shopify, optionally add a single-line **Entry name** field with key `entry_name` and use it as the definition's display name. Give entries distinct names such as “Demo — Input voltage — 12 V” and “Demo — Input voltage — 24 V”. The theme reads only Code, Label and Value. Enable storefront access. If the definition has an Active/Draft status, publish the entries you reference. Web-page publishing is not needed.
 
 Use unique lowercase codes with hyphens. A code must mean the same thing wherever it is used: `input-voltage` should not mean output voltage on another product. Comparison joins facts by code. Translations may change labels and values, but should keep codes unchanged.
 
