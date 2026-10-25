@@ -99,7 +99,17 @@
       "title": "Customer reviews",
       "setup": "Add a review app block to display customer reviews."
     },
-    "specifications_for": "Specifications for"
+    "specifications_for": "Specifications for",
+    "compatibility": {
+      "heading": "Compatibility & requirements",
+      "for_variant": "For",
+      "unknown": "Compatibility not confirmed",
+      "unknown_help": "Ask the manufacturer to confirm suitability for your vehicle or equipment before ordering.",
+      "requirements": "Requirements",
+      "exclusions": "Not suitable for",
+      "review_help": "Match these details to your vehicle or equipment. Vehicle fit has not been checked.",
+      "reference": "View manufacturer reference"
+    }
   },
   "cart": {
     "title": "Your bag",

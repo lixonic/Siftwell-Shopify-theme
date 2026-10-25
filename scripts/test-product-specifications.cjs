@@ -6,6 +6,7 @@ const { Liquid } = require('liquidjs');
 const root = path.join(__dirname, '..');
 const locale = JSON.parse(fs.readFileSync(path.join(root, 'locales/en.default.json'), 'utf8'));
 const engine = new Liquid({ root: path.join(root, 'snippets'), extname: '.liquid' });
+require('./liquid-doc.cjs')(engine);
 const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 engine.registerFilter('t', key => escape(key.split('.').reduce((value, part) => value?.[part], locale) || key));
 engine.registerFilter('handleize', value => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));

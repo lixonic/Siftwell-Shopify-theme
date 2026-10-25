@@ -14,6 +14,8 @@ On phones, the default introduction prioritizes shopping: a short catalog headin
 
 Use imagery to show shape, scale and useful detail. Let concise headings and consistent specifications explain the differences between products. Read specifications from merchant-defined rows and configured product/variant metafields. Use the shared renderer across product pages, quick view and comparison. Identify the selected variant, preserve shared facts when no override exists and never carry a previous variant’s facts into an invalid option combination. Catalog comparison uses shared facts; explicit quick-view selections retain exact-variant identity.
 
+Compatibility guidance presents requirements, exclusions and a reference for the selected version. A variant replaces the entire shared profile so another version’s exclusions or evidence cannot leak across. Empty or inaccessible references show an unknown state. Keep the default unconfigured catalog quiet, and offer an explicit missing-information state where the merchant needs it. Do not imply a vehicle match without a matching service and verified application data.
+
 Keep comparison optional. Its rail appears when products are selected, and the global setting can disable the feature. Avoid adding a permanent comparison panel to an otherwise quiet catalog.
 
 Recommendation controls follow the buying task. Mixed discovery and complementary recommendations do not need a compare checkbox. Related recommendations can opt in when the products are meaningful alternatives. A shared attribute such as weight does not make unrelated products substitutes.

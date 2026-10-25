@@ -39,7 +39,7 @@ window.SIFTWELL_DOCS = [
     "sections": [
       {
         "title": "What the current source provides",
-        "html": "<p>The compact mobile introduction brings search and collection routes closer to the first products. Recommendation comparison is off by default, with an opt-in for related alternatives and no comparison on complementary cards. Existing foundations include native commerce, quick view, editable, variant-aware specifications and Shopify-generated product structured data.</p><p>The first MIT beta still needs its fresh-install and essential shopping-path release gate. A smaller hero and source checks do not prove a conversion improvement.</p>"
+        "html": "<p>The compact mobile introduction brings search and collection routes closer to the first products. Recommendation comparison is off by default, with an opt-in for related alternatives and no comparison on complementary cards. Existing foundations include native commerce, quick view, editable, variant-aware specifications and Shopify-generated product structured data.</p><p>The first MIT beta still needs its fresh-install and essential shopping-path release gate. A smaller hero and source checks do not prove a conversion improvement.</p><p>Compatibility profiles now show selected-variant requirements, exclusions, notes and a reference. Empty or inaccessible profiles show an unknown state. This interface does not perform vehicle matching. <a href=\"?page=compatibility\">Set up compatibility guidance →</a></p>"
       },
       {
         "title": "Design around the buyer’s question",
@@ -47,7 +47,7 @@ window.SIFTWELL_DOCS = [
       },
       {
         "title": "Next priorities",
-        "html": "<ol><li>Finish fresh-install and essential shopping-path checks, and extend browser, device, screen-reader and review-provider coverage.</li><li>Test the mobile introduction and recommendation relevance with real buyers.</li><li>Explore an explicit Compare with this product flow for genuine alternatives, with the current product visibly included.</li><li>Validate the editable, variant-aware specifications with real merchant catalogs and buyer tasks.</li><li>Add compatibility requirements, exclusions and unknown states, followed by verified matching through suitable data providers.</li><li>Improve included-parts, installation, delivery, warranty and return information.</li><li>Explore exact-variant shortlists and complete-job project checklists.</li></ol>"
+        "html": "<ol><li>Finish fresh-install and essential shopping-path checks, and extend browser, device, screen-reader and review-provider coverage.</li><li>Test the mobile introduction and recommendation relevance with real buyers.</li><li>Explore an explicit Compare with this product flow for genuine alternatives, with the current product visibly included.</li><li>Validate the editable, variant-aware specifications with real merchant catalogs and buyer tasks.</li><li>Validate compatibility requirements, exclusions, references and unknown states with real catalogs, then add verified matching through suitable data providers.</li><li>Improve included-parts, installation, delivery, warranty and return information.</li><li>Explore exact-variant shortlists and complete-job project checklists.</li></ol>"
       },
       {
         "title": "Prepare for assisted and agentic shopping",
@@ -239,7 +239,7 @@ window.SIFTWELL_DOCS = [
     "sections": [
       {
         "title": "Keep the facts beside the buying controls",
-        "html": "<p>A socket set, electrical accessory and cleaning product need different facts. Siftwell supports editable specification rows for each product, with overrides for the selected variant. The same renderer supplies the product page, quick view and comparison.</p>\n<p>Keep important facts beside the buying controls using the <strong>Product specifications</strong> block. Customers can read them without opening a tab. A small caption identifies the selected variant on products with options.</p>"
+        "html": "<p>A socket set, electrical accessory and cleaning product need different facts. Siftwell supports editable specification rows for each product, with overrides for the selected variant. The same renderer supplies the product page, quick view and comparison.</p>\n<p>Keep important facts beside the buying controls using the <strong>Product specifications</strong> block. Customers can read them without opening a tab. A small caption identifies the selected variant on products with options.</p><p><a href=\"?page=compatibility\">Add compatibility requirements and exclusions →</a></p>"
       },
       {
         "title": "Try the live auto-parts preview",
@@ -272,6 +272,42 @@ window.SIFTWELL_DOCS = [
       {
         "title": "Check your setup",
         "html": "<p>Preview a product with two materially different variants. Change options on the product page and in quick view; confirm the caption and facts change together. Open a direct variant URL. Compare both variants and check names, values and links. Check a product with no custom rows to confirm the old fields remain usable.</p>\n<p>If rows are missing, check storefront access, entry status, list type, exact field keys and populated labels/values. Check the namespace/key mapping and the product-template block. An empty variant override may be deliberately hiding a row. A product row list replaces the legacy list rather than adding to it.</p>\n<p>Translate metaobject labels and values with Shopify&#39;s supported translation tools. Keep codes stable. Use consistent units and document uncertainty rather than entering a reassuring but unverified fit claim.</p>\n<p><a href=\"https://help.shopify.com/en/manual/custom-data/metafields/metafield-definitions\">Shopify metafield definitions</a> · <a href=\"https://shopify.dev/docs/api/liquid/objects/metaobject\">Metaobjects in Liquid</a> · <a href=\"https://shopify.dev/docs/storefronts/themes/product-merchandising/variants\">Variant handling</a></p>"
+      }
+    ]
+  },
+  {
+    "id": "compatibility",
+    "group": "Build your store",
+    "title": "Compatibility & requirements",
+    "lead": "Show requirements, exclusions and references for the selected version, with an explicit unknown state when details are missing.",
+    "sections": [
+      {
+        "title": "Help buyers check their setup",
+        "html": "<p>Auto-parts buyers need to establish whether a part works with their vehicle or equipment. Use <strong>Compatibility &amp; requirements</strong> for merchant-supplied requirements, exclusions, application notes and a manufacturer reference. Keep concise facts visible beside the options and buying controls.</p>\n<p>The block presents supplied information. It does not select a vehicle, match year/make/model, verify a source or confirm fit. Specifications such as voltage alone do not establish compatibility.</p>\n"
+      },
+      {
+        "title": "Create a Compatibility profile",
+        "html": "<p>In Shopify <strong>Settings → Metafields and metaobjects</strong>, create a merchant-owned metaobject definition named <strong>Compatibility profile</strong>, with type <strong><code>compatibility_profile</code></strong>. Use these exact field keys:</p>\n<div class=\"table-wrap\"><table>\n<thead>\n<tr>\n<th>Field name</th>\n<th>Field key</th>\n<th>Type</th>\n<th>Rule</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>Entry name</td>\n<td><code>entry_name</code></td>\n<td>Single line text</td>\n<td>Required; use as the display name in Shopify</td>\n</tr>\n<tr>\n<td>Requirements</td>\n<td><code>requirements</code></td>\n<td>List of single line text</td>\n<td>Optional; one condition per item</td>\n</tr>\n<tr>\n<td>Exclusions</td>\n<td><code>exclusions</code></td>\n<td>List of single line text</td>\n<td>Optional; one unsuitable application per item</td>\n</tr>\n<tr>\n<td>Application notes</td>\n<td><code>application_notes</code></td>\n<td>Multi-line text</td>\n<td>Optional; precise supported applications and limitations</td>\n</tr>\n<tr>\n<td>Reference URL</td>\n<td><code>reference_url</code></td>\n<td>URL</td>\n<td>Optional; manufacturer manual or compatibility reference</td>\n</tr>\n<tr>\n<td>Reference label</td>\n<td><code>reference_label</code></td>\n<td>Single line text</td>\n<td>Optional; describes the linked document</td>\n</tr>\n</tbody></table></div>\n<p>Enable storefront access. If Active/Draft is enabled, publish the entries you reference. Web-page publishing is unnecessary. Use verified information and an accurate reference label; the presence of a link does not mean Siftwell has verified it.</p>\n<p>Keep the lists short. The theme renders the first ten requirements and first ten exclusions, omitting blank items. Notes and list items are escaped plain text. Only HTTP(S) reference URLs become links.</p>\n"
+      },
+      {
+        "title": "Connect the profile to products and variants",
+        "html": "<ol>\n<li>Add a <strong>product metafield definition</strong> named Compatibility profile, namespace/key <strong><code>siftwell.compatibility</code></strong>. Choose a <strong>Metaobject reference</strong> to Compatibility profile, rather than a list.</li>\n<li>Add the same definition for <strong>variants</strong>, with the same namespace/key and reference type.</li>\n<li>Make both definitions accessible to the storefront where that setting is offered.</li>\n<li>Create a profile containing the product&#39;s requirements, then select it in the product metafield. Shared information must be accurate for every variant that inherits it.</li>\n<li>For any differing variant, create and select its complete profile. Include its applicable requirements, exclusions, notes and reference. An empty field in a variant profile stays empty; it does not inherit that field from the product profile.</li>\n</ol>\n<p>Installing the theme does not create definitions, profiles or product values. Existing suitable definitions can be reused through the mapping settings below.</p>\n"
+      },
+      {
+        "title": "Display it in the theme",
+        "html": "<p>In <strong>Theme settings → Compatibility &amp; requirements</strong>, enable <strong>Show compatibility guidance</strong>. Keep <strong>Compatibility metafield namespace</strong> as <code>siftwell</code> and <strong>Compatibility profile metafield key</strong> as <code>compatibility</code>, or match your existing definitions.</p>\n<p>Add the <strong>Compatibility &amp; requirements</strong> block to each relevant product template. The source&#39;s default template places it below the buying controls and specifications, keeping the option-to-purchase path together. Existing installed templates need the block added in the theme editor. It can be moved or removed without altering your data.</p>\n<p>Quick view uses the same mapping and selected-variant renderer, placed below the buying controls. The global switch controls both views. This first version does not add fit information to cards or comparison tables.</p>\n"
+      },
+      {
+        "title": "Inheritance and honest unknown states",
+        "html": "<ul>\n<li><strong>No variant profile:</strong> inherit the product profile as a complete unit.</li>\n<li><strong>Variant profile selected:</strong> replace the entire product profile. Do not carry across a missing exclusion or reference URL.</li>\n<li><strong>Empty or inaccessible selected profile:</strong> show <strong>Compatibility not confirmed</strong>. A draft/unavailable reference must not silently restore the product&#39;s requirements.</li>\n<li><strong>No such option combination:</strong> show no other variant&#39;s requirements. When compatibility guidance applies, show the unknown state.</li>\n<li><strong>No profile configured:</strong> hide the block by default. Enable <strong>Show an unknown state without a profile</strong> when missing compatibility information should be explicit throughout the catalog.</li>\n</ul>\n<p>To mark a particular variant as awaiting information, create an active profile containing only an Entry name and assign it to that variant. That deliberately replaces the shared profile with an unknown state. Clearing the variant&#39;s reference restores inheritance, so do not clear it to mean “not confirmed”.</p>\n<p>Populated profiles remind buyers to match the information to their vehicle or equipment and state that vehicle fit has not been checked. There is no automatic Compatible badge. A legacy Fit specification remains ordinary merchant-supplied text and does not override these rules.</p>\n"
+      },
+      {
+        "title": "Check the buying decision",
+        "html": "<p>Preview a product with different versions. Switch options on the product page and in quick view; confirm that the context, requirements, exclusions and reference all belong to the selected version. Open a direct variant URL without JavaScript. Test an empty profile and an inaccessible reference. Check a product without a profile and the global off switch.</p>\n<p>Ask a buyer to identify the required setup, an explicit exclusion and what they still need to confirm. Observe whether the reference helps them answer those questions. A working display does not prove fewer wrong orders or returns.</p>\n<p>Translate profile text through Shopify&#39;s supported translation tools, keeping the underlying field keys unchanged. Fixed labels and unknown-state text can be translated through the theme content editor.</p>\n"
+      },
+      {
+        "title": "Next: verified matching",
+        "html": "<p>Vehicle selection and verified fitment matching need suitable merchant-owned or licensed application data and a matching service. A saved vehicle, a supplied requirement or an AI recommendation does not establish fit. The current feature makes the known requirements and remaining uncertainty visible.</p>\n<p><a href=\"?page=specifications\">Set up variant specifications</a> · <a href=\"https://shopify.dev/docs/api/liquid/objects/metaobject\">Shopify metaobjects</a></p>\n"
       }
     ]
   },
@@ -524,6 +560,10 @@ window.SIFTWELL_DOCS = [
       {
         "title": "Before you update",
         "html": "<p>Keep a copy of your existing theme. Review the new version with your own products, content and apps before publishing. Follow the release notes and report reproducible problems through the project’s GitHub issues.</p>"
+      },
+      {
+        "title": "Compatibility requirements for the selected version",
+        "html": "<p>Add a native Compatibility profile to products and variants. Product pages and quick view show the selected version’s requirements, exclusions, application notes and reference. A variant replaces the complete shared profile; empty or inaccessible references show Compatibility not confirmed. Unconfigured products stay hidden by default, with an opt-in missing-information state.</p><p>This feature displays merchant information and does not verify vehicle fit. <a href=\"?page=compatibility\">Follow the setup guide →</a></p>"
       }
     ]
   },

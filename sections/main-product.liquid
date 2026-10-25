@@ -26,6 +26,7 @@
  {% when 'price' %}{% if variant %}{% assign price_target = selected_allocation | default: variant %}{% render 'price', target: price_target, unit: variant %}{% else %}<p>{{ 'products.unavailable' | t }}</p>{% endif %}<p class="product-availability{% unless variant.available %} is-unavailable{% endunless %}">{% if variant == nil %}{{ 'products.unavailable' | t }}{% elsif variant.available %}{{ 'products.available' | t }}{% else %}{{ 'products.sold_out' | t }}{% endif %}</p>{% if cart.taxes_included %}<p class="small-text">{{ 'products.tax_included' | t }}</p>{% endif %}{% if shop.shipping_policy.body != blank %}<a class="small-text" href="{{ shop.shipping_policy.url }}">{{ 'products.shipping_policy' | t }}</a>{% endif %}
  {% when 'description' %}{% if product.description != blank %}<details class="product-description-panel" open><summary>{{ 'products.details' | t }}{% render 'icon', name: 'chevron' %}</summary><div class="rte">{{ product.description }}</div></details>{% endif %}
  {% when 'specifications' %}{% render 'product-specifications', product: product %}
+ {% when 'compatibility' %}{% render 'product-compatibility', product: product %}
  {% when 'variant_picker' %}{% render 'variant-picker', product: product %}
  {% when 'quantity' %}<label class="sr-only" for="Quantity-{{ section.id }}">{{ 'products.quantity' | t }}</label><div class="product-quantity"><button type="button" data-product-quantity-step="-1" aria-label="{{ 'cart.decrease' | t: title: product.title | escape }}">{% render 'icon', name: 'minus' %}</button><input class="quantity-input" id="Quantity-{{ section.id }}" type="number" name="quantity" form="{{ form_id }}" value="{{ variant.quantity_rule.min | default: 1 }}" min="{{ variant.quantity_rule.min | default: 1 }}" step="{{ variant.quantity_rule.increment | default: 1 }}" {% if variant.quantity_rule.max != nil %}max="{{ variant.quantity_rule.max }}"{% endif %}>
  <button type="button" data-product-quantity-step="1" aria-label="{{ 'cart.increase' | t: title: product.title | escape }}">{% render 'icon', name: 'plus' %}</button></div>{% render 'quantity-rules', variant: variant %}
@@ -74,6 +75,11 @@
     {
       "type": "specifications",
       "name": "t:labels.product_specifications",
+      "limit": 1
+    },
+    {
+      "type": "compatibility",
+      "name": "t:labels.product_compatibility",
       "limit": 1
     },
     {

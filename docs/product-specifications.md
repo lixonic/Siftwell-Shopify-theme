@@ -96,4 +96,4 @@ If rows are missing, check storefront access, entry status, list type, exact fie
 
 Translate metaobject labels and values with Shopify's supported translation tools. Keep codes stable. Use consistent units and document uncertainty rather than entering a reassuring but unverified fit claim.
 
-[Shopify metafield definitions](https://help.shopify.com/en/manual/custom-data/metafields/metafield-definitions) · [Metaobjects in Liquid](https://shopify.dev/docs/api/liquid/objects/metaobject) · [Variant handling](https://shopify.dev/docs/storefronts/themes/product-merchandising/variants)
+[Add compatibility requirements and exclusions](product-compatibility.md) · [Shopify metafield definitions](https://help.shopify.com/en/manual/custom-data/metafields/metafield-definitions) · [Metaobjects in Liquid](https://shopify.dev/docs/api/liquid/objects/metaobject) · [Variant handling](https://shopify.dev/docs/storefronts/themes/product-merchandising/variants)

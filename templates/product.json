@@ -41,6 +41,10 @@
         "rating": {
           "type": "rating",
           "settings": {}
+        },
+        "compatibility": {
+          "type": "compatibility",
+          "settings": {}
         }
       },
       "block_order": [
@@ -51,6 +55,7 @@
         "quantity",
         "buy",
         "specifications",
+        "compatibility",
         "description",
         "pickup"
       ]

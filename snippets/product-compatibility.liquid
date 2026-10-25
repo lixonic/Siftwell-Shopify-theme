@@ -1,0 +1,81 @@
+{% doc %}
+  Displays merchant-supplied requirements for the selected variant.
+  @param {product} product - Product being inspected.
+  @param {string} [heading_tag] - Use h3 inside quick view; defaults to h2.
+{% enddoc %}
+{%- liquid
+  assign namespace = settings.compatibility_namespace | default: 'siftwell' | strip
+  assign key = settings.compatibility_key | default: 'compatibility' | strip
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_field = product.metafields[namespace][key]
+  assign variant_field = current_variant.metafields[namespace][key]
+  assign profile = nil
+  assign has_reference = false
+  if product_field.type != nil
+    assign has_reference = true
+    if product_field.type == 'metaobject_reference'
+      assign profile = product_field.value
+    endif
+  endif
+  if variant_field.type != nil
+    assign has_reference = true
+    assign profile = nil
+    if variant_field.type == 'metaobject_reference'
+      assign profile = variant_field.value
+    endif
+  endif
+  if current_variant == nil
+    assign profile = nil
+  endif
+  assign title_tag = 'h2'
+  if heading_tag == 'h3'
+    assign title_tag = 'h3'
+  endif
+  assign reference_url = ''
+  if profile.reference_url.type == 'url'
+    assign candidate_url = profile.reference_url.value | strip
+    assign https_prefix = candidate_url | slice: 0, 8 | downcase
+    assign http_prefix = candidate_url | slice: 0, 7 | downcase
+    if https_prefix == 'https://' or http_prefix == 'http://'
+      assign reference_url = candidate_url
+    endif
+  endif
+-%}
+{%- capture requirement_items -%}
+  {%- if profile.requirements.type == 'list.single_line_text_field' -%}
+    {%- for item in profile.requirements.value limit: 10 -%}
+      {%- assign text = item | strip -%}
+      {%- if text != blank -%}<li>{{ text | escape }}</li>{%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+{%- capture exclusion_items -%}
+  {%- if profile.exclusions.type == 'list.single_line_text_field' -%}
+    {%- for item in profile.exclusions.value limit: 10 -%}
+      {%- assign text = item | strip -%}
+      {%- if text != blank -%}<li>{{ text | escape }}</li>{%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+{%- assign application_notes = '' -%}
+{%- if profile.application_notes.type == 'multi_line_text_field' or profile.application_notes.type == 'single_line_text_field' -%}
+  {%- assign application_notes = profile.application_notes.value | strip -%}
+{%- endif -%}
+{%- if settings.enable_compatibility != false and product != blank -%}
+  {%- if has_reference or settings.compatibility_show_empty -%}
+    <div class="product-compatibility" data-product-compatibility{% if current_variant %} data-compatibility-variant="{{ current_variant.id }}"{% endif %}>
+      <{{ title_tag }} class="compatibility-heading">{{ 'products.compatibility.heading' | t }}</{{ title_tag }}>
+      {%- if product.has_only_default_variant == false and current_variant -%}<p class="compatibility-context">{{ 'products.compatibility.for_variant' | t }} <strong>{{ current_variant.title | escape }}</strong></p>{%- endif -%}
+      {%- if requirement_items == blank and exclusion_items == blank and application_notes == blank -%}
+        <p class="compatibility-status" data-compatibility-unknown>{{ 'products.compatibility.unknown' | t }}</p>
+        <p class="compatibility-note">{{ 'products.compatibility.unknown_help' | t }}</p>
+      {%- else -%}
+        {%- if application_notes != blank -%}<p class="compatibility-application">{{ application_notes | escape | newline_to_br }}</p>{%- endif -%}
+        {%- if requirement_items != blank -%}<div class="compatibility-facts"><p class="compatibility-label">{{ 'products.compatibility.requirements' | t }}</p><ul>{{ requirement_items }}</ul></div>{%- endif -%}
+        {%- if exclusion_items != blank -%}<div class="compatibility-facts"><p class="compatibility-label">{{ 'products.compatibility.exclusions' | t }}</p><ul>{{ exclusion_items }}</ul></div>{%- endif -%}
+        <p class="compatibility-note">{{ 'products.compatibility.review_help' | t }}</p>
+      {%- endif -%}
+      {%- if reference_url != blank -%}<a class="compatibility-reference" href="{{ reference_url | escape }}">{% if profile.reference_label.value != blank %}{{ profile.reference_label.value | escape }}{% else %}{{ 'products.compatibility.reference' | t }}{% endif %}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}

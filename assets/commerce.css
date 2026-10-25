@@ -102,3 +102,14 @@ body[data-preset] .sidebar-bottom{margin-top:auto}
 
 .specification-context{margin:0 0 8px;color:var(--muted);font-size:12px;line-height:1.5;overflow-wrap:anywhere}
 .specification-context strong{color:var(--ink);font-weight:600}
+
+.product-compatibility{clear:both;border-block-start:1px solid var(--line);padding-block-start:16px;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+.product-info .compatibility-heading{font:600 15px/1.4 var(--body-font);letter-spacing:0;margin:0 0 6px}
+.compatibility-context{margin:0 0 12px;color:var(--muted);font-size:12px}.compatibility-context strong{color:var(--ink)}
+.compatibility-application{margin:0 0 12px}.compatibility-status{font-weight:600;margin:8px 0}
+.compatibility-facts{margin-block:12px}.compatibility-label{font-weight:600;margin:0 0 4px}
+.compatibility-facts ul{padding-inline-start:18px;margin:0}.compatibility-facts li+li{margin-block-start:4px}
+.compatibility-note{color:var(--muted);font-size:12px;margin:12px 0 0}
+.compatibility-reference{display:inline-flex;align-items:center;gap:8px;min-height:44px;text-decoration:underline;text-underline-offset:4px}
+.compatibility-reference .icon{width:14px;height:14px;flex-shrink:0}
+.quick-compatibility:not(:empty){margin-block:20px}.quick-compatibility:empty{display:none}

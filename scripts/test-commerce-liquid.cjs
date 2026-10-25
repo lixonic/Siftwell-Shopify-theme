@@ -5,6 +5,7 @@ const path = require('node:path');
 const { Liquid } = require('liquidjs');
 const root = path.join(__dirname, '..');
 const engine = new Liquid({ root: path.join(root, 'snippets'), extname: '.liquid' });
+require('./liquid-doc.cjs')(engine);
 engine.registerFilter('t', (key, argument) => `${key}${argument ? ` ${argument[1]}` : ''}`);
 engine.registerFilter('money_without_trailing_zeros', value => `$${Number(value) / 100}`);
 engine.registerFilter('money', value => `$${Number(value) / 100}`);

@@ -9,6 +9,7 @@ const locale = JSON.parse(fs.readFileSync(path.join(root, 'locales/en.default.js
 const fixtureDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'siftwell-review-slot-'));
 fs.writeFileSync(path.join(fixtureDirectory, 'qa-review-app.liquid'), '<div data-review-app-fixture>Review app test block</div>');
 const engine = new Liquid({ root: [path.join(root, 'snippets'), fixtureDirectory], extname: '.liquid' });
+require('./liquid-doc.cjs')(engine);
 engine.registerFilter('t', (key, ...pairs) => {
   const args = Object.fromEntries(pairs.filter(Array.isArray));
   let value = key.split('.').reduce((item, part) => item?.[part], locale);

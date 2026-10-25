@@ -135,6 +135,13 @@
     "compare_related_alternatives": "Show comparison for related alternatives",
     "compare_related_alternatives_help": "Off by default. Enable only for related products that solve the same buying need. Requires global comparison. Complementary recommendations never show comparison. Selecting an item adds it to the existing comparison list; it does not automatically include the current product.",
     "spec_rows_key": "Specification rows metafield key",
-    "spec_rows_key_help": "List of Specification row metaobject references on products and variants. Each entry uses code, label and value fields. See the guide for setup and inheritance."
+    "spec_rows_key_help": "List of Specification row metaobject references on products and variants. Each entry uses code, label and value fields. See the guide for setup and inheritance.",
+    "product_compatibility": "Compatibility & requirements",
+    "compatibility_help": "Show merchant-supplied requirements, exclusions and a reference for the selected variant. This feature does not match vehicles or confirm fit. Add the Compatibility & requirements block to product templates.",
+    "enable_compatibility": "Show compatibility guidance",
+    "compatibility_show_empty": "Show an unknown state without a profile",
+    "compatibility_show_empty_help": "When off, products without a profile stay unchanged. Empty or inaccessible profile references still show Compatibility not confirmed.",
+    "compatibility_namespace": "Compatibility metafield namespace",
+    "compatibility_key": "Compatibility profile metafield key"
   }
 }

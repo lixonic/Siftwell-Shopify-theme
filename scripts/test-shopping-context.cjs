@@ -6,6 +6,7 @@ const { Liquid } = require('liquidjs');
 const root = path.join(__dirname, '..');
 const locale = JSON.parse(fs.readFileSync(path.join(root, 'locales/en.default.json'), 'utf8'));
 const engine = new Liquid({ root: path.join(root, 'snippets'), extname: '.liquid' });
+require('./liquid-doc.cjs')(engine);
 // Shopify escapes ordinary translations before output; model that to catch double escaping.
 const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 engine.registerFilter('t', key => escapeHtml(key.split('.').reduce((value, part) => value?.[part], locale) || key));

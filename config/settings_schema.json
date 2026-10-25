@@ -288,6 +288,40 @@
     ]
   },
   {
+    "name": "t:labels.product_compatibility",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "t:labels.compatibility_help"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_compatibility",
+        "label": "t:labels.enable_compatibility",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "compatibility_show_empty",
+        "label": "t:labels.compatibility_show_empty",
+        "info": "t:labels.compatibility_show_empty_help",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "compatibility_namespace",
+        "label": "t:labels.compatibility_namespace",
+        "default": "siftwell"
+      },
+      {
+        "type": "text",
+        "id": "compatibility_key",
+        "label": "t:labels.compatibility_key",
+        "default": "compatibility"
+      }
+    ]
+  },
+  {
     "name": "t:labels.social_media",
     "settings": [
       {

@@ -9,6 +9,7 @@ The hypothesis is that accurate information and clear next steps will help both 
 - **Compact mobile shopping introduction.** A short, editable shopping heading, native product search and a secondary finder/shop link replace the tall slogan and photograph on phones. The desktop composition stays available. Compact collection links bring the catalog closer.
 - **Recommendations with a clear purpose.** Recommendation cards no longer inherit comparison by default. Related recommendations can opt into comparison when they contain genuine alternatives; complementary recommendations keep comparison hidden. Merchants can give each section an accurate heading.
 - **Variant-aware specifications.** Editable product row lists, selected-variant overrides, explicit row suppression and legacy five-field support now share one renderer across product pages, quick view and comparison. Quick-view comparison retains the selected variant; catalog comparison uses shared product facts. [Merchant setup and worked example](docs/product-specifications.md).
+- **Compatibility & requirements.** Native product/variant profiles display requirements, exclusions, application notes and a reference. Variant profiles replace the complete shared profile; missing evidence stays explicit. This interface does not perform vehicle matching. [Setup guide](docs/product-compatibility.md).
 - **Existing foundations.** Native Shopify product/cart flows, quick view, optional three-product comparison, semantic server-rendered pages, Shopify product structured data and review-app insertion points.
 
 The first MIT beta still needs the fresh-install and essential shopping-path release gate. Source checks and individual demo checks do not establish every checkout, device, app or market configuration.
@@ -41,7 +42,7 @@ The display and inheritance feature is implemented. Next, test setup with real m
 
 ### Compatibility with explicit evidence
 
-Start with requirements, exclusions, applicability and unknown states. Add provider-backed vehicle/configuration matching where required. A saved vehicle is context, not evidence of fit. Do not treat separate year, make and model lists as valid combinations.
+Requirements, exclusions, application notes, references and unknown states are implemented in the compatibility block. Next, validate profile setup and buyer interpretation with real catalogs. Add provider-backed vehicle/configuration matching where required. A saved vehicle is context, not evidence of fit. Do not treat separate year, make and model lists as valid combinations.
 
 The theme supplies the interface and integration contract. Merchants supply owned or licensed fitment data; larger catalogs may need a dedicated index or app. ACES and PIES integrations must respect reference-data licensing. [Auto Care ACES](https://www.autocare.org/aces), [Auto Care PIES](https://www.autocare.org/pies).
 
