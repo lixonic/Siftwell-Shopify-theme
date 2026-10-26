@@ -4,6 +4,16 @@ Auto-parts buyers need to establish whether a part works with their vehicle or e
 
 The block presents supplied information. It does not select a vehicle, match year/make/model, verify a source or confirm fit. Specifications such as voltage alone do not establish compatibility.
 
+## Try the live preview
+
+Open the [Workshop Inflator demo at 12 V](https://siftwell-theme.myshopify.com/products/siftwell-specifications-demo?variant=67876548018405). If prompted, enter visitor password **`siftwell`**. This fictional product is sold out and labelled **not for sale**. All figures, prices and requirements are illustrative; the demo does not provide a verified vehicle match.
+
+1. Select **12 V**. This variant inherits the product profile: a 12 V DC supply and matching DC accessory connection are required, and a 24 V supply is excluded. The notes explain that voltage alone does not establish vehicle fit.
+2. Switch to **24 V**. Its intentionally empty variant profile replaces the product profile. **Compatibility not confirmed** appears, and the 12 V requirements, exclusion and reference disappear.
+3. Open the [demo in the catalog](https://siftwell-theme.myshopify.com/collections/all?sort_by=created-descending), then select its image to open quick view. Switch between 12 V and 24 V there too. The compatibility guidance should follow the selected version in both quick view and the product page.
+
+The empty 24 V profile demonstrates an honest unknown state. It does not establish that the product is compatible or incompatible with a particular vehicle or setup.
+
 ## Create a Compatibility profile
 
 In Shopify **Settings → Metafields and metaobjects**, create a merchant-owned metaobject definition named **Compatibility profile**, with type **`compatibility_profile`**. Use these exact field keys:
