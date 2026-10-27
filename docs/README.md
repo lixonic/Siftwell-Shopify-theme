@@ -13,7 +13,7 @@ Start with [Siftwell’s approach](design-philosophy.md), then build [one comple
 - [Read the current limitations](known-limitations.md) and [get community help](../SUPPORT.md).
 - [Read the roadmap](../ROADMAP.md): buyer needs, compatibility, complete-job shopping and catalog accuracy for assisted commerce.
 
-The searchable guide contains 20 articles covering branding, the home page, the finder, collections, product media, customer reviews, localization, performance, accessibility and common setup questions. Shopping assistance and coding-agent customization are explained as separate uses.
+The searchable guide contains 21 articles covering branding, the home page, the finder, collections, product media, compatibility requirements, customer reviews, localization, performance, accessibility and common setup questions. Shopping assistance and coding-agent customization are explained as separate uses.
 
 ## Preview the searchable guide
 

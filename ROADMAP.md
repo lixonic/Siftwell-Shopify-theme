@@ -1,6 +1,6 @@
 # Siftwell roadmap
 
-Updated 25 October 2026. Siftwell is an MIT-licensed theme for auto parts, accessories and tools. Priorities follow the buyer's decision: find the right item, establish what is known about fit, understand the differences and finish the job.
+Updated 27 October 2026. Siftwell is an MIT-licensed theme for auto parts, accessories and tools. Priorities follow the buyer's decision: find the right item, establish what is known about fit, understand the differences and finish the job.
 
 The hypothesis is that accurate information and clear next steps will help both shoppers and shopping assistants make better recommendations and purchase decisions. Confidence, conversion and return improvements remain hypotheses to test with real stores.
 
@@ -9,10 +9,16 @@ The hypothesis is that accurate information and clear next steps will help both 
 - **Compact mobile shopping introduction.** A short, editable shopping heading, native product search and a secondary finder/shop link replace the tall slogan and photograph on phones. The desktop composition stays available. Compact collection links bring the catalog closer.
 - **Recommendations with a clear purpose.** Recommendation cards no longer inherit comparison by default. Related recommendations can opt into comparison when they contain genuine alternatives; complementary recommendations keep comparison hidden. Merchants can give each section an accurate heading.
 - **Variant-aware specifications.** Editable product row lists, selected-variant overrides, explicit row suppression and legacy five-field support now share one renderer across product pages, quick view and comparison. Quick-view comparison retains the selected variant; catalog comparison uses shared product facts. [Merchant setup and worked example](docs/product-specifications.md).
-- **Compatibility & requirements.** Native product/variant profiles display requirements, exclusions, application notes and a reference. Variant profiles replace the complete shared profile; missing evidence stays explicit. This interface does not perform vehicle matching. [Setup guide](docs/product-compatibility.md).
+- **Compatibility & requirements.** Saved sets of product compatibility details use native product/variant profiles to display requirements, exclusions, application notes and a reference. Variant profiles replace the complete shared profile. Unconfigured products stay hidden by default; an assigned profile with no requirements, exclusions or notes shows Compatibility not confirmed. Empty requirements alone do not hide available notes or exclusions. This interface does not perform vehicle matching. [Setup guide and live walkthrough](docs/product-compatibility.md#try-the-live-preview).
 - **Existing foundations.** Native Shopify product/cart flows, quick view, optional three-product comparison, semantic server-rendered pages, Shopify product structured data and review-app insertion points.
 
 The first MIT beta still needs the fresh-install and essential shopping-path release gate. Source checks and individual demo checks do not establish every checkout, device, app or market configuration.
+
+## Continue one feature at a time
+
+The specifications and compatibility displays are implemented. Validate whether merchants can supply and maintain useful details before expanding those interfaces. The theme does not fill missing compatibility facts or infer fit from a product title, voltage or AI recommendation.
+
+The next feature candidate is **included parts and required extras**: help a buyer answer “What comes in the box, and what else do I need to finish this job?” Keep the first version focused on editable included items and clearly distinguished required versus optional extras. Treat linked extras as merchant-supplied suggestions, with their applicability still needing confirmation. Installation guidance, bundles, saved project lists and verified matching remain separate work. This candidate is planned, not implemented.
 
 ## Understand the buying situation
 
@@ -42,13 +48,21 @@ The display and inheritance feature is implemented. Next, test setup with real m
 
 ### Compatibility with explicit evidence
 
-Requirements, exclusions, application notes, references and unknown states are implemented in the compatibility block. Next, validate profile setup and buyer interpretation with real catalogs. Add provider-backed vehicle/configuration matching where required. A saved vehicle is context, not evidence of fit. Do not treat separate year, make and model lists as valid combinations.
+Requirements, exclusions, application notes, references and unknown states are implemented in the compatibility block and demonstrated with illustrative 12 V/24 V variants. Next, validate merchant setup and buyer interpretation with real catalogs:
+
+- Start with one product family. Check where verified requirements, exclusions, notes and references already exist, and how the merchant keeps them current. Evaluate mappings to existing suitable fields before asking for duplicate data entry.
+- Test setup with a sparsely populated catalog. No assigned profile means no block by default. An assigned but empty or inaccessible profile shows an unknown state; the catalog-wide missing-information setting remains opt-in. Leaving requirements blank alone still displays any supplied exclusions or notes. No storefront behaviour change is needed for an untouched catalog.
+- Ask buyers to identify the selected version's requirements, an exclusion and what still needs confirmation. Test whether they understand that an unknown state means information is missing, rather than a verified compatible or incompatible result.
+
+Add provider-backed vehicle/configuration matching only when the application data and service are suitable. A saved vehicle is context, not evidence of fit. Do not treat separate year, make and model lists as valid combinations.
 
 The theme supplies the interface and integration contract. Merchants supply owned or licensed fitment data; larger catalogs may need a dedicated index or app. ACES and PIES integrations must respect reference-data licensing. [Auto Care ACES](https://www.autocare.org/aces), [Auto Care PIES](https://www.autocare.org/pies).
 
 ### Complete-job information
 
-Add product blocks for included parts, required extras, installation requirements, manuals, warranty and returns. Use real fulfillment data or clearly qualified delivery estimates. Evaluate installation questions, incomplete-kit purchases and wrong-fit returns.
+Begin with the focused included-parts and required-extras candidate above. The hypothesis is that distinguishing what is supplied from what still needs buying can reduce uncertainty about completing a job. Test whether buyers can identify the box contents and any remaining requirements; do not assume fewer incomplete-kit purchases without evidence.
+
+Follow with installation requirements, manuals, warranty and returns as separate additions. Use real fulfillment data or clearly qualified delivery estimates. Evaluate installation questions, incomplete-kit purchases and wrong-fit returns.
 
 ### Saved decisions and project lists
 

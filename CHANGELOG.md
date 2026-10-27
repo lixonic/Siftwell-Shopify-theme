@@ -2,7 +2,8 @@
 
 ## 0.8.0-beta.1 — in preparation
 
-- Add editable compatibility profiles with variant-specific requirements, exclusions, notes and a reference on product pages and quick view. Replace whole profiles per variant; show unknown states for empty/inaccessible profiles. Keep unconfigured products hidden by default and provide an opt-in missing-information state.
+- Add editable compatibility profiles with variant-specific requirements, exclusions, notes and a reference on product pages and quick view. Replace whole profiles per variant; show an unknown state when the selected profile is inaccessible or its requirements, exclusions and notes are all empty. Keep unconfigured products hidden by default and provide an opt-in missing-information state. These details do not verify vehicle fit.
+- Document native compatibility setup and a live, non-purchasable 12 V/24 V walkthrough. Explain that a profile is a saved set of product compatibility details: leaving requirements blank still allows supplied exclusions or notes to appear. Record merchant data setup and buyer interpretation as validation work, with included parts and required extras as the next feature candidate.
 
 - Add editable specification-row metaobject lists, selected-variant overrides and explicit row suppression while preserving legacy field mappings. Retain exact variants in quick-view comparison, with dynamic comparison rows and shared facts for unselected catalog picks.
 

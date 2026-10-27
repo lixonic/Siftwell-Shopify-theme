@@ -2,7 +2,7 @@
 
 Auto-parts buyers need to establish whether a part works with their vehicle or equipment. Use **Compatibility & requirements** for merchant-supplied requirements, exclusions, application notes and a manufacturer reference. Keep concise facts visible beside the options and buying controls.
 
-The block presents supplied information. It does not select a vehicle, match year/make/model, verify a source or confirm fit. Specifications such as voltage alone do not establish compatibility.
+The block presents supplied information. It does not select a vehicle, match year/make/model, verify a source or confirm fit. Specifications such as voltage alone do not establish compatibility. A compatibility profile is a saved set of these details in Shopify that a merchant links to a product or variant.
 
 ## Try the live preview
 
@@ -53,9 +53,11 @@ Quick view uses the same mapping and selected-variant renderer, placed below the
 
 - **No variant profile:** inherit the product profile as a complete unit.
 - **Variant profile selected:** replace the entire product profile. Do not carry across a missing exclusion or reference URL.
-- **Empty or inaccessible selected profile:** show **Compatibility not confirmed**. A draft/unavailable reference must not silently restore the product's requirements.
+- **Selected profile with no requirements, exclusions or application notes, or an inaccessible profile:** show **Compatibility not confirmed**. A draft/unavailable reference must not silently restore the product's requirements.
 - **No such option combination:** show no other variant's requirements. When compatibility guidance applies, show the unknown state.
 - **No profile configured:** hide the block by default. Enable **Show an unknown state without a profile** when missing compatibility information should be explicit throughout the catalog.
+
+Leaving Requirements empty alone does not trigger the unknown state when exclusions or application notes are present; the theme shows the supplied details. A reference link alone can still appear, but does not remove the unknown state. Merchants who have not set up any compatibility details get no block by default.
 
 To mark a particular variant as awaiting information, create an active profile containing only an Entry name and assign it to that variant. That deliberately replaces the shared profile with an unknown state. Clearing the variant's reference restores inheritance, so do not clear it to mean “not confirmed”.
 
