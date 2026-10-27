@@ -72,13 +72,15 @@ Product references use Shopify's native product URLs. A link opens the product p
 
 ## Worked example
 
+Download the [worked inflator example (.xlsx)](downloads/Siftwell-inflator-worked-example.xlsx) and open **Assignments** and **Parts** to see shared contents and a complete 24 V replacement set, including removal of the shared example product link. Use the [blank template (.xlsx)](downloads/Siftwell-catalog-template.xlsx) for your own verified contents. This is an optional data-entry prototype; importing needs developer assistance. See the [spreadsheet workflow and limits](catalog-data.md#download-the-template-and-inflator-example).
+
 These fictional contents illustrate setup, not real product claims:
 
 | List | Shared workshop inflator set | Complete 24 V variant set |
 | --- | --- | --- |
 | Included items | `12 V inflator × 1`; `Hose × 1` | `24 V inflator × 1`; `Heavy-duty hose × 1` |
 | Required extras | `Suitable 12 V supply (not included)` | `Suitable 24 V supply (not included)` |
-| Optional extras | `Work gloves` | `Storage sleeve` |
+| Optional extras | Example tool-roll link; suitability unverified | Protective work gloves; supplied separately |
 
 Assign the shared set to the product and the complete 24 V set to its differing variant. Switching to 24 V replaces every list; the 12 V supply and any shared product links must disappear. If an item has a verified suitable product in your catalog, you can add its native product reference to the appropriate extras group. Include any quantity or setup constraints in clear text.
 
@@ -90,8 +92,8 @@ Ask a buyer to identify two included items, something required separately and an
 
 Translate saved text using Shopify's supported translation tools while preserving field keys. Translate fixed group labels through the theme content editor. Linked titles use the product's translated title where available.
 
-## Next: easier catalog setup
+## Optional spreadsheet setup
 
-A Google Sheets-compatible template and a tested CSV validation/import workflow are planned after this feature. The goal is to reuse supplier data, maintain shared details once and preview changes before updating Shopify. No spreadsheet sync or importer is included yet. Installation guides, bundles and verified matching remain separate work.
+The [spreadsheet workflow](catalog-data.md) provides the template, filled example and developer-assisted export, preview and import companion for these existing sets. It has an initial inflator-demo test. You can also maintain the sets directly in Shopify. A merchant-facing editor, automatic supplier parsing and live spreadsheet sync remain unimplemented. Installation guides, bundles and verified matching remain separate work.
 
 [Set up specifications](product-specifications.md) · [Explain compatibility](product-compatibility.md) · [Shopify metafields in Liquid](https://shopify.dev/docs/api/liquid/objects/metafield) · [Shopify metaobjects](https://shopify.dev/docs/api/liquid/objects/metaobject)

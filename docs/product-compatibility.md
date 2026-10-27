@@ -16,6 +16,8 @@ The empty 24 V profile demonstrates an honest unknown state. It does not establi
 
 ## Create a Compatibility profile
 
+For data-entry examples, download the [worked inflator example (.xlsx)](downloads/Siftwell-inflator-worked-example.xlsx) and open **Assignments** and **Compatibility**. It shows a shared 12 V profile and an entry-name-only 24 V profile for the unknown state. Use the [blank template (.xlsx)](downloads/Siftwell-catalog-template.xlsx) for your own verified facts. The spreadsheet is optional, and importing still requires developer assistance. Read the [workflow and limits](catalog-data.md#download-the-template-and-inflator-example) before using it.
+
 In Shopify **Settings → Metafields and metaobjects**, create a merchant-owned metaobject definition named **Compatibility profile**, with type **`compatibility_profile`**. Use these exact field keys:
 
 | Field name | Field key | Type | Rule |

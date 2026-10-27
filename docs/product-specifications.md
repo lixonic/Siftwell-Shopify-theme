@@ -58,6 +58,8 @@ Installing the theme does not create definitions, entries or values. Prefer exis
 
 ## Worked example: 12 V and 24 V versions
 
+For a spreadsheet version, download the [worked inflator example (.xlsx)](downloads/Siftwell-inflator-worked-example.xlsx) and open **Assignments** and **Specifications**. The shared rows and 24 V overrides below use the same rules. The [blank template (.xlsx)](downloads/Siftwell-catalog-template.xlsx) is for your own data. This optional prototype requires developer assistance to import; see the [spreadsheet workflow](catalog-data.md#download-the-template-and-inflator-example). It covers flexible specification rows, not the legacy five fields.
+
 Create separate row entries, then select them in the appropriate product or variant list. A product list establishes order and shared facts:
 
 | Product row code | Label | Value |

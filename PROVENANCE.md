@@ -14,3 +14,5 @@ The audit compared all distributed theme text files with Skeleton revision `a4f3
 The review covers the project sources and recorded provenance; contributors remain responsible for the rights to code and assets they contribute. Do not copy code from another Shopify theme or remove a third-party notice to make a contribution appear original.
 
 The MIT license applies to project-owned code and documentation in this repository. External services and merchant-supplied assets are described in [NOTICES.md](NOTICES.md).
+
+The catalog-data companion and the two `docs/downloads/Siftwell-*.xlsx` workbooks are original project work under the same MIT license. The blank catalog template contains project-authored headers and guidance. The inflator worked example contains fictional, project-authored facts, handles, SKUs and set keys to illustrate the documented inheritance rules. Neither workbook contains a private store export, live store identifiers, external artwork or embedded code. They are supplied separately from the installable theme.
