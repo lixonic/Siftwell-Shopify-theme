@@ -1,0 +1,14 @@
+{%- comment -%}A comma-prefixed PropertyValue; the enclosing array removes its first comma.{%- endcomment -%}
+{%- if name != blank and value != blank -%}
+  {%- liquid
+    assign json_name = name
+    assign json_value = value
+    if html_name
+      assign json_name = name | replace: '&lt;', '<' | replace: '&gt;', '>' | replace: '&quot;', '"' | replace: '&#39;', "'" | replace: '&amp;', '&'
+    endif
+    if html_value
+      assign json_value = value | replace: '&lt;', '<' | replace: '&gt;', '>' | replace: '&quot;', '"' | replace: '&#39;', "'" | replace: '&amp;', '&'
+    endif
+  -%}
+,{"@type":"PropertyValue","propertyID":{{ property_id | json }},"name":{{ json_name | json }},"value":{{ json_value | json }}{% if reference_url != blank %},"url":{{ reference_url | json }}{% endif %}}
+{%- endif -%}

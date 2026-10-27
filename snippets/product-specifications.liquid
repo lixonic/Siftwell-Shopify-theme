@@ -27,7 +27,7 @@
         -%}
         {%- unless code == blank or base_codes contains token -%}
           {%- assign base_codes = base_codes | append: code | append: '|' -%}
-          {%- render 'specification-row', code: code, label: row.label.value, value: row.value.value, variant_rows: variant_rows -%}
+          {%- render 'specification-row', code: code, label: row.label.value, value: row.value.value, variant_rows: variant_rows, output: output -%}
         {%- endunless -%}
       {%- endfor -%}
     {%- else -%}
@@ -52,7 +52,7 @@
           endif
           assign base_codes = base_codes | append: field | append: '|'
         -%}
-        {%- render 'specification-row', code: field, label: label, value: value, variant_rows: variant_rows -%}
+        {%- render 'specification-row', code: field, label: label, value: value, variant_rows: variant_rows, output: output, html_label: true -%}
       {%- endfor -%}
     {%- endif -%}
     {%- for row in variant_rows limit: 20 -%}
@@ -62,14 +62,18 @@
       -%}
       {%- unless code == blank or base_codes contains token -%}
         {%- assign base_codes = base_codes | append: code | append: '|' -%}
-        {%- render 'specification-row', code: code, label: row.label.value, value: row.value.value -%}
+        {%- render 'specification-row', code: code, label: row.label.value, value: row.value.value, output: output -%}
       {%- endunless -%}
     {%- endfor -%}
   {%- endif -%}
 {%- endcapture -%}
 {%- if rows != blank -%}
+  {%- if output == 'json_ld' -%}
+    {{- rows -}}
+  {%- else -%}
   <div class="specification-group" data-product-specifications{% unless product_level %} data-specification-variant="{{ current_variant.id }}"{% endunless %}>
     {%- if product_level != true and product.has_only_default_variant == false and current_variant -%}<p class="specification-context">{{ 'products.specifications_for' | t }} <strong>{{ current_variant.title | escape }}</strong></p>{%- endif -%}
     <dl class="product-specifications">{{ rows }}</dl>
   </div>
+  {%- endif -%}
 {%- endif -%}

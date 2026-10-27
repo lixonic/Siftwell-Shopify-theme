@@ -1,0 +1,32 @@
+{%- comment -%}
+  Extend the native Product node for the selected variant, without rewriting
+  Shopify's ProductGroup, offers or identifiers. Only describe displayed blocks.
+  The matching-ID guard omits the extension if Shopify changes its node IDs.
+{%- endcomment -%}
+{%- if product != blank and product.selected_or_first_available_variant -%}
+  {%- capture properties -%}
+    {%- if include_specifications -%}{%- render 'product-specifications', product: product, output: 'json_ld' -%}{%- endif -%}
+    {%- if include_compatibility -%}{%- render 'product-compatibility', product: product, output: 'json_ld' -%}{%- endif -%}
+  {%- endcapture -%}
+  {%- assign properties = properties | strip -%}
+  {%- if properties != blank -%}
+    {%- capture escaped_slash -%}\/{%- endcapture -%}
+    {%- liquid
+      assign native_data = product | structured_data
+      assign native_identifiers = native_data | replace: escaped_slash, '/'
+      assign node_id = product.url | append: '#product'
+      if native_data contains '"hasVariant"'
+        assign node_id = product.url | append: '?variant=' | append: product.selected_or_first_available_variant.id | append: '#variant'
+      endif
+    -%}
+    {%- if native_identifiers contains node_id -%}
+      {%- capture escaped_less_than -%}\u003c{%- endcapture -%}
+      {%- capture escaped_greater_than -%}\u003e{%- endcapture -%}
+      {%- capture escaped_ampersand -%}\u0026{%- endcapture -%}
+      {%- capture facts_json -%}
+        {"@context":"http://schema.org/","@id":{{ node_id | json }},"additionalProperty":[{{ properties | remove_first: ',' }}]}
+      {%- endcapture -%}
+      <script type="application/ld+json" data-product-facts-jsonld>{{ facts_json | strip | replace: '<', escaped_less_than | replace: '>', escaped_greater_than | replace: '&', escaped_ampersand }}</script>
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}

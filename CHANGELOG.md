@@ -2,6 +2,8 @@
 
 ## 0.8.0-beta.1 — in preparation
 
+- Add server-rendered JSON-LD properties for the selected variant's displayed specifications and compatibility guidance. Reuse the visible resolvers, preserve suppression and unknown states, and extend the existing native Product identity without replacing Shopify's product group or offers. Refresh the extension with the product section when variants change; removed or disabled blocks do not expose hidden facts.
+
 - Document a Sidekick-assisted route for preparing supplier facts, reviewing native specification/compatibility/parts entries, selecting product and variant references and reusing preparation instructions as a Sidekick skill. Link it from all three feature guides and retain the optional XLSX downloads. This is guidance based on Shopify's documented capabilities, not a newly verified Sidekick integration.
 - Add optional included-parts, required-extras and optional-extras lists to product pages and quick view. Use one reusable native parts set with optional product links and complete variant replacement. Hide empty groups and unconfigured blocks without spacing; linked extras do not establish compatibility or form a bundle. Document setup and keep the downloadable theme ZIP aligned with source.
 - Document native parts-set setup and an illustrative, non-purchasable 12 V/24 V walkthrough showing shared details, complete version replacement and optional catalog-link navigation.

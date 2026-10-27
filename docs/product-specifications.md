@@ -94,6 +94,12 @@ A populated product row list replaces the five legacy slots for that product. Cl
 - Shared rows keep product order; new variant rows append in variant-list order. The first 20 entries of each list are processed. Keep codes unique: the first occurrence wins. Empty labels/values hide standalone rows; a matching blank variant value suppresses the shared row.
 - Comparison includes the union of available row codes, with a dash for a missing value. With no specifications it retains the vendor/type fallback. Keep labels, meanings and units consistent across comparable items.
 
+## Server-rendered facts and JSON-LD
+
+A direct product URL with `?variant=ID` includes that version's resolved specifications in the initial HTML. JavaScript switching requests another server-rendered product section. The product page also supplies the displayed specifications as JSON-LD [PropertyValue entries](https://schema.org/PropertyValue), attached to the selected variant's existing Shopify Product identity. The same resolver applies inherited labels, overrides, suppressed rows, ordering and limits in both formats.
+
+Only facts from a Product specifications block present on that product template are included. Shopify's native product group, variant identifiers, offers, prices and availability remain intact. The extra JSON-LD describes the selected version, not every version's custom facts at once. Use exact variant links when sharing a recommendation. Additional structured facts do not guarantee indexing, a rich result or use by an assistant.
+
 ## Check your setup
 
 Preview a product with two materially different variants. Change options on the product page and in quick view; confirm the caption and facts change together. Open a direct variant URL. Compare both variants and check names, values and links. Check a product with no custom rows to confirm the old fields remain usable.

@@ -69,6 +69,12 @@ To mark a particular variant as awaiting information, create an active profile c
 
 Populated profiles remind buyers to match the information to their vehicle or equipment and state that vehicle fit has not been checked. There is no automatic Compatible badge. A legacy Fit specification remains ordinary merchant-supplied text and does not override these rules.
 
+## Server-rendered facts and JSON-LD
+
+Compatibility requirements, exclusions, notes, the reference and any **Compatibility not confirmed** state are present in the initial HTML for the requested variant URL. On product pages with this block enabled, the same resolved information is also included as JSON-LD PropertyValue entries on that selected variant's existing Shopify Product identity. JavaScript variant switching refreshes this extra markup with the product section.
+
+An empty or inaccessible variant profile keeps the unknown state in both formats. It does not restore the product's requirements. The merchant's entry name stays private, and the notice that vehicle fit has not been checked remains explicit. Removing the block or turning off compatibility guidance omits these extra properties. These are supplied requirements and uncertainty, not a structured claim of verified fit. [Schema.org additional properties](https://schema.org/additionalProperty).
+
 ## Check the buying decision
 
 Preview a product with different versions. Switch options on the product page and in quick view; confirm that the context, requirements, exclusions and reference all belong to the selected version. Open a direct variant URL without JavaScript. Test an empty profile and an inaccessible reference. Check a product without a profile and the global off switch.

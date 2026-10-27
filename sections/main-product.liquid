@@ -6,6 +6,16 @@
   assign selected_allocation = variant.selling_plan_allocations.first
  endif
  assign quantity_blocks = section.blocks | where: 'type', 'quantity'
+ assign specification_blocks = section.blocks | where: 'type', 'specifications'
+ assign compatibility_blocks = section.blocks | where: 'type', 'compatibility'
+ assign include_specifications = false
+ assign include_compatibility = false
+ if specification_blocks.size > 0
+  assign include_specifications = true
+ endif
+ if compatibility_blocks.size > 0
+  assign include_compatibility = true
+ endif
  assign has_quantity_input = false
  if quantity_blocks.size > 0
   assign has_quantity_input = true
@@ -37,6 +47,7 @@
  {% when 'custom_liquid' %}{{ block.settings.custom_liquid }}
  {% endcase %}</div>{% endfor %}
  </div>
+ {% render 'product-facts-jsonld', product: product, include_specifications: include_specifications, include_compatibility: include_compatibility %}
 </div>
 {% schema %}
 {

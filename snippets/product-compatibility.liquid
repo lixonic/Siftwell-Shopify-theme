@@ -2,6 +2,7 @@
   Displays merchant-supplied requirements for the selected variant.
   @param {product} product - Product being inspected.
   @param {string} [heading_tag] - Use h3 inside quick view; defaults to h2.
+  @param {string} [output] - Use json_ld for comma-prefixed PropertyValue records.
 {% enddoc %}
 {%- liquid
   assign namespace = settings.compatibility_namespace | default: 'siftwell' | strip
@@ -45,7 +46,12 @@
   {%- if profile.requirements.type == 'list.single_line_text_field' -%}
     {%- for item in profile.requirements.value limit: 10 -%}
       {%- assign text = item | strip -%}
-      {%- if text != blank -%}<li>{{ text | escape }}</li>{%- endif -%}
+      {%- if text != blank -%}
+        {%- if output == 'json_ld' -%}
+          {%- assign name = 'products.compatibility.requirements' | t -%}
+          {%- render 'product-property-json', property_id: 'siftwell.compatibility.requirement', name: name, value: text, html_name: true -%}
+        {%- else -%}<li>{{ text | escape }}</li>{%- endif -%}
+      {%- endif -%}
     {%- endfor -%}
   {%- endif -%}
 {%- endcapture -%}
@@ -53,7 +59,12 @@
   {%- if profile.exclusions.type == 'list.single_line_text_field' -%}
     {%- for item in profile.exclusions.value limit: 10 -%}
       {%- assign text = item | strip -%}
-      {%- if text != blank -%}<li>{{ text | escape }}</li>{%- endif -%}
+      {%- if text != blank -%}
+        {%- if output == 'json_ld' -%}
+          {%- assign name = 'products.compatibility.exclusions' | t -%}
+          {%- render 'product-property-json', property_id: 'siftwell.compatibility.exclusion', name: name, value: text, html_name: true -%}
+        {%- else -%}<li>{{ text | escape }}</li>{%- endif -%}
+      {%- endif -%}
     {%- endfor -%}
   {%- endif -%}
 {%- endcapture -%}
@@ -63,6 +74,25 @@
 {%- endif -%}
 {%- if settings.enable_compatibility != false and product != blank -%}
   {%- if has_reference or settings.compatibility_show_empty -%}
+    {%- if output == 'json_ld' -%}
+      {%- assign heading = 'products.compatibility.heading' | t -%}
+      {%- if requirement_items == blank and exclusion_items == blank and application_notes == blank -%}
+        {%- assign status = 'products.compatibility.unknown' | t -%}
+        {%- assign notice = 'products.compatibility.unknown_help' | t -%}
+        {%- render 'product-property-json', property_id: 'siftwell.compatibility.status', name: heading, value: status, html_name: true, html_value: true -%}
+      {%- else -%}
+        {%- render 'product-property-json', property_id: 'siftwell.compatibility.notes', name: heading, value: application_notes, html_name: true -%}
+        {{- requirement_items -}}{{- exclusion_items -}}
+        {%- assign notice = 'products.compatibility.review_help' | t -%}
+      {%- endif -%}
+      {%- render 'product-property-json', property_id: 'siftwell.compatibility.notice', name: heading, value: notice, html_name: true, html_value: true -%}
+      {%- if reference_url != blank -%}
+        {%- assign reference_name = profile.reference_label.value -%}
+        {%- assign translated_reference_name = false -%}
+        {%- if reference_name == blank -%}{%- assign reference_name = 'products.compatibility.reference' | t -%}{%- assign translated_reference_name = true -%}{%- endif -%}
+        {%- render 'product-property-json', property_id: 'siftwell.compatibility.reference', name: reference_name, value: reference_url, reference_url: reference_url, html_name: translated_reference_name -%}
+      {%- endif -%}
+    {%- else -%}
     <div class="product-compatibility" data-product-compatibility{% if current_variant %} data-compatibility-variant="{{ current_variant.id }}"{% endif %}>
       <{{ title_tag }} class="compatibility-heading">{{ 'products.compatibility.heading' | t }}</{{ title_tag }}>
       {%- if product.has_only_default_variant == false and current_variant -%}<p class="compatibility-context">{{ 'products.compatibility.for_variant' | t }} <strong>{{ current_variant.title | escape }}</strong></p>{%- endif -%}
@@ -77,5 +107,6 @@
       {%- endif -%}
       {%- if reference_url != blank -%}<a class="compatibility-reference" href="{{ reference_url | escape }}">{% if profile.reference_label.value != blank %}{{ profile.reference_label.value | escape }}{% else %}{{ 'products.compatibility.reference' | t }}{% endif %}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
     </div>
+    {%- endif -%}
   {%- endif -%}
 {%- endif -%}

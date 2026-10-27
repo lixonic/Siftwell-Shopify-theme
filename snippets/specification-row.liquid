@@ -7,6 +7,7 @@
       assign override_label = override.label.value | strip
       if override_label != blank
         assign row_label = override_label
+        assign html_label = false
       endif
       assign row_value = override.value.value | strip
       break
@@ -14,5 +15,10 @@
   endfor
 -%}
 {%- if code != blank and row_label != blank and row_value != blank -%}
+  {%- if output == 'json_ld' -%}
+    {%- assign property_id = 'siftwell.specification.' | append: code -%}
+    {%- render 'product-property-json', property_id: property_id, name: row_label, value: row_value, html_name: html_label -%}
+  {%- else -%}
   <div data-specification="{{ code | escape }}"><dt>{{ row_label | escape_once }}</dt><dd>{{ row_value | escape_once }}</dd></div>
+  {%- endif -%}
 {%- endif -%}
