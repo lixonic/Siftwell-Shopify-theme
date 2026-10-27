@@ -18,6 +18,8 @@ Compatibility guidance presents requirements, exclusions and a reference for the
 
 Keep comparison optional. Its rail appears when products are selected, and the global setting can disable the feature. Avoid adding a permanent comparison panel to an otherwise quiet catalog.
 
+Box contents and extras answer a separate question: what is supplied, and what must the buyer source separately? Keep included items, required extras and optional additions visibly distinct. Use one reusable saved set, simple quantity text and optional native product links. A differing variant replaces the entire set. Empty groups and unconfigured products stay quiet without leaving a gap. A linked extra is merchant-supplied guidance, with suitability still needing confirmation; it is not a bundle or a verified match.
+
 Recommendation controls follow the buying task. Mixed discovery and complementary recommendations do not need a compare checkbox. Related recommendations can opt in when the products are meaningful alternatives. A shared attribute such as weight does not make unrelated products substitutes.
 
 ## Type and color have roles

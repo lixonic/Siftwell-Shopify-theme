@@ -113,3 +113,10 @@ body[data-preset] .sidebar-bottom{margin-top:auto}
 .compatibility-reference{display:inline-flex;align-items:center;gap:8px;min-height:44px;text-decoration:underline;text-underline-offset:4px}
 .compatibility-reference .icon{width:14px;height:14px;flex-shrink:0}
 .quick-compatibility:not(:empty){margin-block:20px}.quick-compatibility:empty{display:none}
+.product-parts{clear:both;border-block-start:1px solid var(--line);padding-block-start:16px;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+.product-info .parts-heading{font:600 15px/1.4 var(--body-font);letter-spacing:0;margin:0 0 6px}
+.parts-context{margin:0 0 12px;color:var(--muted);font-size:12px}.parts-context strong{color:var(--ink)}
+.parts-group{margin-block:12px}.product-info .parts-label{font:600 13px/1.6 var(--body-font);letter-spacing:0;margin:0 0 4px}
+.parts-group ul{padding-inline-start:18px;margin:0}.parts-group li+li{margin-block-start:4px}
+.parts-product a{display:inline-block;min-height:44px;padding-block:8px;text-decoration:underline;text-underline-offset:4px}
+.parts-note{color:var(--muted);font-size:12px;margin:12px 0 0}.quick-parts{margin-block:20px}

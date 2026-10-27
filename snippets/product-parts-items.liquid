@@ -1,0 +1,23 @@
+{% doc %}
+  Renders one merchant-supplied contents or extras list without empty items.
+  @param {metafield} [items] - List of plain-text items, with quantities in the text.
+  @param {metafield} [linked_products] - Optional list of native product references.
+  @param {product} product - Product being inspected; never link it as its own extra.
+  @param {string} [excluded_ids] - Delimited product IDs already listed as required.
+{% enddoc %}
+{%- if items.type == 'list.single_line_text_field' -%}
+  {%- for item in items.value limit: 10 -%}
+    {%- assign text = item | strip -%}
+    {%- if text != blank -%}<li>{{ text | escape }}</li>{%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+{%- if linked_products.type == 'list.product_reference' -%}
+  {%- assign seen_ids = '|' -%}
+  {%- for extra in linked_products.value limit: 10 -%}
+    {%- assign token = '|' | append: extra.id | append: '|' -%}
+    {%- unless extra.id == blank or extra.id == product.id or extra.url == blank or extra.title == blank or seen_ids contains token or excluded_ids contains token -%}
+      {%- assign seen_ids = seen_ids | append: extra.id | append: '|' -%}
+      <li class="parts-product"><a href="{{ extra.url | escape }}">{{ extra.title | escape }}</a></li>
+    {%- endunless -%}
+  {%- endfor -%}
+{%- endif -%}

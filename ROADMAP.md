@@ -10,15 +10,18 @@ The hypothesis is that accurate information and clear next steps will help both 
 - **Recommendations with a clear purpose.** Recommendation cards no longer inherit comparison by default. Related recommendations can opt into comparison when they contain genuine alternatives; complementary recommendations keep comparison hidden. Merchants can give each section an accurate heading.
 - **Variant-aware specifications.** Editable product row lists, selected-variant overrides, explicit row suppression and legacy five-field support now share one renderer across product pages, quick view and comparison. Quick-view comparison retains the selected variant; catalog comparison uses shared product facts. [Merchant setup and worked example](docs/product-specifications.md).
 - **Compatibility & requirements.** Saved sets of product compatibility details use native product/variant profiles to display requirements, exclusions, application notes and a reference. Variant profiles replace the complete shared profile. Unconfigured products stay hidden by default; an assigned profile with no requirements, exclusions or notes shows Compatibility not confirmed. Empty requirements alone do not hide available notes or exclusions. This interface does not perform vehicle matching. [Setup guide and live walkthrough](docs/product-compatibility.md#try-the-live-preview).
+- **Included parts and required extras.** One reusable saved set separates box contents, required extras and optional additions on product pages and in quick view. Native product links are optional; a differing variant replaces the entire set. Empty groups and unconfigured products leave no block or spacing. The merchant supplies applicability; these links do not verify compatibility or create bundles. [Setup guide and live walkthrough](docs/product-parts.md#try-the-live-preview).
 - **Existing foundations.** Native Shopify product/cart flows, quick view, optional three-product comparison, semantic server-rendered pages, Shopify product structured data and review-app insertion points.
 
 The first MIT beta still needs the fresh-install and essential shopping-path release gate. Source checks and individual demo checks do not establish every checkout, device, app or market configuration.
 
 ## Continue one feature at a time
 
-The specifications and compatibility displays are implemented. Validate whether merchants can supply and maintain useful details before expanding those interfaces. The theme does not fill missing compatibility facts or infer fit from a product title, voltage or AI recommendation.
+Specifications, compatibility guidance and included parts with required/optional extras are implemented in the current source. Validate whether merchants can supply and maintain useful details before expanding those interfaces. The theme does not fill missing compatibility facts or infer fit from a product title, voltage or AI recommendation.
 
-The next feature candidate is **included parts and required extras**: help a buyer answer “What comes in the box, and what else do I need to finish this job?” Keep the first version focused on editable included items and clearly distinguished required versus optional extras. Treat linked extras as merchant-supplied suggestions, with their applicability still needing confirmation. Installation guidance, bundles, saved project lists and verified matching remain separate work. This candidate is planned, not implemented.
+The next focused feature is **easier catalog data setup**: a Google Sheets-compatible template and a tested CSV validation/import workflow for the existing features. Start with one real product family, reuse existing supplier columns, maintain shared details once and preview changes before updating Shopify. Evaluate Shopify's existing bulk editor before building a separate editor. A template alone is not a completed import path; native product CSVs do not cover variant metafields or the whole metaobject-entry workflow. Spreadsheet sync and an importer are planned, not implemented. [Shopify CSV capabilities](https://help.shopify.com/en/manual/products/import-export/using-csv), [native metafield bulk editing](https://help.shopify.com/en/manual/custom-data/metafields/bulk-edit-metafields).
+
+Test whether buyers can identify box contents and remaining requirements, and whether merchants can prepare accurate data with less effort. Installation guidance, bundles, saved project lists and verified matching remain separate work.
 
 ## Understand the buying situation
 
@@ -60,7 +63,7 @@ The theme supplies the interface and integration contract. Merchants supply owne
 
 ### Complete-job information
 
-Begin with the focused included-parts and required-extras candidate above. The hypothesis is that distinguishing what is supplied from what still needs buying can reduce uncertainty about completing a job. Test whether buyers can identify the box contents and any remaining requirements; do not assume fewer incomplete-kit purchases without evidence.
+Included-parts and required/optional-extras displays are implemented. The hypothesis is that distinguishing what is supplied from what still needs buying can reduce uncertainty about completing a job. Test whether buyers can identify the box contents and any remaining requirements; do not assume fewer incomplete-kit purchases without evidence. Reduce setup effort through the spreadsheet/import follow-up before expanding the data model.
 
 Follow with installation requirements, manuals, warranty and returns as separate additions. Use real fulfillment data or clearly qualified delivery estimates. Evaluate installation questions, incomplete-kit purchases and wrong-fit returns.
 

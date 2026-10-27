@@ -1,0 +1,50 @@
+{% doc %}
+  Displays the selected version's box contents and separately supplied extras.
+  @param {product} product - Product being inspected.
+  @param {string} [heading_tag] - Use h3 inside quick view; defaults to h2.
+{% enddoc %}
+{%- liquid
+  assign namespace = settings.parts_namespace | default: 'siftwell' | strip
+  assign key = settings.parts_key | default: 'parts' | strip
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_field = product.metafields[namespace][key]
+  assign variant_field = current_variant.metafields[namespace][key]
+  assign details = nil
+  if product_field.type == 'metaobject_reference'
+    assign details = product_field.value
+  endif
+  if variant_field.type != nil
+    assign details = nil
+    if variant_field.type == 'metaobject_reference'
+      assign details = variant_field.value
+    endif
+  endif
+  assign title_tag = 'h2'
+  assign group_tag = 'h3'
+  if heading_tag == 'h3'
+    assign title_tag = 'h3'
+    assign group_tag = 'h4'
+  endif
+-%}
+{%- if settings.enable_parts != false and product != blank and current_variant and details != blank -%}
+  {%- capture included -%}{%- render 'product-parts-items', items: details.included_items, product: product -%}{%- endcapture -%}
+  {%- capture required -%}{%- render 'product-parts-items', items: details.required_extras, linked_products: details.required_products, product: product -%}{%- endcapture -%}
+  {%- capture required_ids -%}
+    |{%- if details.required_products.type == 'list.product_reference' -%}
+      {%- for extra in details.required_products.value limit: 10 -%}
+        {%- if extra.id != blank and extra.id != product.id and extra.url != blank and extra.title != blank -%}{{ extra.id }}|{%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endcapture -%}
+  {%- capture optional -%}{%- render 'product-parts-items', items: details.optional_extras, linked_products: details.optional_products, product: product, excluded_ids: required_ids -%}{%- endcapture -%}
+  {%- if included != blank or required != blank or optional != blank -%}
+    <div class="product-parts" data-product-parts data-parts-variant="{{ current_variant.id }}">
+      <{{ title_tag }} class="parts-heading">{{ 'products.parts.heading' | t }}</{{ title_tag }}>
+      {%- if product.has_only_default_variant == false -%}<p class="parts-context">{{ 'products.parts.for_variant' | t }} <strong>{{ current_variant.title | escape }}</strong></p>{%- endif -%}
+      {%- if included != blank -%}<div class="parts-group" data-parts-included><{{ group_tag }} class="parts-label">{{ 'products.parts.included' | t }}</{{ group_tag }}><ul>{{ included }}</ul></div>{%- endif -%}
+      {%- if required != blank -%}<div class="parts-group" data-parts-required><{{ group_tag }} class="parts-label">{{ 'products.parts.required' | t }}</{{ group_tag }}><ul>{{ required }}</ul></div>{%- endif -%}
+      {%- if optional != blank -%}<div class="parts-group" data-parts-optional><{{ group_tag }} class="parts-label">{{ 'products.parts.optional' | t }}</{{ group_tag }}><ul>{{ optional }}</ul></div>{%- endif -%}
+      {%- if required != blank or optional != blank -%}<p class="parts-note">{{ 'products.parts.extras_help' | t }}</p>{%- endif -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}

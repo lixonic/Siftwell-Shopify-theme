@@ -142,6 +142,11 @@
     "compatibility_show_empty": "Show an unknown state without a profile",
     "compatibility_show_empty_help": "When off, products without a profile stay unchanged. Empty or inaccessible profile references still show Compatibility not confirmed.",
     "compatibility_namespace": "Compatibility metafield namespace",
-    "compatibility_key": "Compatibility profile metafield key"
+    "compatibility_key": "Compatibility profile metafield key",
+    "product_parts": "Included parts & extras",
+    "parts_help": "Show optional box contents, required extras and optional extras from one reusable saved set. Empty sets stay hidden. Add the Included parts & extras block to product templates. Linked extras do not confirm compatibility.",
+    "enable_parts": "Show included parts and extras",
+    "parts_namespace": "Parts metafield namespace",
+    "parts_key": "Parts metafield key"
   }
 }

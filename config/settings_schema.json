@@ -322,6 +322,33 @@
     ]
   },
   {
+    "name": "t:labels.product_parts",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "t:labels.parts_help"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_parts",
+        "label": "t:labels.enable_parts",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "parts_namespace",
+        "label": "t:labels.parts_namespace",
+        "default": "siftwell"
+      },
+      {
+        "type": "text",
+        "id": "parts_key",
+        "label": "t:labels.parts_key",
+        "default": "parts"
+      }
+    ]
+  },
+  {
     "name": "t:labels.social_media",
     "settings": [
       {

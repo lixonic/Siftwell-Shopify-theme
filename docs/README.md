@@ -7,13 +7,14 @@ Start with [Siftwell’s approach](design-philosophy.md), then build [one comple
 - [Start with Siftwell](design-philosophy.md): who it serves, what it helps customers do and how to make the source your own.
 - [Build your first shopping path](getting-started.md): connect a buying need to a collection, product and bag.
 - [Explain compatibility requirements](product-compatibility.md): show selected-variant requirements, exclusions, references and unknown states without implying verified vehicle matching.
+- [Show included parts and extras](product-parts.md): separate box contents, required items and optional additions with reusable sets and optional product links.
 - [Set up shared specifications](product-specifications.md): create editable row lists, configure variant overrides and keep exact-item facts consistent across product views.
 - [Add customer reviews](product-reviews.md): connect app-supplied ratings and a full review widget to the product template.
 - [Performance and accessibility](performance-accessibility.md): the design choices, recorded demo results and checks still to complete.
 - [Read the current limitations](known-limitations.md) and [get community help](../SUPPORT.md).
 - [Read the roadmap](../ROADMAP.md): buyer needs, compatibility, complete-job shopping and catalog accuracy for assisted commerce.
 
-The searchable guide contains 21 articles covering branding, the home page, the finder, collections, product media, compatibility requirements, customer reviews, localization, performance, accessibility and common setup questions. Shopping assistance and coding-agent customization are explained as separate uses.
+The searchable guide contains 22 articles covering branding, the home page, the finder, collections, product media, compatibility requirements, included parts and extras, customer reviews, localization, performance, accessibility and common setup questions. Shopping assistance and coding-agent customization are explained as separate uses.
 
 ## Preview the searchable guide
 

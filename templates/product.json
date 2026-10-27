@@ -45,6 +45,10 @@
         "compatibility": {
           "type": "compatibility",
           "settings": {}
+        },
+        "parts": {
+          "type": "parts",
+          "settings": {}
         }
       },
       "block_order": [
@@ -56,6 +60,7 @@
         "buy",
         "specifications",
         "compatibility",
+        "parts",
         "description",
         "pickup"
       ]

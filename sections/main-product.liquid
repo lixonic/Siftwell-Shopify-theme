@@ -12,13 +12,14 @@
  endif
 %}
 {% capture rating_markup %}{% render 'product-rating', product: product %}{% endcapture %}
+{% capture parts_markup %}{% render 'product-parts', product: product %}{% endcapture %}
 <div class="page-width product-breadcrumb"><a href="{{ routes.all_products_collection_url }}">{% render 'icon', name: 'arrow' %}{{ 'collection.all' | t }}</a></div>
 <div class="product-layout product-page page-width section-space" data-product-root data-section-id="{{ section.id }}" data-product-url="{{ product.url }}">
  {% assign media_max_width = settings.page_width | minus: 48 | times: 1.12 | divided_by: 2.12 %}
  {% capture product_media_sizes %}(min-width: 1251px) min(calc((100vw - 368px) * 0.529), {{ media_max_width }}px), (min-width: 1101px) calc((100vw - 328px) * 0.529), (min-width: 761px) calc((100vw - 312px) * 0.529), (min-width: 381px) calc(100vw - 48px), calc(100vw - 32px){% endcapture %}
  {% render 'media-gallery', product: product, section: section, image_sizes: product_media_sizes, prioritize_media: true %}
  <div class="product-info">
- {% for block in section.blocks %}{% if block.type == 'rating' and rating_markup == blank %}{% continue %}{% endif %}<div class="product-block product-block--{{ block.type }}" {{ block.shopify_attributes }}>
+ {% for block in section.blocks %}{% if block.type == 'rating' and rating_markup == blank %}{% continue %}{% endif %}{% if block.type == 'parts' and parts_markup == blank %}{% continue %}{% endif %}<div class="product-block product-block--{{ block.type }}" {{ block.shopify_attributes }}>
  {% case block.type %}
  {% when '@app' %}{% render block %}
  {% when 'title' %}<h1>{{ product.title | escape }}</h1>
@@ -27,6 +28,7 @@
  {% when 'description' %}{% if product.description != blank %}<details class="product-description-panel" open><summary>{{ 'products.details' | t }}{% render 'icon', name: 'chevron' %}</summary><div class="rte">{{ product.description }}</div></details>{% endif %}
  {% when 'specifications' %}{% render 'product-specifications', product: product %}
  {% when 'compatibility' %}{% render 'product-compatibility', product: product %}
+ {% when 'parts' %}{{ parts_markup }}
  {% when 'variant_picker' %}{% render 'variant-picker', product: product %}
  {% when 'quantity' %}<label class="sr-only" for="Quantity-{{ section.id }}">{{ 'products.quantity' | t }}</label><div class="product-quantity"><button type="button" data-product-quantity-step="-1" aria-label="{{ 'cart.decrease' | t: title: product.title | escape }}">{% render 'icon', name: 'minus' %}</button><input class="quantity-input" id="Quantity-{{ section.id }}" type="number" name="quantity" form="{{ form_id }}" value="{{ variant.quantity_rule.min | default: 1 }}" min="{{ variant.quantity_rule.min | default: 1 }}" step="{{ variant.quantity_rule.increment | default: 1 }}" {% if variant.quantity_rule.max != nil %}max="{{ variant.quantity_rule.max }}"{% endif %}>
  <button type="button" data-product-quantity-step="1" aria-label="{{ 'cart.increase' | t: title: product.title | escape }}">{% render 'icon', name: 'plus' %}</button></div>{% render 'quantity-rules', variant: variant %}
@@ -80,6 +82,11 @@
     {
       "type": "compatibility",
       "name": "t:labels.product_compatibility",
+      "limit": 1
+    },
+    {
+      "type": "parts",
+      "name": "t:labels.product_parts",
       "limit": 1
     },
     {

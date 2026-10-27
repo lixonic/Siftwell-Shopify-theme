@@ -109,6 +109,14 @@
       "exclusions": "Not suitable for",
       "review_help": "Match these details to your vehicle or equipment. Vehicle fit has not been checked.",
       "reference": "View manufacturer reference"
+    },
+    "parts": {
+      "heading": "Included parts & extras",
+      "for_variant": "For",
+      "included": "In the box",
+      "required": "Required separately",
+      "optional": "Optional extras",
+      "extras_help": "Extras are listed by the merchant. Confirm suitability for your vehicle or equipment before ordering."
     }
   },
   "cart": {
