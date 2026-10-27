@@ -75,6 +75,7 @@ That is the theme's role in assisted shopping. [Shopify provides agent discovery
 - [Start with Siftwell](https://siftwell-theme-docs.vercel.app/): the shopping experience and the design behind it.
 - [Build your first shopping path](https://siftwell-theme-docs.vercel.app/?page=getting-started): connect a buying need to a collection, product and bag.
 - [Set up product specifications](https://siftwell-theme-docs.vercel.app/?page=specifications): keep useful details consistent across product views.
+- [Set up product facts with Sidekick](docs/product-data-sidekick.md): prepare supplier facts, review reusable entries and select their product/variant references in Shopify.
 - [Edit catalog facts in a spreadsheet](docs/catalog-data.md): download the blank XLSX and worked inflator example. This optional prototype organizes existing native facts and needs developer assistance for imports.
 - [Get community help](SUPPORT.md): setup questions, reproducible issues and contributions.
 - [Follow the roadmap](ROADMAP.md): auto-parts buying decisions, verified fit information and accurate data for AI-assisted shopping.

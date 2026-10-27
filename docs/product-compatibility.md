@@ -4,6 +4,10 @@ Auto-parts buyers need to establish whether a part works with their vehicle or e
 
 The block presents supplied information. It does not select a vehicle, match year/make/model, verify a source or confirm fit. Specifications such as voltage alone do not establish compatibility. A compatibility profile is a saved set of these details in Shopify that a merchant links to a product or variant.
 
+## Prepare the facts with Sidekick
+
+Use the [Sidekick workflow](product-data-sidekick.md) to organize verified requirements, exclusions and references, then fill reviewed Compatibility profile entries. Keep missing facts explicit. Select the saved product and variant references in Shopify, remembering that each variant profile replaces the whole shared profile. The guide includes a [copyable profile prompt](product-data-sidekick.md#fill-and-review-the-saved-entries); it does not verify fit.
+
 ## Try the live preview
 
 Open the [Workshop Inflator demo at 12 V](https://siftwell-theme.myshopify.com/products/siftwell-specifications-demo?variant=67876548018405). If prompted, enter visitor password **`siftwell`**. This fictional product is sold out and labelled **not for sale**. All figures, prices and requirements are illustrative; the demo does not provide a verified vehicle match.

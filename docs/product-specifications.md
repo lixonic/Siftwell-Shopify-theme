@@ -4,6 +4,10 @@ A socket set, electrical accessory and cleaning product need different facts. Si
 
 Keep important facts beside the buying controls using the **Product specifications** block. Customers can read them without opening a tab. A small caption identifies the selected variant on products with options.
 
+## Prepare the facts with Sidekick
+
+For a first product family, use the [Sidekick workflow](product-data-sidekick.md) to prepare facts from supplier text, fill reviewed Specification row entries and reuse shared rows. Follow the [specification prompt](product-data-sidekick.md#fill-and-review-the-saved-entries), then select the saved row references on the product and any differing variants. The definitions below are a one-time setup; a spreadsheet importer is optional.
+
 ## Try the live auto-parts preview
 
 Open the [Workshop Inflator demo](https://siftwell-theme.myshopify.com/products/siftwell-specifications-demo). If prompted, enter visitor password **`siftwell`**. This fictional product is labelled **not for sale**; both versions have zero tracked stock and cannot be purchased. Its figures and prices demonstrate the theme, not verified performance or vehicle fit.

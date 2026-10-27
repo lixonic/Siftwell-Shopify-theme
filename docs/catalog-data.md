@@ -2,6 +2,8 @@
 
 Maintaining useful facts should not require opening every product and every saved entry in Shopify. Start with a small product family, export the details already present and edit them in one workbook. Enter shared information once, then assign that saved set to the products that use it.
 
+For your first family, start with the [Sidekick-assisted setup](product-data-sidekick.md): supply existing facts, review the entries and select their references in Shopify. Once native definitions are in place, that route uses no spreadsheet importer or additional app. Use this workbook workflow when preparing a batch or keeping a separate working copy is useful.
+
 **This is an optional prototype with an initial inflator-demo test.** It supports the existing specification rows, compatibility details and included-parts sets. You can continue editing these facts directly in Shopify. You do not need a workbook, or all three features, to use the theme.
 
 The Google Sheets-compatible workbooks organize data entry. Saving an XLSX does not update Shopify. Importing requires the developer-assisted companion, native definitions and authenticated Shopify CLI setup described below. A merchant-facing app and live Google Sheets connection are not included.
@@ -25,6 +27,8 @@ In the worked example:
 The [live inflator walkthrough](product-specifications.md#try-the-live-auto-parts-preview) shows the same display rules. All example figures and requirements are illustrative. A product link demonstrates navigation, not verified suitability.
 
 ## Choose the smallest useful workflow
+
+For guided entry from supplier text, use [Sidekick](product-data-sidekick.md). The guide provides preparation instructions, prompts for the three native entry types and an optional reusable Sidekick skill. Product and variant reference selection remains an explicit reviewed step.
 
 For a few product or variant assignments, try [Shopify's native metafield bulk editor](https://help.shopify.com/en/manual/custom-data/metafields/bulk-edit-metafields). It already presents selected products and metafields in a table. Reusing an existing saved set can be enough; you do not need this companion for every small edit.
 

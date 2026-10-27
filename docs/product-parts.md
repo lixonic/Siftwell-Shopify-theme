@@ -4,6 +4,10 @@ Help customers answer “What comes in the box, and what else do I need to finis
 
 Start with one reusable saved set and fill only the lists you need. Products without details stay unchanged. Empty groups are hidden, so an absent required-extras list means information has not been supplied; it does not confirm that nothing else is needed. The merchant supplies the contents and the classification of extras. Product links do not establish compatibility or create a bundle.
 
+## Prepare the facts with Sidekick
+
+Use the [Sidekick workflow](product-data-sidekick.md) to turn supplier box contents into reviewed Parts set entries. Its [parts prompt](product-data-sidekick.md#fill-and-review-the-saved-entries) separates included items, required extras and optional additions. Choose verified product links and product/variant assignments in Shopify's reference pickers. Create a complete set for a differing variant; its empty lists do not inherit shared items. The XLSX examples below remain optional.
+
 ## Try the live preview
 
 Open the [Workshop Inflator demo at 12 V](https://siftwell-theme.myshopify.com/products/siftwell-specifications-demo?variant=67876548018405). If prompted, enter visitor password **`siftwell`**. This fictional product is labelled **not for sale**, and both variants are sold out. All contents, quantities and requirements are illustrative.
