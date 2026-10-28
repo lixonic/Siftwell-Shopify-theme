@@ -12,6 +12,7 @@
  {{ 'media-gallery.css' | asset_url | stylesheet_tag }}
  {% render 'theme-tokens' %}
  <script src="{{ 'media-gallery.js' | asset_url }}" defer></script>
+ <script src="{{ 'cart-transactions.js' | asset_url }}" defer></script>
  <script src="{{ 'theme.js' | asset_url }}" defer onerror="document.documentElement.classList.replace('js', 'no-js')"></script>
  {{ content_for_header }}
 </head>
@@ -36,6 +37,17 @@
   "cartChange": {{ routes.cart_change_url | append: '.js' | json }},
   "cartUpdate": {{ routes.cart_update_url | append: '.js' | json }},
   "cart": {{ routes.cart_url | json }},
+  "cartRead": {{ routes.cart_url | append: '.js' | json }},
+  "cartChanged": {{ 'cart.changed' | t | json }},
+  "cartEditRejected": {{ 'cart.edit_rejected' | t | json }},
+  "cartReview": {{ 'cart.review_after_error' | t | json }},
+  "cartEditPlan": {{ 'cart.edit_plan_unavailable' | t | json }},
+  "cartEditQuantity": {{ 'cart.edit_quantity_unavailable' | t | json }},
+  "cartRemoved": {{ 'cart.removed' | t: title: '[title]' | json }},
+  "cartRestored": {{ 'cart.restored' | t | json }},
+  "cartChooseDifferent": {{ 'cart.choose_different' | t | json }},
+  "unavailable": {{ 'products.unavailable' | t | json }},
+  "soldOut": {{ 'products.sold_out' | t | json }},
   "quantityInvalid": {{ 'products.quantity_invalid' | t | json }},
   "quantityMinimum": {{ 'products.quantity_minimum' | t: quantity: '[quantity]' | json }},
   "quantityMaximum": {{ 'products.quantity_maximum' | t: quantity: '[quantity]' | json }},

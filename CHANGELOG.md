@@ -2,6 +2,8 @@
 
 ## 0.8.0-beta.1 — in preparation
 
+- Add an optional mobile purchase bar that reuses the native product form, in-bag variant editing with guarded cart replacement and undo removal, and empty-search recovery with native links and Shopify predictive suggestions. Preserve quantity, properties and eligible selling plans; stop for manual review when a cart change cannot be verified. No new merchant product fields are required. Add automated failure-path and Liquid tests, document setup and limits, and refresh the installable ZIP.
+
 - Add server-rendered JSON-LD properties for the selected variant's displayed specifications and compatibility guidance. Reuse the visible resolvers, preserve suppression and unknown states, and extend the existing native Product identity without replacing Shopify's product group or offers. Refresh the extension with the product section when variants change; removed or disabled blocks do not expose hidden facts.
 
 - Document a Sidekick-assisted route for preparing supplier facts, reviewing native specification/compatibility/parts entries, selecting product and variant references and reusing preparation instructions as a Sidekick skill. Link it from all three feature guides and retain the optional XLSX downloads. This is guidance based on Shopify's documented capabilities, not a newly verified Sidekick integration.

@@ -39,11 +39,11 @@ window.SIFTWELL_DOCS = [
     "sections": [
       {
         "title": "What the current source provides",
-        "html": "<p>Updated 27 October 2026. The compact mobile introduction brings search and collection routes closer to the first products. Recommendation comparison is off by default, with an opt-in for related alternatives and no comparison on complementary cards. Existing foundations include native commerce, quick view, editable, variant-aware specifications and Shopify-generated product structured data.</p><p>The first MIT beta still needs its fresh-install and essential shopping-path release gate. A smaller hero and source checks do not prove a conversion improvement.</p><p>Saved compatibility details now show selected-variant requirements, exclusions, notes and a reference. Unconfigured products stay hidden by default. An assigned profile with no requirements, exclusions or notes, or an inaccessible profile, shows Compatibility not confirmed. Empty requirements alone still allow supplied notes or exclusions to appear. This interface does not perform vehicle matching. <a href=\"?page=compatibility#try-the-live-preview\">Follow the setup and live walkthrough →</a></p><p>Optional included-parts and required/optional-extras lists are implemented in the current source. One saved set can be reused, a variant replaces the complete set and empty output leaves no gap. Native product links do not establish compatibility or create a bundle. <a href=\"?page=parts\">Set up box contents and extras →</a></p>"
+        "html": "<p>Updated 28 October 2026. The compact mobile introduction brings search and collection routes closer to the first products. Recommendation comparison is off by default, with an opt-in for related alternatives and no comparison on complementary cards. Existing foundations include native commerce, quick view, editable, variant-aware specifications and Shopify-generated product structured data.</p><p>The first MIT beta still needs its fresh-install and essential shopping-path release gate. A smaller hero and source checks do not prove a conversion improvement.</p><p>Saved compatibility details now show selected-variant requirements, exclusions, notes and a reference. Unconfigured products stay hidden by default. An assigned profile with no requirements, exclusions or notes, or an inaccessible profile, shows Compatibility not confirmed. Empty requirements alone still allow supplied notes or exclusions to appear. This interface does not perform vehicle matching. <a href=\"?page=compatibility#try-the-live-preview\">Follow the setup and live walkthrough →</a></p><p>Optional included-parts and required/optional-extras lists are implemented in the current source. One saved set can be reused, a variant replaces the complete set and empty output leaves no gap. Native product links do not establish compatibility or create a bundle. <a href=\"?page=parts\">Set up box contents and extras →</a></p>"
       },
       {
         "title": "Continue one feature at a time",
-        "html": "<p>Specifications, compatibility guidance and included parts with required/optional extras are implemented in the current source. Validate whether merchants can supply and maintain useful details before expanding those interfaces. The theme does not fill missing compatibility facts or infer fit from a product title, voltage or AI recommendation.</p>\n<p><strong>Easier catalog data setup has an optional prototype.</strong> The blank XLSX, fictional inflator worked example and developer-assisted import companion are implemented in the current source. They export existing facts, reuse shared details and preview selected changes. The initial inflator-demo test is complete for this checkpoint. Real supplier-column mapping, merchant setup effort and ongoing maintenance can be evaluated later with an actual product family. Begin with Shopify&#39;s native bulk editor for small assignment changes. The companion covers variant metafields and saved-entry creation that a native product CSV alone does not complete. A merchant-facing editor, automatic supplier parsing and live spreadsheet sync remain unimplemented. <a href=\"?page=catalog-data\">Spreadsheet workflow and downloads</a>, <a href=\"https://help.shopify.com/en/manual/products/import-export/using-csv\">Shopify CSV capabilities</a>, <a href=\"https://help.shopify.com/en/manual/custom-data/metafields/bulk-edit-metafields\">native metafield bulk editing</a>.</p>\n<p>For the first product family, the <a href=\"?page=sidekick\">Sidekick-assisted setup guide</a> documents a native route: prepare supplied facts, review entry forms, select product/variant references and reuse the preparation instructions as a Sidekick skill. This combines Shopify&#39;s documented assistance with the existing Siftwell data model; it is not an end-to-end tested Sidekick integration. Keep the workbook/importer optional and defer a separate merchant editor while this documented route is evaluated.</p>\n<p>Test whether buyers can identify box contents and remaining requirements, and whether merchants can prepare accurate data with less effort. Installation guidance, bundles, saved project lists and verified matching remain separate work.</p>\n"
+        "html": "<p>Further data-entry, supplier integration and product-information extensions are parked while we focus on purchase and recovery interactions. The mobile purchase bar, cart variant editing with undo removal, and empty-search recovery are now implemented in source. <a href=\"?page=shopping-recovery\">Read the setup guide →</a></p><p>Existing specifications, compatibility, parts, comparison and spreadsheet/Sidekick guides remain available. Store-specific supplier mapping and verified fitment need their own requirements.</p>"
       },
       {
         "title": "Design around the buyer’s question",
@@ -51,7 +51,7 @@ window.SIFTWELL_DOCS = [
       },
       {
         "title": "Next priorities",
-        "html": "<ol><li>Finish fresh-install and essential shopping-path checks, and extend browser, device, screen-reader and review-provider coverage.</li><li>Test the mobile introduction and recommendation relevance with real buyers.</li><li>Explore an explicit Compare with this product flow for genuine alternatives, with the current product visibly included.</li><li>Validate the editable, variant-aware specifications with real merchant catalogs and buyer tasks.</li><li>Validate compatibility setup with sparse catalogs and existing merchant data. Ask buyers to distinguish missing information from a verified fit result; add matching only with suitable application data and services.</li><li>Validate the spreadsheet template and developer-assisted import prototype with a real product family and supplier data. Check native bulk editing for small changes, and test setup effort before building a merchant-facing editor.</li><li>Validate box-content and required/optional-extra understanding, then evaluate installation, delivery, warranty and returns separately.</li><li>Explore exact-variant shortlists and complete-job project checklists.</li></ol>"
+        "html": "<ol><li>Finish fresh-install and essential shopping-path checks, including the new purchase, cart and search interactions.</li><li>Verify keyboard, phone, app, subscription and quantity-rule behavior with representative store setups.</li><li>Measure search recovery and completion of shopping tasks before claiming conversion improvements.</li></ol><p>Comparison already exists. Saved shortlists and new product-information workflows remain separate work.</p>"
       },
       {
         "title": "Prepare for assisted and agentic shopping",
@@ -236,6 +236,10 @@ window.SIFTWELL_DOCS = [
       {
         "title": "Explain what is in the box",
         "html": "<p>Add the optional <strong>Included parts &amp; extras</strong> block to separate supplied items, required extras and optional additions. Use one saved set with quantity text and optional product links. Keep shared details accurate for every inheriting variant; a differing variant replaces the whole set.</p><p>Empty groups remain hidden. A missing group does not confirm that no extra items are needed, and a linked product does not verify compatibility. <a href=\"?page=parts\">Follow the parts-set setup guide →</a></p>"
+      },
+      {
+        "title": "Keep the purchase action within reach on phones",
+        "html": "<p>In the product template, select <strong>Product → Show mobile purchase bar</strong>. It is enabled by default and appears after the original Add to bag button scrolls above the screen. It shows the selected version and price, reuses the product form, and offers Review options to return to the selection controls.</p><p>Keep a Buy buttons block on the template. The bar follows availability, quantity, customization and selling-plan choices from the existing form. It stays hidden on desktop, without JavaScript and while a dialog is open. <a href=\"?page=shopping-recovery\">See all three shopping improvements →</a></p>"
       }
     ]
   },
@@ -484,6 +488,10 @@ window.SIFTWELL_DOCS = [
       {
         "title": "Compare the details that matter",
         "html": "<p>Customers can select up to three products. A desktop comparison area appears after a selection; a compact comparison control serves smaller screens. No selection leaves the catalog open.</p><p>Comparison uses Shopify prices and the same product specifications as the product page. It does not verify technical or vehicle compatibility.</p><p>Turn comparison off in <strong>Theme settings → Shopping tools → Show Compare checkboxes</strong> when it is not useful for your catalog.</p><figure class=\"guide-preview\"><a href=\"images/comparison-desktop.jpg\"><img src=\"images/comparison-desktop.jpg\" alt=\"Three Siftwell demo products compared by price, weight, material, fit, feature and intended use.\" width=\"1440\" height=\"1000\" loading=\"lazy\"></a><figcaption>The same specification fields appear side by side. Demo products illustrate the layout and do not imply that the items are interchangeable.</figcaption></figure><p>Product recommendations do not inherit comparison automatically. In a related <strong>Product recommendations</strong> section, use <strong>Show comparison for related alternatives</strong> only when the selected products solve the same buying need. Set the section <strong>Heading</strong> to explain that purpose and curate the products in Shopify Search &amp; Discovery. Complementary sections never show comparison, even if the checkbox is enabled.</p><p>The checkbox adds an item to the existing comparison list. It does not automatically include the product being viewed. An explicit Compare with this product flow remains on the roadmap.</p><p>Catalog comparison uses shared product facts. Compare in quick view keeps the exact variant name, base variant price, specification values and URL. Two variants can occupy two of the three slots. Switching options does not rewrite a previous pick. <a href=\"?page=specifications\">Set up variant-aware facts →</a></p>"
+      },
+      {
+        "title": "Give an empty search a next step",
+        "html": "<p>When a search returns no results, customers can edit the query, browse all products or remove active filters while keeping the query. The page also requests query, collection and product suggestions from Shopify predictive search. A group appears only when Shopify returns suggestions.</p><p>No new product fields or curated fallback list are required. Suggestions depend on Shopify search support and your catalog; they do not verify compatibility or guarantee a match. The recovery links work without JavaScript. <a href=\"?page=shopping-recovery\">Review the shopping recovery guide →</a></p>"
       }
     ]
   },
@@ -532,6 +540,38 @@ window.SIFTWELL_DOCS = [
       {
         "title": "Prepare checkout in Shopify",
         "html": "<p>Checkout and accelerated payment buttons come from Shopify. Configure payments, shipping, taxes and pickup in your store. Check the wording and totals customers see before launch, using your store’s test payment setup.</p><p>If you sell subscriptions or gift cards, also review their product choices, recipient fields and purchase details.</p>"
+      },
+      {
+        "title": "Change a version or undo a removal",
+        "html": "<p>Customers can choose <strong>Edit options</strong> on eligible multi-variant items in the bag drawer or cart page. Saving keeps the current quantity, customization properties and eligible selling plan. Shopify recalculates prices, discounts and availability. If the new version cannot accept the quantity or plan, the editor asks the customer to review those choices.</p><p><strong>Undo removal</strong> restores the most recently removed eligible line while the current page remains open. It uses current stock and prices. Gift cards, bundles and linked child items are excluded. App-managed items and subscriptions need testing with your store. <a href=\"?page=shopping-recovery\">Read behavior and limits →</a></p>"
+      }
+    ]
+  },
+  {
+    "id": "shopping-recovery",
+    "group": "Build your store",
+    "title": "Keep shopping moving",
+    "lead": "Three improvements help shoppers continue from a product page, correct a bag selection and recover from an empty search. No additional product data entry is required.",
+    "sections": [
+      {
+        "title": "Keep the purchase action within reach on phones",
+        "html": "<p>In the product template, select <strong>Product → Show mobile purchase bar</strong>. It is enabled by default and appears after the original Add to bag button scrolls above the screen. It shows the selected version and price, reuses the product form, and offers Review options to return to the selection controls.</p><p>Keep a Buy buttons block on the template. The bar follows availability, quantity, customization and selling-plan choices from the existing form. It stays hidden on desktop, without JavaScript and while a dialog is open.</p>"
+      },
+      {
+        "title": "Change a version or undo a removal",
+        "html": "<p>Customers can choose <strong>Edit options</strong> on eligible multi-variant items in the bag drawer or cart page. Saving keeps the current quantity, customization properties and eligible selling plan. Shopify recalculates prices, discounts and availability. If the new version cannot accept the quantity or plan, the editor asks the customer to review those choices.</p><p><strong>Undo removal</strong> restores the most recently removed eligible line while the current page remains open. It uses current stock and prices. Gift cards, bundles and linked child items are excluded. App-managed items and subscriptions need testing with your store.</p>"
+      },
+      {
+        "title": "Give an empty search a next step",
+        "html": "<p>When a search returns no results, customers can edit the query, browse all products or remove active filters while keeping the query. The page also requests query, collection and product suggestions from Shopify predictive search. A group appears only when Shopify returns suggestions.</p><p>No new product fields or curated fallback list are required. Suggestions depend on Shopify search support and your catalog; they do not verify compatibility or guarantee a match. The recovery links work without JavaScript.</p>"
+      },
+      {
+        "title": "What happens when a cart update cannot finish",
+        "html": "<p>The variant editor checks the current bag, adds the replacement, verifies it and then removes the original. If an unambiguous partial addition or rejected removal can be reversed, it restores the earlier quantities. Shopify does not make this sequence atomic. If another tab or app changes the cart, or the response cannot be verified, the shopper sees a request to review the refreshed bag.</p><p>Undo covers the most recent eligible removal on the current page, until dismissed, used, replaced by another removal or cleared by a successful variant edit. It is not saved across navigation or reloads. If restoration becomes uncertain, it cannot be retried through the same Undo button. Discounts, availability and prices can change; the earlier price is not reserved.</p>"
+      },
+      {
+        "title": "Check your own shopping path",
+        "html": "<ol><li>On a phone, select a version and quantity, scroll below the original purchase button, use Review options and add from the mobile bar. Check required custom fields, sold-out versions and your app blocks.</li><li>In the bag drawer and cart page, change an eligible version, cancel an edit, remove and undo an item, then remove the final item and undo it. Check custom properties, subscriptions, quantity rules and discounts used by your store.</li><li>Search for a missing term and a query narrowed to zero by filters. Edit the query, remove the filters and follow any returned suggestions. Repeat basic shopping with JavaScript disabled.</li></ol><p>The current source has automated Liquid and JavaScript checks for these states, including rejected stock changes and lost cart responses. A targeted demo browser check covered mobile add/review, drawer removal/undo, query editing and filtered-search recovery. Live replacement of a purchasable multi-variant line, physical devices and app integration still need verification. These features do not establish a conversion uplift or enable an agent sales channel.</p>"
       }
     ]
   },
@@ -698,6 +738,10 @@ window.SIFTWELL_DOCS = [
         "html": "<p>The Auto layout, collection finder, optional comparison and shared product specifications form the starting point. The project source and this guide use the MIT license.</p>"
       },
       {
+        "title": "Three ways to keep shopping moving",
+        "html": "<p>The current source adds an optional mobile purchase bar, in-bag variant editing with undo removal, and recovery actions for empty searches. They use existing Shopify product, cart and search data, with no new merchant fields to populate. <a href=\"?page=shopping-recovery\">Read setup and limits →</a></p>"
+      },
+      {
         "title": "Mobile shopping and clearer recommendations",
         "html": "<p>The current source adds a compact mobile shopping introduction and compact collection links. Recommendation cards hide comparison by default; curated related alternatives can opt in separately. Complementary cards keep it hidden. These changes follow the immediate task: find an item, evaluate an alternative or add a useful extra.</p><p><a href=\"?page=roadmap\">Read the roadmap for auto-parts buying decisions and assisted shopping →</a></p>"
       },
@@ -715,7 +759,7 @@ window.SIFTWELL_DOCS = [
       },
       {
         "title": "Box contents and extras for the selected version",
-        "html": "<p>The current source separates In the box, Required separately and Optional extras on product pages and in quick view. One reusable parts set stores simple item text and optional native product links. A differing variant replaces every list and link. Unconfigured products, empty sets and empty groups stay hidden without extra spacing.</p><p>These are merchant-supplied details, not verified matching or bundles. A spreadsheet and CSV import workflow is the next focused follow-up and remains planned. <a href=\"?page=parts\">Set up included parts and extras →</a></p>"
+        "html": "<p>The current source separates In the box, Required separately and Optional extras on product pages and in quick view. One reusable parts set stores simple item text and optional native product links. A differing variant replaces every list and link. Unconfigured products, empty sets and empty groups stay hidden without extra spacing.</p><p>These are merchant-supplied details, not verified matching or bundles. An optional spreadsheet import prototype is available separately. <a href=\"?page=parts\">Set up included parts and extras →</a></p>"
       },
       {
         "title": "Compatibility requirements for the selected version",

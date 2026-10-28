@@ -1,0 +1,14 @@
+{% if product != blank %}
+{% assign variant = product.selected_or_first_available_variant %}
+<div class="cart-variant-editor" data-product-root data-cart-editor data-section-id="cart-variant" data-product-url="{{ product.url }}" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}" data-available="{{ variant.available }}" data-requires-plan="{{ variant.requires_selling_plan }}" data-plan-ids="{{ variant.selling_plan_allocations | map: 'selling_plan' | map: 'id' | json | escape }}" data-quantity-min="{{ variant.quantity_rule.min | default: 1 }}" data-quantity-increment="{{ variant.quantity_rule.increment | default: 1 }}" data-quantity-max="{{ variant.quantity_rule.max }}">
+ <h4 tabindex="-1">{{ 'cart.choose_options' | t }}</h4>
+ {% render 'variant-picker', product: product %}
+ {% if variant %}{% assign price_target = variant.selected_selling_plan_allocation | default: variant %}{% render 'price', target: price_target, unit: variant %}{% render 'quantity-rules', variant: variant %}{% endif %}
+ <p class="small-text">{{ 'cart.edit_preserves_details' | t }}</p>
+ <p data-cart-edit-message role="status"></p>
+ <div class="cart-edit-actions"><button class="primary-button" type="button" data-save-cart-variant disabled>{{ 'cart.save_options' | t }}</button><button class="text-link" type="button" data-cancel-cart-edit>{{ 'general.cancel' | t }}</button></div>
+</div>
+{% endif %}
+{% schema %}
+{"name":"t:labels.cart_variant_editor","settings":[]}
+{% endschema %}

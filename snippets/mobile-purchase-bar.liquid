@@ -1,0 +1,22 @@
+{% liquid
+ assign allocation = variant.selected_selling_plan_allocation
+ if variant.requires_selling_plan and allocation == nil
+  assign allocation = variant.selling_plan_allocations.first
+ endif
+ assign can_add = variant.available
+ if variant.requires_selling_plan and allocation == nil
+  assign can_add = false
+ endif
+ assign price_target = allocation | default: variant
+%}
+<div class="mobile-purchase-bar" data-mobile-purchase-bar data-form-id="{{ form_id }}" role="region" aria-label="{{ 'products.purchase_controls' | t | escape }}" hidden>
+ <div class="mobile-purchase-summary">
+  <strong>{{ product.title | escape }}</strong>
+  {% unless product.has_only_default_variant %}<span>{{ variant.title | default: '—' | escape }}</span>{% endunless %}
+  {% if variant %}{% render 'price', target: price_target, unit: variant %}{% endif %}
+ </div>
+ <div class="mobile-purchase-actions">
+  <button class="primary-button" type="submit" form="{{ form_id }}" name="add" {% unless can_add %}disabled{% endunless %}>{% if variant == nil %}{{ 'products.unavailable' | t }}{% elsif variant.available == false %}{{ 'products.sold_out' | t }}{% elsif can_add %}{{ 'products.add' | t }}{% else %}{{ 'products.unavailable' | t }}{% endif %}</button>
+  <button class="text-link" type="button" data-review-purchase>{{ 'products.review_options' | t }}</button>
+ </div>
+</div>

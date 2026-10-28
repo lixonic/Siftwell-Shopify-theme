@@ -28,7 +28,8 @@
     "shop_by_activity": "Shop by activity",
     "search_results": "Product suggestions",
     "remove": "Remove",
-    "mobile_shop_heading": "Auto parts & accessories"
+    "mobile_shop_heading": "Auto parts & accessories",
+    "cancel": "Cancel"
   },
   "products": {
     "add": "Add to bag",
@@ -117,7 +118,9 @@
       "required": "Required separately",
       "optional": "Optional extras",
       "extras_help": "Extras are listed by the merchant. Confirm suitability for your vehicle or equipment before ordering."
-    }
+    },
+    "purchase_controls": "Purchase controls",
+    "review_options": "Review options"
   },
   "cart": {
     "title": "Your bag",
@@ -144,7 +147,21 @@
     "count": {
       "one": "{{ count }} item",
       "other": "{{ count }} items"
-    }
+    },
+    "edit_options": "Edit options",
+    "choose_options": "Choose a different option",
+    "edit_preserves_details": "Keep the same quantity and purchase option. Your custom details are carried over.",
+    "save_options": "Update item",
+    "undo_remove": "Undo removal",
+    "removed": "Removed {{ title }} from your bag.",
+    "restored": "The item has been restored to your bag.",
+    "changed": "Your bag changed. Please review the item and try again.",
+    "edit_rejected": "The option could not be changed. Your original item is still in your bag.",
+    "review_after_error": "We could not confirm the change. Review your bag before trying again or checking out.",
+    "edit_plan_unavailable": "This option does not support your current purchase plan. Choose another option.",
+    "edit_quantity_unavailable": "This option has different quantity requirements. Adjust the quantity in your bag first.",
+    "choose_different": "Choose a different option to update this item.",
+    "dismiss_undo": "Dismiss removal message"
   },
   "collection": {
     "all": "All products",
@@ -232,7 +249,14 @@
     "title": "Search results",
     "results": "Results for “{{ terms }}”",
     "empty": "No results found. Try another search.",
-    "view_all": "View all results"
+    "view_all": "View all results",
+    "filtered_empty": "No results with these filters.",
+    "recovery_help": "Try a shorter product name or part number, or remove a filter to broaden your search.",
+    "clear_filters": "Search without filters",
+    "edit_query": "Edit search",
+    "suggested_queries": "Suggested searches",
+    "suggested_collections": "Collections to explore",
+    "suggested_products": "Products to explore"
   },
   "collections": {
     "all": "All products",

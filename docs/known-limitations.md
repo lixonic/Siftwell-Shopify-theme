@@ -4,6 +4,7 @@ The first MIT beta, **0.8.0-beta.1**, is in preparation. A theme ZIP is availabl
 
 The source includes targeted commerce and Liquid render checks. They do not establish a completed checkout or compatibility with your store, apps or settings.
 
+- The new mobile purchase bar, cart variant editing/undo and empty-search recovery have automated source checks. A targeted demo browser check covered mobile add/review, drawer removal/undo and filtered-search recovery. Live replacement of a purchasable multi-variant line, app integrations and physical-device checks remain outstanding. Cart replacement uses multiple Shopify requests; concurrent changes or uncertain responses require manual bag review. Gift cards, bundles and linked child items are excluded from variant editing and undo. See [setup and limits](shopping-recovery.md).
 - Real app-backed subscriptions, B2B quantity rules, combined listings and all market configurations have not been exhaustively tested.
 - Native rating summaries and a Customer reviews app section are implemented. Rating renders and the empty/app-slot states have source checks; a real review-provider widget, submission flow and Shop-review syndication remain unverified. See [review setup](product-reviews.md).
 - Safari, Firefox, iOS, physical touch devices, screen-reader speech and device AR still need a complete verification pass.

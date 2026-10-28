@@ -9,6 +9,8 @@
   const popupCache = new Map(), dialogClosures = new WeakMap(), dialogReturnFocus = new WeakMap();
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const predictiveStates = new WeakMap();
+  const cartEditors = new WeakMap();
+  let cartUndo, cartPending = 0, cartTransactionBusy = false, purchaseCleanup;
   function hideStatus() {
     const node = $('#ThemeStatus'); if (!node) return;
     clearTimeout(toastTimer);
@@ -233,7 +235,7 @@
         const disclosure = focused.closest('.filter-disclosure');
         if (disclosure) nextFocus?.closest('.filter-disclosure')?.setAttribute('open', '');
       }
-      current.replaceWith(fresh); renderComparison();
+      current.replaceWith(fresh); initSearchRecovery(fresh); renderComparison();
       if (restoreFocus) {
         nextFocus ||= $('.collection-header h1, .collection-header h2', fresh);
         if (nextFocus) { if (!nextFocus.matches('input, select, button, a')) nextFocus.tabIndex = -1; nextFocus.focus({preventScroll: true}); }
@@ -288,6 +290,55 @@
     } catch (error) { if (error.name !== 'AbortError') closePredictive(root); }
   }
 
+  function initPurchaseBar() {
+    purchaseCleanup?.();
+    const bar = $('[data-mobile-purchase-bar]'), form = bar && document.getElementById(bar.dataset.formId);
+    const original = form && $('button[name="add"]', form), root = form?.closest('[data-product-root]');
+    if (!bar || !original || !root || !('IntersectionObserver' in window)) return;
+    const button = $('button[name="add"]', bar), mobile = matchMedia('(max-width: 760px)');
+    const update = () => {
+      const keyboard = window.visualViewport && window.innerHeight - window.visualViewport.height > 150;
+      bar.hidden = !mobile.matches || original.getBoundingClientRect().bottom > 0 || Boolean($('dialog[open]')) || keyboard;
+      const disabled = original.disabled || form.hasAttribute('aria-busy') || root.hasAttribute('aria-busy');
+      if (button.disabled !== disabled) button.disabled = disabled;
+      const height = bar.hidden ? 0 : Math.ceil(bar.getBoundingClientRect().height);
+      document.body.style.setProperty('--purchase-bar-height', height + 'px');
+      document.body.classList.toggle('has-purchase-bar', !bar.hidden);
+    };
+    const observer = new IntersectionObserver(update); observer.observe(original);
+    const mutations = new MutationObserver(update);
+    mutations.observe(root, {attributes:true, subtree:true, attributeFilter:['disabled', 'aria-busy']});
+    $$('dialog').forEach(dialog => mutations.observe(dialog, {attributes:true, attributeFilter:['open']}));
+    const resize = 'ResizeObserver' in window ? new ResizeObserver(update) : null; resize?.observe(bar);
+    mobile.addEventListener('change', update); window.addEventListener('resize', update); window.visualViewport?.addEventListener('resize', update);
+    purchaseCleanup = () => {
+      observer.disconnect(); mutations.disconnect(); resize?.disconnect(); mobile.removeEventListener('change', update);
+      window.removeEventListener('resize', update); window.visualViewport?.removeEventListener('resize', update);
+      bar.hidden = true; document.body.style.removeProperty('--purchase-bar-height'); document.body.classList.remove('has-purchase-bar');
+    };
+    update();
+  }
+  function reviewPurchase(bar) {
+    const form = document.getElementById(bar.dataset.formId), root = form?.closest('[data-product-root]');
+    const control = root && ($('[data-option-value-id]', root) || $('select, input:not([type=hidden]):not(:disabled), button[name="add"]', form));
+    if (control) { control.scrollIntoView({block:'center', behavior:'instant'}); control.focus({preventScroll:true}); }
+  }
+  async function initSearchRecovery(root = document) {
+    for (const node of $$('[data-search-recovery]:not([data-loaded])', root)) {
+      node.dataset.loaded = 'true';
+      if (node.dataset.query.trim().length < 2) continue;
+      const url = new URL(config.predictiveSearch, location.origin);
+      url.searchParams.set('q', node.dataset.query); url.searchParams.set('resources[type]', 'query,collection,product');
+      url.searchParams.set('resources[limit]', '3'); url.searchParams.set('resources[limit_scope]', 'each'); url.searchParams.set('section_id', 'search-suggestions');
+      try {
+        const response = await fetch(url); if (!response.ok || !node.isConnected) continue;
+        const html = new DOMParser().parseFromString(await response.text(), 'text/html');
+        const content = $('[data-search-suggestion-content]', html), host = $('[data-search-suggestions]', node);
+        if (node.isConnected && content && $('a', content)) { host.replaceChildren(content); host.hidden = false; }
+      } catch { /* Native query editing and filter recovery remain available. */ }
+    }
+  }
+
   async function requestJSON(url, body) {
     const response = await fetch(url, { method: 'POST', headers: body instanceof FormData ? { Accept: 'application/json' } : { Accept: 'application/json', 'Content-Type': 'application/json' }, body: body instanceof FormData ? body : JSON.stringify(body) });
     let data;
@@ -338,6 +389,7 @@
   function applyCart(data, focusKey) {
     const focusIdentity = focusKey && uniqueCartIdentity(currentCartInput(focusKey));
     const sections = data.sections || {};
+    const noteDraft = $$('textarea[name="note"]').find(node => node.value !== node.defaultValue)?.value;
     let count;
     for (const root of $$('[data-cart-section]')) {
       const html = sections[root.dataset.cartSection];
@@ -349,6 +401,8 @@
       current.replaceWith(content);
     }
     if (count !== undefined) $$('[data-cart-count]').forEach(node => { node.textContent = count; if (node.classList.contains('cart-count')) node.hidden = Number(count) === 0; });
+    if (noteDraft !== undefined) $$('textarea[name="note"]').forEach(node => { node.value = noteDraft; });
+    renderCartUndo(); setCartPending();
     if (focusKey) {
       const activeRoot = $('#CartDrawer')?.open ? $('#CartDrawer') : $('.cart-page');
       const current = currentCartInput(focusKey, focusIdentity);
@@ -364,8 +418,106 @@
     return true;
   }
   function queueCart(task) {
-    cartQueue = cartQueue.catch(() => {}).then(task).catch(error => announce(error.message || config.error));
+    cartPending++; setCartPending();
+    cartQueue = cartQueue.catch(() => {}).then(task).catch(error => announce(error.message || config.error)).finally(() => { cartPending--; setCartPending(); });
     return cartQueue;
+  }
+  function setCartPending() {
+    $$('[data-cart-form] [name="checkout"], [data-cart-form] [name="update"]').forEach(button => { button.disabled = cartPending > 0; });
+    $$('[data-cart-section] .accelerated-checkout').forEach(node => { node.inert = cartPending > 0; });
+  }
+  async function readCart() {
+    const response = await fetch(config.cartRead, {cache:'no-store', headers:{Accept:'application/json'}});
+    if (!response.ok) throw new Error(config.error);
+    return response.json();
+  }
+  const cartAPI = {read:readCart, add:item => requestJSON(config.cartAdd, {items:[item]}), change:(id, quantity) => requestJSON(config.cartChange, {id, quantity})};
+  function renderCartUndo() {
+    $$('[data-cart-undo]').forEach(node => {
+      node.hidden = !cartUndo;
+      if (cartUndo) $('[data-cart-undo-message]', node).textContent = config.cartRemoved.replace('[title]', cartUndo.title);
+      $('[data-undo-cart]', node).disabled = cartTransactionBusy;
+    });
+  }
+  async function undoCartRemoval() {
+    const record = cartUndo, engine = window.SiftwellCart;
+    if (!record || !engine || cartTransactionBusy) return;
+    cartTransactionBusy = true; renderCartUndo();
+    let failure;
+    try {
+      const before = await readCart();
+      if (engine.quantity(before, record.item) !== record.remaining) throw new Error(config.cartChanged);
+      // Consume before sending: a lost response must never make a retry duplicate the line.
+      cartUndo = null;
+      let error;
+      try { await cartAPI.add(engine.payload(record.item)); } catch (cause) { error = cause; }
+      const after = await readCart();
+      if (engine.quantity(after, record.item) !== record.remaining + record.item.quantity) throw new Error(error?.message || config.cartReview);
+      announce(config.cartRestored);
+    } catch (error) {
+      failure = cartUndo ? error.message : config.cartReview;
+      announce(failure);
+    } finally {
+      try { await refreshCart(); } finally {
+        cartTransactionBusy = false; renderCartUndo();
+        if (failure) $$('[data-cart-error]').forEach(node => { node.textContent = failure; node.hidden = false; });
+      }
+      const root = $('#CartDrawer')?.open ? $('#CartDrawer') : $('.cart-page');
+      const heading = root && $('h1, #CartDrawerTitle', root); if (heading) { heading.tabIndex = -1; heading.focus({preventScroll:true}); }
+    }
+  }
+  function updateCartEditor(root, state) {
+    cartEditors.set(root, state);
+    const ids = (JSON.parse(root.dataset.planIds || '[]') || []).map(String);
+    const rules = {min:Number(root.dataset.quantityMin) || 1, increment:Number(root.dataset.quantityIncrement) || 1, max:Number(root.dataset.quantityMax) || Infinity};
+    const message = root.dataset.productId !== String(state.item.product_id) ? config.cartChanged
+      : !root.dataset.variantId ? config.unavailable : root.dataset.available !== 'true' ? config.soldOut
+      : (state.plan && !ids.includes(state.plan)) || (!state.plan && root.dataset.requiresPlan === 'true') ? config.cartEditPlan
+      : quantityProblem(state.item.quantity, rules) ? config.cartEditQuantity
+      : root.dataset.variantId === String(state.item.variant_id || state.item.id) ? config.cartChooseDifferent : '';
+    $('[data-cart-edit-message]', root).textContent = message;
+    $('[data-save-cart-variant]', root).disabled = Boolean(message);
+  }
+  async function openCartEditor(link) {
+    if (!window.SiftwellCart || cartTransactionBusy || cartPending || link.hasAttribute('aria-busy')) return;
+    const row = link.closest('.cart-row'), input = $('[data-cart-key]', row), host = $('[data-cart-editor-host]', row);
+    link.setAttribute('aria-busy', 'true');
+    try {
+      const cart = await readCart(), item = cart.items.find(item => item.key === input.dataset.cartKey);
+      if (!item || !window.SiftwellCart.eligible(item) || window.SiftwellCart.matches(cart, item).length !== 1) throw new Error(config.cartChanged);
+      const plan = String(item.selling_plan_allocation?.selling_plan?.id || '');
+      const url = new URL(link.href, location.origin); url.searchParams.set('section_id', 'cart-variant');
+      if (plan) url.searchParams.set('selling_plan', plan);
+      const response = await fetch(url, {cache:'no-store'}); if (!response.ok) throw new Error(config.error);
+      const html = new DOMParser().parseFromString(await response.text(), 'text/html'), editor = $('[data-cart-editor]', html);
+      if (!editor || !link.isConnected) return;
+      host.replaceChildren(editor); host.hidden = false; link.setAttribute('aria-expanded', 'true');
+      updateCartEditor(editor, {item, plan}); $('h4', editor)?.focus({preventScroll:true});
+    } catch (error) { announce(error.message || config.error); }
+    finally { link.removeAttribute('aria-busy'); }
+  }
+  async function saveCartVariant(root) {
+    const state = cartEditors.get(root);
+    if (!state || cartTransactionBusy || root.hasAttribute('aria-busy') || $('[data-save-cart-variant]', root).disabled) return;
+    cartTransactionBusy = true; root.setAttribute('aria-busy', 'true'); $('[data-save-cart-variant]', root).disabled = true;
+    queueCart(async () => {
+      try {
+        await window.SiftwellCart.replace(cartAPI, state.item, root.dataset.variantId);
+        cartUndo = null; announce(config.updated);
+      } catch (error) {
+        const message = error.code === 'changed' ? config.cartChanged : error.code === 'rejected' ? config.cartEditRejected : config.cartReview;
+        announce(message);
+        state.error = message;
+      } finally {
+        try { await refreshCart(state.item.key); }
+        finally {
+          cartTransactionBusy = false; root.removeAttribute('aria-busy');
+          if (root.isConnected) updateCartEditor(root, state);
+          if (state.error) $$('[data-cart-error]').forEach(node => { node.textContent = state.error; node.hidden = false; });
+          renderCartUndo();
+        }
+      }
+    });
   }
   async function refreshCart(focusKey) {
     // Request fresh sections without changing quantities or other cart data.
@@ -381,10 +533,19 @@
     $$('[data-cart-error]').forEach(node => { node.hidden = true; node.textContent = ''; });
     roots.forEach(root => root.setAttribute('aria-busy', 'true'));
     try {
+      let removed;
+      if (quantity === 0 && window.SiftwellCart) {
+        const before = await readCart();
+        removed = before.items.find(item => item.key === key);
+        if (removed && !window.SiftwellCart.eligible(removed)) removed = null;
+      }
       let data = await requestJSON(config.cartChange, { id: key, quantity, sections: cartSections(), sections_url: location.pathname });
+      if (quantity === 0) {
+        cartUndo = removed && !data.items.some(item => item.key === key) ? {item:removed, title:removed.product_title || removed.title, remaining:window.SiftwellCart.quantity(data, removed)} : null;
+      }
       const savedNote = $('textarea[name="note"]')?.defaultValue;
       if (note !== undefined && note !== savedNote) data = await requestJSON(config.cartUpdate, { note, sections: cartSections(), sections_url: location.pathname });
-      applyCart(data, key); announce(config.updated);
+      applyCart(data, key); announce(cartUndo && quantity === 0 ? config.cartRemoved.replace('[title]', cartUndo.title) : config.updated);
     } catch (error) {
       // Shopify can adjust a cart even when a request fails; render its current state.
       try { await refreshCart(key); } catch { $$('[data-cart-key]').forEach(input => { input.value = input.defaultValue; }); }
@@ -395,13 +556,15 @@
   async function changeVariant(link, plan) {
     const root = link.closest('[data-product-root]');
     if (!root) return;
+    const editorState = cartEditors.get(root);
+    if (editorState && cartTransactionBusy) return;
     variantRequest?.abort(); variantRequest = new AbortController();
     const focusValue = link.dataset.optionValueId;
     const url = new URL(link.dataset.productUrl || root.dataset.productUrl, location.origin);
     const selected = $$('[data-product-option]', root).map(field => (field.contains(link) ? link : $('[aria-current="true"]', field))?.dataset.optionValueId).filter(Boolean);
     if (selected.length) url.searchParams.set('option_values', selected.join(','));
     const planSelect = $('select[name="selling_plan"]', root);
-    const planId = plan ?? planSelect?.value;
+    const planId = editorState?.plan || (plan ?? planSelect?.value);
     if (planId) url.searchParams.set('selling_plan', planId);
     url.searchParams.set('section_id', root.dataset.sectionId);
     const quantity = $('input[name="quantity"]', root)?.value;
@@ -423,15 +586,16 @@
       const recipientFields = $('.recipient-fields', fresh);
       if (recipientFields) recipientFields.open = Boolean($('.recipient-fields', root)?.open);
       root.replaceWith(fresh);
+      if (editorState) updateCartEditor(fresh, editorState);
       const quantityInput = $('input[name="quantity"]', fresh);
       if (quantity && quantityInput) { const min = Number(quantityInput.min) || 1, max = Number(quantityInput.max) || Infinity, step = Number(quantityInput.step) || 1; quantityInput.value = Math.min(max, min + Math.max(0, Math.floor((Number(quantity) - min) / step)) * step); }
-      initRecipients(fresh); renderComparison(); window.Shopify?.PaymentButton?.init?.();
+      initRecipients(fresh); initPurchaseBar(); renderComparison(); window.Shopify?.PaymentButton?.init?.();
       const selectedPlan = $('select[name="selling_plan"]', fresh)?.value;
       if (selectedPlan) url.searchParams.set('selling_plan', selectedPlan); else url.searchParams.delete('selling_plan');
-      url.searchParams.delete('section_id'); if (!fresh.hasAttribute('data-quick-view-root')) history.replaceState(null, '', url);
+      url.searchParams.delete('section_id'); if (!fresh.hasAttribute('data-quick-view-root') && !editorState) history.replaceState(null, '', url);
       if (focusValue) $(`[data-option-value-id="${CSS.escape(focusValue)}"]`, fresh)?.focus({ preventScroll: true });
       else $('select[name="selling_plan"]', fresh)?.focus({ preventScroll: true });
-    } catch (error) { if (error.name !== 'AbortError') { announce(config.error); location.assign(url.pathname + url.search.replace(/([?&])section_id=[^&]*/, '$1')); } }
+    } catch (error) { if (error.name !== 'AbortError') { announce(config.error); if (!editorState) location.assign(url.pathname + url.search.replace(/([?&])section_id=[^&]*/, '$1')); } }
     finally { root.removeAttribute('aria-busy'); }
   }
   function initRecipients(root = document) {
@@ -462,6 +626,26 @@
   }
   document.addEventListener('click', event => {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (cartTransactionBusy && event.target.closest('[data-cart-section]') && !event.target.closest('[data-close-dialog]')) { event.preventDefault(); return; }
+    const review = event.target.closest('[data-review-purchase]');
+    if (review) { reviewPurchase(review.closest('[data-mobile-purchase-bar]')); return; }
+    const editSearch = event.target.closest('[data-edit-search]');
+    if (editSearch) { const input = document.getElementById(editSearch.dataset.editSearch); if (input) { event.preventDefault(); input.focus(); input.select(); } return; }
+    const editCart = event.target.closest('[data-edit-cart-item]');
+    if (editCart && window.SiftwellCart) { event.preventDefault(); openCartEditor(editCart); return; }
+    const cancelEdit = event.target.closest('[data-cancel-cart-edit]');
+    if (cancelEdit) {
+      const host = cancelEdit.closest('[data-cart-editor-host]'), link = $('[data-edit-cart-item]', host.closest('.cart-row'));
+      variantRequest?.abort(); host.replaceChildren(); host.hidden = true; link.setAttribute('aria-expanded', 'false'); link.focus(); return;
+    }
+    const saveEdit = event.target.closest('[data-save-cart-variant]');
+    if (saveEdit) { saveCartVariant(saveEdit.closest('[data-cart-editor]')); return; }
+    if (event.target.closest('[data-undo-cart]')) { queueCart(undoCartRemoval); return; }
+    if (event.target.closest('[data-dismiss-cart-undo]')) {
+      cartUndo = null; renderCartUndo();
+      const root = event.target.closest('[data-cart-section]'), heading = root && $('h1, #CartDrawerTitle', root);
+      if (heading) { heading.tabIndex = -1; heading.focus({preventScroll:true}); } return;
+    }
     const removeComparison = event.target.closest('[data-remove-comparison]');
     if (removeComparison) {
       const id = removeComparison.dataset.removeComparison;
@@ -522,12 +706,14 @@
   document.addEventListener('submit', event => {
     const form = event.target;
     if (form.matches('[data-cart-form]')) {
+      if (cartPending) { event.preventDefault(); announce(config.loading); return; }
       const invalid = $$('[data-cart-key]', form).find(input => !validateQuantity(input));
       if (invalid) { event.preventDefault(); invalid.reportValidity(); return; }
     }
     if (form.matches('[data-catalog-filters]')) { event.preventDefault(); loadCatalog(catalogFormURL(form)); return; }
     if (form.matches('[data-search-form]')) { const root = form.closest('[data-predictive-search]'); if (root) closePredictive(root); }
     if (form.matches('[data-product-form]') && event.submitter?.name === 'add') {
+      if (form.hasAttribute('aria-busy') || form.closest('[data-product-root]')?.hasAttribute('aria-busy')) { event.preventDefault(); return; }
       event.preventDefault(); const button = event.submitter, body = new FormData(form);
       body.append('sections', cartSections().join(',')); body.append('sections_url', location.pathname);
       const errorNode = $('[data-form-error]', form); if (errorNode) { errorNode.textContent = ''; errorNode.hidden = true; }
@@ -536,7 +722,7 @@
         try { const data = await requestJSON(config.cartAdd, body); if (applyCart(data)) { if (config.openCartOnAdd) openDialog('CartDrawer'); announce(config.added, true); } }
         catch (error) {
           try { await refreshCart(); } catch { /* Keep the form usable when the network is unavailable. */ }
-          if (errorNode) { errorNode.textContent = error.message; errorNode.hidden = false; } throw error;
+          if (errorNode) { errorNode.textContent = error.message; errorNode.hidden = false; errorNode.tabIndex = -1; errorNode.scrollIntoView({block:'center'}); errorNode.focus({preventScroll:true}); } throw error;
         }
         finally { button.disabled = false; form.removeAttribute('aria-busy'); }
       });
@@ -551,6 +737,7 @@
       return;
     }
     if (input.matches('[data-cart-key]')) {
+      if (cartTransactionBusy) { input.value = input.defaultValue; return; }
       if (!validateQuantity(input)) { input.reportValidity(); return; }
       const key = input.dataset.cartKey, identity = uniqueCartIdentity(input), quantity = Number(input.value), note = $('textarea[name="note"]', input.closest('form'))?.value;
       queueCart(() => changeCart(key, quantity, note, identity));
@@ -558,8 +745,8 @@
     if (input.matches('[data-recipient-toggle]')) initRecipients(input.closest('form'));
     if (input.matches('[data-product-root] select[name="selling_plan"]')) changeVariant(input, input.value);
   });
-  document.addEventListener('shopify:section:load', event => { initRecipients(event.target); initRecommendations(event.target); renderComparison(); });
-  document.addEventListener('shopify:section:unload', event => { $$('dialog[open]', event.target).forEach(dialog => dialog.close()); });
+  document.addEventListener('shopify:section:load', event => { initRecipients(event.target); initRecommendations(event.target); initSearchRecovery(event.target); initPurchaseBar(); renderComparison(); });
+  document.addEventListener('shopify:section:unload', event => { $$('dialog[open]', event.target).forEach(dialog => dialog.close()); if ($('[data-mobile-purchase-bar]', event.target)) purchaseCleanup?.(); });
   document.addEventListener('shopify:block:select', event => { const dialog = event.target.closest('dialog'); if (dialog && !dialog.open) dialog.showModal(); });
   matchMedia('(min-width: 761px)').addEventListener('change', event => { if (event.matches) closeDialog($('#NavigationDrawer')); });
 
@@ -573,9 +760,10 @@
   document.addEventListener('invalid', event => {
     const recipient = event.target.closest('.recipient-fields');
     if (recipient) recipient.open = true;
+    if (event.target.closest('[data-product-root]')) event.target.scrollIntoView({block:'center', behavior:'instant'});
   }, true);
   // Browsers restore checkbox values after deferred scripts when returning through history.
-  window.addEventListener('pageshow', () => initRecipients());
+  window.addEventListener('pageshow', () => { initRecipients(); initPurchaseBar(); });
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape') { quickRequest?.abort(); pageRequest?.abort(); }
     if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !event.target.closest('input,textarea,select,[contenteditable=true]')) {
@@ -608,5 +796,5 @@
   }, true);
   addEventListener('popstate', () => { if ($('[data-catalog-content]')) loadCatalog(location.href, false); });
 
-  initRecipients(); initRecommendations(); renderComparison();
+  initRecipients(); initRecommendations(); initSearchRecovery(); initPurchaseBar(); renderComparison();
 })();

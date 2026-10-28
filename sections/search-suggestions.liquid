@@ -1,0 +1,10 @@
+<div data-search-suggestion-content>
+{% if predictive_search.performed %}
+ {% if predictive_search.resources.queries != blank %}<div class="search-suggestion-group"><h3>{{ 'search.suggested_queries' | t }}</h3><ul>{% for query in predictive_search.resources.queries %}<li><a href="{{ query.url | escape }}">{{ query.text | escape }}</a></li>{% endfor %}</ul></div>{% endif %}
+ {% if predictive_search.resources.collections != blank %}<div class="search-suggestion-group"><h3>{{ 'search.suggested_collections' | t }}</h3><ul>{% for collection in predictive_search.resources.collections %}<li><a href="{{ collection.url }}">{{ collection.title | escape }}</a></li>{% endfor %}</ul></div>{% endif %}
+ {% if predictive_search.resources.products != blank %}<div class="search-suggestion-group"><h3>{{ 'search.suggested_products' | t }}</h3><ul class="search-suggested-products">{% for item in predictive_search.resources.products %}<li><a href="{{ item.url }}">{% if item.featured_image %}{{ item.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', width: 60 }}{% endif %}<span>{{ item.title | escape }}<small>{{ item.price | money }}</small></span></a></li>{% endfor %}</ul></div>{% endif %}
+{% endif %}
+</div>
+{% schema %}
+{"name":"t:labels.search_suggestions","settings":[]}
+{% endschema %}

@@ -1,10 +1,12 @@
 # Siftwell roadmap
 
-Updated 27 October 2026. Siftwell is an MIT-licensed theme for auto parts, accessories and tools. Priorities follow the buyer's decision: find the right item, establish what is known about fit, understand the differences and finish the job.
+Updated 28 October 2026. Siftwell is an MIT-licensed theme for auto parts, accessories and tools. Priorities follow the buyer's decision: find the right item, establish what is known about fit, understand the differences and finish the job.
 
 The hypothesis is that accurate information and clear next steps will help both shoppers and shopping assistants make better recommendations and purchase decisions. Confidence, conversion and return improvements remain hypotheses to test with real stores.
 
 ## Delivered in the current source
+
+- **Purchase and recovery interactions.** Optional mobile purchase controls, eligible variant editing inside the bag with undo removal, and empty-search recovery use existing Shopify data. No new product fields are required. [Setup and limits](docs/shopping-recovery.md).
 
 - **Compact mobile shopping introduction.** A short, editable shopping heading, native product search and a secondary finder/shop link replace the tall slogan and photograph on phones. The desktop composition stays available. Compact collection links bring the catalog closer.
 - **Recommendations with a clear purpose.** Recommendation cards no longer inherit comparison by default. Related recommendations can opt into comparison when they contain genuine alternatives; complementary recommendations keep comparison hidden. Merchants can give each section an accurate heading.
@@ -16,15 +18,11 @@ The hypothesis is that accurate information and clear next steps will help both 
 
 The first MIT beta still needs the fresh-install and essential shopping-path release gate. Source checks and individual demo checks do not establish every checkout, device, app or market configuration.
 
-## Continue one feature at a time
+## Current focus: purchase and recovery
 
-Specifications, compatibility guidance and included parts with required/optional extras are implemented in the current source. Validate whether merchants can supply and maintain useful details before expanding those interfaces. The theme does not fill missing compatibility facts or infer fit from a product title, voltage or AI recommendation.
+Further data-entry, supplier integration and product-information extensions are parked for now. The mobile purchase bar, cart variant editing with undo removal, and empty-search recovery are implemented in source. Next, verify the full browser shopping paths and store-specific app behavior, then evaluate task completion with real shoppers.
 
-**Easier catalog data setup has an optional prototype.** The blank XLSX, fictional inflator worked example and developer-assisted import companion are implemented in the current source. They export existing facts, reuse shared details and preview selected changes. The initial inflator-demo test is complete for this checkpoint. Real supplier-column mapping, merchant setup effort and ongoing maintenance can be evaluated later with an actual product family. Begin with Shopify's native bulk editor for small assignment changes. The companion covers variant metafields and saved-entry creation that a native product CSV alone does not complete. A merchant-facing editor, automatic supplier parsing and live spreadsheet sync remain unimplemented. [Spreadsheet workflow and downloads](docs/catalog-data.md), [Shopify CSV capabilities](https://help.shopify.com/en/manual/products/import-export/using-csv), [native metafield bulk editing](https://help.shopify.com/en/manual/custom-data/metafields/bulk-edit-metafields).
-
-For the first product family, the [Sidekick-assisted setup guide](docs/product-data-sidekick.md) documents a native route: prepare supplied facts, review entry forms, select product/variant references and reuse the preparation instructions as a Sidekick skill. This combines Shopify's documented assistance with the existing Siftwell data model; it is not an end-to-end tested Sidekick integration. Keep the workbook/importer optional and defer a separate merchant editor while this documented route is evaluated.
-
-Test whether buyers can identify box contents and remaining requirements, and whether merchants can prepare accurate data with less effort. Installation guidance, bundles, saved project lists and verified matching remain separate work.
+Existing specifications, compatibility, parts, comparison and spreadsheet/Sidekick guides remain available. Supplier mapping, installation guidance and verified fitment depend on the store's requirements. Saved shortlists are separate future work.
 
 ## Understand the buying situation
 
@@ -44,7 +42,7 @@ These situations are design hypotheses, not fixed personality types. Scrolling t
 1. **Finish the beta gate.** Verify a fresh installation and essential shopping paths, including keyboard and no-JavaScript fallbacks. Extend real browser, physical-device, screen-reader and review-provider coverage. Keep unresolved checks in [known limitations](docs/known-limitations.md).
 2. **Evaluate the mobile introduction.** Test finding a known product and starting from a buying need on narrow phones. Check search, collection-link understanding, first-product visibility and task completion. A smaller hero alone is not evidence that customers find suitable products.
 3. **Verify recommendation relevance.** Curate alternatives separately from accessories and general discovery. Check that labels explain the relationship, comparison has a common buying question and accessories do not imply unverified compatibility.
-4. **Make comparison explain its next step.** Test selection-to-open behavior and improve selected-item feedback. Explore an explicit “Compare with this product” flow with the current product visibly included. That flow is planned, not implemented by the recommendation checkbox setting.
+4. **Verify purchase and recovery.** Test the mobile purchase bar, in-bag variant editing, undo and empty searches with real catalogs and apps. Comparison already exists; validate the current interaction before proposing another comparison feature.
 
 ## Then: build confidence in the exact item
 

@@ -1,0 +1,28 @@
+{% liquid
+ assign has_filters = false
+ for filter in search.filters
+  if filter.active_values.size > 0 or filter.min_value.value != nil or filter.max_value.value != nil
+   assign has_filters = true
+  endif
+ endfor
+ capture clear_url
+  echo routes.search_url
+  echo '?q='
+  echo search.terms | url_encode
+  echo '&options%5Bprefix%5D=last'
+  if search.types != blank
+   echo '&type='
+   echo search.types | join: ',' | url_encode
+  endif
+ endcapture
+%}
+<div class="search-recovery" data-search-recovery data-query="{{ search.terms | escape }}">
+ <h2>{% if has_filters %}{{ 'search.filtered_empty' | t }}{% else %}{{ 'search.empty' | t }}{% endif %}</h2>
+ <p>{{ 'search.recovery_help' | t }}</p>
+ <div class="search-recovery-actions">
+  {% if has_filters %}<a class="primary-button" href="{{ clear_url | escape }}">{{ 'search.clear_filters' | t }}</a>{% endif %}
+  <a class="secondary-button" href="#Search-{{ section.id }}" data-edit-search="Search-{{ section.id }}">{{ 'search.edit_query' | t }}</a>
+  <a class="text-link" href="{{ routes.all_products_collection_url }}">{{ 'collection.all' | t }}</a>
+ </div>
+ <div data-search-suggestions hidden></div>
+</div>

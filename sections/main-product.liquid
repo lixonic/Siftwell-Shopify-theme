@@ -17,6 +17,7 @@
   assign include_compatibility = true
  endif
  assign has_quantity_input = false
+ assign purchase_blocks = section.blocks | where: 'type', 'buy_buttons'
  if quantity_blocks.size > 0
   assign has_quantity_input = true
  endif
@@ -47,6 +48,7 @@
  {% when 'custom_liquid' %}{{ block.settings.custom_liquid }}
  {% endcase %}</div>{% endfor %}
  </div>
+ {% if section.settings.show_mobile_purchase_bar and purchase_blocks.size > 0 %}{% render 'mobile-purchase-bar', product: product, variant: variant, form_id: form_id %}{% endif %}
  {% render 'product-facts-jsonld', product: product, include_specifications: include_specifications, include_compatibility: include_compatibility %}
 </div>
 {% schema %}
@@ -54,7 +56,7 @@
   "name": "t:labels.product",
   "tag": "section",
   "class": "theme-section",
-  "settings": [],
+  "settings": [{"type":"checkbox","id":"show_mobile_purchase_bar","label":"t:labels.show_mobile_purchase_bar","default":true}],
   "disabled_on": {
     "groups": [
       "header",

@@ -11,12 +11,13 @@ Start with [Siftwell’s approach](design-philosophy.md), then build [one comple
 - [Set up shared specifications](product-specifications.md): create editable row lists, configure variant overrides and keep exact-item facts consistent across product views.
 - [Set up product facts with Sidekick](product-data-sidekick.md): supply supplier facts once, review reusable entries, select product/variant references and save preparation instructions for the next family.
 - [Edit catalog facts in a spreadsheet](catalog-data.md): download the blank XLSX and worked inflator example, reuse shared facts and preview changes. This optional prototype needs developer assistance for imports.
+- [Keep shopping moving](shopping-recovery.md): configure the mobile purchase bar, edit variants in the bag, undo a removal and recover an empty search.
 - [Add customer reviews](product-reviews.md): connect app-supplied ratings and a full review widget to the product template.
 - [Performance and accessibility](performance-accessibility.md): the design choices, recorded demo results and checks still to complete.
 - [Read the current limitations](known-limitations.md) and [get community help](../SUPPORT.md).
 - [Read the roadmap](../ROADMAP.md): buyer needs, compatibility, complete-job shopping and catalog accuracy for assisted commerce.
 
-The searchable guide contains 24 articles covering branding, the home page, the finder, collections, product media, compatibility requirements, included parts and extras, Sidekick-assisted data entry, spreadsheet data setup, customer reviews, localization, performance, accessibility and common setup questions. Shopping assistance and coding-agent customization are explained as separate uses.
+The searchable guide contains 25 articles covering branding, the home page, the finder, collections, product media, compatibility requirements, included parts and extras, Sidekick-assisted data entry, spreadsheet data setup, customer reviews, localization, performance, accessibility and common setup questions. Shopping assistance and coding-agent customization are explained as separate uses.
 
 ## Preview the searchable guide
 

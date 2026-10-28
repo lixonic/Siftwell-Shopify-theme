@@ -147,6 +147,9 @@
     "parts_help": "Show optional box contents, required extras and optional extras from one reusable saved set. Empty sets stay hidden. Add the Included parts & extras block to product templates. Linked extras do not confirm compatibility.",
     "enable_parts": "Show included parts and extras",
     "parts_namespace": "Parts metafield namespace",
-    "parts_key": "Parts metafield key"
+    "parts_key": "Parts metafield key",
+    "show_mobile_purchase_bar": "Show mobile purchase bar",
+    "cart_variant_editor": "Cart option editor",
+    "search_suggestions": "Search suggestions"
   }
 }
