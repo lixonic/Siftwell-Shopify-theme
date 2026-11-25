@@ -43,7 +43,7 @@ Keyboard navigation is part of the shopping experience: a skip link, visible foc
 
 These are medians of warning-free runs on the populated demo. Each cell has three samples except desktop product (*two; provisional). **Automated accessibility scored 100/100 in all 21 recorded runs**, including four with incomplete-load warnings. Sampled default-palette contrast was **14.86:1 for body text** and **5.33:1 for accent-button text**.
 
-The results describe the earlier demo checkpoint; the downloadable 0.8.0 source has not had a fresh Lighthouse audit. Scores vary with content, apps and hosting conditions. Screen-reader speech, Safari, Firefox and physical-device verification remain open. Read the [results, methods and coverage](https://siftwell-theme-docs.vercel.app/?page=performance-accessibility) before using these numbers to assess your store.
+The results describe the earlier demo checkpoint; the downloadable 0.8.0-beta.1 source has not had a fresh Lighthouse audit. Scores vary with content, apps and hosting conditions. Screen-reader speech, Safari, Firefox and physical-device verification remain open. Read the [results, methods and coverage](https://siftwell-theme-docs.vercel.app/?page=performance-accessibility) before using these numbers to assess your store.
 
 ## See the theme
 
@@ -97,7 +97,7 @@ Siftwell includes native Shopify product forms, a cart drawer and cart page, pro
 
 ## Development
 
-Use a current Shopify CLI, Node.js 22 or later and Python 3:
+Use a current Shopify CLI, Node.js 20.19 or later and Python 3:
 
 ```sh
 npm ci
