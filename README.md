@@ -57,6 +57,22 @@ The results describe the earlier demo checkpoint; the downloadable 0.8.0-beta.1 
 
 Screenshots show the Auto demo with sample branding and content. Add your own catalog, licensed media and accurate fit information; the demo content is not included in the installable theme. [Image notes](docs/images/README.md).
 
+## Coffee and craft storefronts
+
+These two storefront prototypes use Siftwell’s product finder, filters and comparison tools. Each organizes the catalog around a different question a shopper brings to the store.
+
+### Coffee equipment · Daybreak Coffee Goods
+
+“How do you brew?” Daybreak groups equipment by espresso, filter coffee and coffee on the go. A shopper building a pour-over setup can start with **Filter coffee**, set a budget and compare grinders. The horizontal navigation also offers a direct route to grinders and burrs for someone who already knows which part they need.
+
+![Daybreak coffee prototype with an espresso machine above three brewing routes and a row of brewers and grinders.](docs/images/coffee-prototype.jpg)
+
+### Craft supplies · Small Hours
+
+“What are you making?” Small Hours offers routes for painting, paper and craft, and stitching. A shopper starting a watercolor project can choose **Painting** to narrow the catalog. Someone restocking embroidery supplies can go straight to **Yarn & stitching** in the sidebar.
+
+![Small Hours craft prototype with a watercolor worktable, project shortcuts and illustrated cards for paints, brushes, yarn and a sketchbook.](docs/images/craft-prototype.jpg)
+
 ## Make the source your own
 
 Use Shopify's theme editor to arrange sections and product blocks, choose fonts and colors, and add your branding. App blocks and Custom Liquid provide places for store-specific extensions.
