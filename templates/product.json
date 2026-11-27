@@ -56,10 +56,10 @@
         "rating",
         "price",
         "options",
+        "compatibility",
         "quantity",
         "buy",
         "specifications",
-        "compatibility",
         "parts",
         "description",
         "pickup"
