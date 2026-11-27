@@ -1305,3 +1305,22 @@ body[data-preset] .catalog:has(.catalog-view input[value=stacked]:checked) .prod
 .catalog:has(.catalog-view input[value=stacked]:checked) .product-media{grid-column:1;grid-row:1 / span 3;margin:0}
 .catalog:has(.catalog-view input[value=stacked]:checked) .product-card>:not(.product-media){grid-column:2}
 .catalog:has(.catalog-view input[value=stacked]:checked) .product-bottom{flex-wrap:wrap}
+
+/* Keep the Auto hero's search field legible on both hero backgrounds. */
+body[data-preset=auto] .intro .hero-search .search-box{
+  background:var(--paper);color:var(--ink);border-color:var(--muted)
+}
+body[data-preset=auto] .intro .hero-search input[type=search]{
+  background:transparent;color:var(--ink);caret-color:currentColor
+}
+body[data-preset=auto] .intro .hero-search input::placeholder,
+body[data-preset=auto] .intro .hero-search .search-icon{
+  color:color-mix(in srgb,var(--ink) 78%,var(--paper));opacity:1
+}
+body[data-preset=auto] .intro .hero-search button{
+  background:var(--ink);color:var(--paper)
+}
+body[data-preset=auto] .intro .hero-search button:focus-visible,
+body[data-preset=auto] .intro .hero-search .search-box:focus-within{
+  outline:2px solid var(--ink);outline-offset:2px;box-shadow:0 0 0 6px var(--paper)
+}

@@ -53,14 +53,14 @@ html = render('sections/hero.liquid', data);
 assert.ok(html.includes('intro--compact-mobile') && html.includes('Auto parts &amp; accessories'));
 assert.ok(!html.includes('&amp;amp;'), 'Translated shopping heading is escaped once');
 assert.equal((html.match(/<h1\b/g) || []).length, 1, 'One heading with responsive text');
-assert.ok(html.includes('action="/fr/search"') && html.includes('href="/fr/collections"'));
-assert.ok(html.indexOf('hero-search') < html.indexOf('hero-actions--mobile'), 'Mobile keyboard order follows search then help');
+assert.ok(html.includes('action="/fr/search"'), "The hero retains localized search");
+assert.ok(!html.includes('hero-cta'), 'The responsive hero has no finder button');
 html = render('sections/hero.liquid', { ...data, section: { id: 'custom', settings: { mobile_heading: '<Find & compare parts>', image: 'fixture' } } });
 assert.ok(html.includes('&lt;Find &amp; compare parts&gt;') && html.includes('<source media="(max-width: 760px)"'));
 html = render('sections/hero.liquid', { ...data, section: { id: 'legacy', settings: { compact_mobile: false, image: 'fixture' } } });
 assert.ok(!html.includes('intro--compact-mobile') && !html.includes('hero-actions--mobile') && !html.includes('<picture'));
 html = render('sections/hero.liquid', { ...data, settings: { enable_finder: false } });
-assert.ok(!html.includes('data-open-dialog="ProductFinder"') && html.includes('href="/fr/collections/all"'));
+assert.ok(!html.includes('hero-cta'), 'Disabling the finder does not add a fallback hero button');
 console.log('Shopping context render checks passed: compact/optional mobile intro, localized native routes, escaped headings and context-specific recommendation comparison.');
 
 if (process.env.SIFTWELL_SHOPPING_PREVIEW_DIR) {

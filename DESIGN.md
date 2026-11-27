@@ -10,7 +10,7 @@ The home hero introduces the store with a short statement, useful image and prod
 
 Under those routes, the home catalog is a buying decision. One collection supplies up to five candidates. Each shows one merchant-chosen fact, the price, and stock. The remaining products show that same fact in a five-column desktop grid and compact rows on smaller screens. Desktop product grids show five per row. All Products also offers a stacked view. A missing fact stays blank, and the fact is not a vehicle-fit result.
 
-On phones, the default introduction prioritizes shopping: a short catalog heading, product search and a secondary finder link. Compact collection routes bring products into view sooner. The larger slogan, supporting copy and photograph remain a desktop composition; merchants can turn off compact mode for a different catalog.
+On phones, the default introduction prioritizes shopping: a short catalog heading and product search. Compact collection routes bring products into view sooner. The larger slogan, supporting copy and photograph remain a desktop composition; merchants can turn off compact mode for a different catalog.
 
 ## Product facts lead
 

@@ -14,9 +14,7 @@
 <div class="hero-copy">
 <h1 id="HeroTitle-{{ section.id }}"><span class="hero-heading--desktop">{% if section.settings.heading_line_1 != blank %}{{ section.settings.heading_line_1 | escape }}<br>{% endif %}{{ section.settings.heading }}</span>{% if compact_mobile %}<span class="hero-heading--mobile">{{ mobile_heading }}</span>{% endif %}</h1>
 {% if section.settings.text != blank %}<div class="hero-description rte">{{ section.settings.text }}</div>{% endif %}
-<div class="hero-actions hero-actions--desktop">{% render 'hero-action' %}</div>
 <div class="hero-search">{% render 'search-form', id: section.id %}</div>
-{% if compact_mobile %}<div class="hero-actions hero-actions--mobile">{% render 'hero-action' %}</div>{% endif %}
 </div>
 <figure class="hero-image">
 {% if section.settings.image != blank %}
