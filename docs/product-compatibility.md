@@ -10,11 +10,11 @@ Use the [Sidekick workflow](product-data-sidekick.md) to organize verified requi
 
 ## Try the live preview
 
-Open the [Workshop Inflator demo at 12 V](https://siftwell-theme.myshopify.com/products/siftwell-specifications-demo?variant=67876548018405). If prompted, enter visitor password **`siftwell`**. This fictional product is sold out and labelled **not for sale**. All figures, prices and requirements are illustrative; the demo does not provide a verified vehicle match.
+Open the [Dual-Voltage Workshop Inflator demo at 12 V](https://siftwell-theme.myshopify.com/products/dual-voltage-workshop-inflator?variant=68385974911205) (or the [direct 24 V link](https://siftwell-theme.myshopify.com/products/dual-voltage-workshop-inflator?variant=68386057060581)). If prompted, enter visitor password **`siftwell`**. Both variants are active and in stock so you can test the full option-to-bag path; all figures, prices and requirements remain illustrative and the demo does not provide a verified vehicle match. (The original sold-out [Workshop Inflator fixture](https://siftwell-theme.myshopify.com/products/siftwell-specifications-demo?variant=67876548018405) also remains available for inspecting sold-out states.)
 
-1. Select **12 V**. This variant inherits the product profile: a 12 V DC supply and matching DC accessory connection are required, and a 24 V supply is excluded. The notes explain that voltage alone does not establish vehicle fit.
-2. Switch to **24 V**. Its intentionally empty variant profile replaces the product profile. **Compatibility not confirmed** appears, and the 12 V requirements, exclusion and reference disappear.
-3. Open the [demo in the catalog](https://siftwell-theme.myshopify.com/collections/all?sort_by=created-descending), then select its image to open quick view. Switch between 12 V and 24 V there too. The compatibility guidance should follow the selected version in both quick view and the product page.
+1. Select **12 V**. This variant inherits the product profile directly below the variant picker: a 12 V DC supply and matching DC accessory connection are required, and a 24 V supply is excluded. The notes explain that voltage alone does not establish vehicle fit.
+2. Switch to **24 V**. Its intentionally empty variant profile replaces the product profile. **Compatibility not confirmed** appears directly under the option picker, and the 12 V requirements, exclusion and reference disappear.
+3. Open the [demo in the catalog](https://siftwell-theme.myshopify.com/collections/all?sort_by=created-descending), then select its image to open quick view. Switch between 12 V and 24 V there too. The compatibility guidance follows the selected version ahead of long descriptions in both quick view and the product page.
 
 The empty 24 V profile demonstrates an honest unknown state. It does not establish that the product is compatible or incompatible with a particular vehicle or setup.
 
@@ -51,9 +51,9 @@ Installing the theme does not create definitions, profiles or product values. Ex
 
 In **Theme settings → Compatibility & requirements**, enable **Show compatibility guidance**. Keep **Compatibility metafield namespace** as `siftwell` and **Compatibility profile metafield key** as `compatibility`, or match your existing definitions.
 
-Add the **Compatibility & requirements** block to each relevant product template. The source's default template places it below the buying controls and specifications, keeping the option-to-purchase path together. Existing installed templates need the block added in the theme editor. It can be moved or removed without altering your data.
+Add the **Compatibility & requirements** block to each relevant product template. The source's default template places it directly after the variant picker and above the buying controls, leaving no empty wrapper or vertical gap on unconfigured products. Existing installed templates need the block added or reordered in the theme editor; it can be moved or removed without altering your data.
 
-Quick view uses the same mapping and selected-variant renderer, placed below the buying controls. The global switch controls both views. This first version does not add fit information to cards or comparison tables.
+Quick view uses the same mapping and selected-variant renderer, placed directly after the variant picker and ahead of the product description. The global switch controls both views. This first version does not add fit information to cards or comparison tables.
 
 ## Inheritance and honest unknown states
 
