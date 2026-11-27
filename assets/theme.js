@@ -210,6 +210,11 @@
       const html = new DOMParser().parseFromString(await response.text(), 'text/html');
       const fresh = $('[data-catalog-content]', html);
       if (!fresh) { location.assign(url); return; }
+      const freshView = $('.catalog-view', fresh);
+      if (freshView && current.querySelector('.collection-header h2')) freshView.remove();
+      else if (freshView && $('.catalog-view input[value="stacked"]:checked', current)) {
+        $('input[value="stacked"]', freshView).checked = true;
+      }
       // The homepage keeps its hero while its embedded catalog is refreshed.
       // Keep that catalog's heading level and its card hierarchy in context.
       const oldHeading = $('.collection-header h1, .collection-header h2', current);

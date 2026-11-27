@@ -1,0 +1,35 @@
+{%- liquid
+  assign fact_code = fact | default: 'feature' | strip
+  assign namespace = settings.spec_namespace | default: 'siftwell' | strip
+  assign rows_key = settings.spec_rows_key | default: 'specifications' | strip
+  assign fact_label = ''
+  assign fact_value = ''
+  assign product_field = product.metafields[namespace][rows_key]
+  if product_field.type == 'list.metaobject_reference' and product_field.value != blank
+    for row in product_field.value
+      assign row_code = row.code.value | strip | handleize
+      if row_code == fact_code
+        assign fact_label = row.label.value | strip
+        assign fact_value = row.value.value | strip
+        break
+      endif
+    endfor
+  endif
+  if fact_value == blank
+    assign setting_key = 'spec_' | append: fact_code | append: '_key'
+    assign key = settings[setting_key] | default: fact_code | strip
+    assign specification = product.metafields[namespace][key]
+    assign label_key = 'products.specifications.' | append: fact_code
+    assign fact_label = label_key | t
+    if specification != blank
+      if specification.type == 'single_line_text_field' or specification.type == 'multi_line_text_field'
+        assign fact_value = specification.value | strip
+      else
+        assign fact_value = specification | metafield_text | strip
+      endif
+    endif
+  endif
+-%}
+{%- if fact_value != blank -%}
+<span class="decision-fact"><span class="decision-fact-label">{{ fact_label | escape }}</span><span class="decision-fact-value">{{ fact_value | escape }}</span></span>
+{%- endif -%}

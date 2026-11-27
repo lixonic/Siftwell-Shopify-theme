@@ -1,7 +1,7 @@
 <div class="page-width section-space">
  <div class="section-heading"><h2>{{ section.settings.heading | escape }}</h2>{% if section.settings.collection != blank %}<a class="text-button" href="{{ section.settings.collection.url }}">{{ 'general.shop_all' | t }}{% render 'icon', name: 'arrow' %}</a>{% endif %}</div>
  <div class="product-grid">
- {% for item in section.settings.collection.products limit: section.settings.product_limit %}{% render 'product-card', product: item %}{% else %}{% for i in (1..4) %}<article class="product-card"><div class="product-media">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div><h3>{{ 'products.placeholder' | t }}</h3></article>{% endfor %}{% endfor %}
+ {% for item in section.settings.collection.products limit: section.settings.product_limit %}{% render 'product-card', product: item %}{% else %}{% for i in (1..5) %}<article class="product-card"><div class="product-media">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div><h3>{{ 'products.placeholder' | t }}</h3></article>{% endfor %}{% endfor %}
  </div>
 </div>
 {% schema %}

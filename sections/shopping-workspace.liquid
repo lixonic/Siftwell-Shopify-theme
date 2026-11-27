@@ -1,10 +1,67 @@
-{% render 'catalog-workspace', section: section %}
+{% if section.settings.home_decision %}
+  {% render 'home-decision', section: section %}
+{% else %}
+  {% render 'catalog-workspace', section: section %}
+{% endif %}
 {% schema %}
 {
   "name": "t:labels.shopping_catalog",
   "tag": "section",
   "class": "theme-section",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "home_decision",
+      "label": "t:labels.home_decision",
+      "info": "t:labels.home_decision_help",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "decision_heading",
+      "label": "t:labels.decision_heading"
+    },
+    {
+      "type": "text",
+      "id": "decision_text",
+      "label": "t:labels.decision_text",
+      "default": "Start here. The line under each name is the fact that separates them."
+    },
+    {
+      "type": "collection",
+      "id": "decision_collection",
+      "label": "t:labels.decision_collection"
+    },
+    {
+      "type": "select",
+      "id": "decision_fact",
+      "label": "t:labels.decision_fact",
+      "options": [
+        { "value": "weight", "label": "Weight" },
+        { "value": "material", "label": "Material" },
+        { "value": "fit", "label": "Fit" },
+        { "value": "feature", "label": "Feature" },
+        { "value": "best", "label": "Best for" }
+      ],
+      "default": "feature"
+    },
+    {
+      "type": "select",
+      "id": "candidate_count",
+      "label": "t:labels.candidate_count",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "5", "label": "5" }
+      ],
+      "default": "5"
+    },
+    {
+      "type": "text",
+      "id": "list_heading",
+      "label": "t:labels.list_heading",
+      "default": "The rest of the catalog"
+    },
     {
       "type": "text",
       "id": "heading",

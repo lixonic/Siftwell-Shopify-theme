@@ -4,7 +4,7 @@
     assign show_compare = true
   endif
 %}
-<div class="page-width section-space" data-recommendations data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4&intent={{ section.settings.intent }}">
+<div class="page-width section-space" data-recommendations data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=5&intent={{ section.settings.intent }}">
 {% if recommendations.performed and recommendations.products_count > 0 %}<h2>{% if section.settings.heading != blank %}{{ section.settings.heading | escape }}{% elsif section.settings.intent == 'complementary' %}{{ 'products.complementary' | t }}{% else %}{{ 'products.recommendations' | t }}{% endif %}</h2><div class="product-grid">{% for item in recommendations.products %}{% render 'product-card', product: item, show_compare: show_compare %}{% endfor %}</div>{% endif %}</div>
 {% schema %}
 {

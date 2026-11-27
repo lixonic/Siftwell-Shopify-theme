@@ -279,7 +279,11 @@
     "any_use": "Any use",
     "try_again": "Try another search or clear the filters.",
     "clear_price": "Clear price",
-    "apply": "Apply"
+    "apply": "Apply",
+    "layout_label": "Product layout",
+    "view_grid": "Grid",
+    "view_stacked": "Stacked",
+    "see_collection": "See {{ title }}"
   },
   "social": {
     "title": "Social media",

@@ -1,0 +1,100 @@
+{% liquid
+  assign decision = section.settings.decision_collection
+  if decision == blank
+    assign decision = section.settings.collection
+  endif
+  assign catalog = section.settings.collection
+  if catalog == blank
+    assign catalog = collections.all
+  endif
+  assign fact = section.settings.decision_fact | default: 'feature'
+  assign candidate_limit = section.settings.candidate_count | plus: 0
+  if candidate_limit < 2
+    assign candidate_limit = 3
+  endif
+  assign list_limit = section.settings.products_per_page | default: 12
+  assign shown = '|'
+  assign decision_title = section.settings.decision_heading
+  if decision_title == blank and decision != blank
+    assign decision_title = decision.title
+  endif
+  assign list_title = section.settings.list_heading
+  if list_title == blank and catalog != blank
+    assign list_title = catalog.title
+  endif
+%}
+<div class="workspace page-width workspace--full decision-home" data-comparison-workspace>
+<section class="decision" aria-labelledby="DecisionHeading-{{ section.id }}">
+<div class="decision-intro">
+<h2 id="DecisionHeading-{{ section.id }}">{{ decision_title | escape }}</h2>
+{% if section.settings.decision_text != blank %}<p>{{ section.settings.decision_text | escape }}</p>{% endif %}
+{% if decision != blank %}<a class="text-link" href="{{ decision.url }}">{{ 'collections.see_collection' | t: title: decision.title }}</a>{% endif %}
+</div>
+{% if decision != blank %}
+<div class="decision-candidates">
+{% for product in decision.products limit: candidate_limit %}
+{% assign shown = shown | append: product.id | append: '|' %}
+{% assign card_variant = product.selected_or_first_available_variant %}
+{% assign allow_quick_add = false %}
+{% if product.has_only_default_variant and product.available %}
+{% unless card_variant.requires_selling_plan or card_variant.quantity_rule.min > 1 or card_variant.quantity_rule.increment > 1 or card_variant.quantity_rule.max != nil %}
+{% assign allow_quick_add = true %}
+{% endunless %}
+{% endif %}
+<article class="decision-card">
+<a class="decision-card-link" href="{{ product.url }}">
+<span class="decision-media">
+{% if product.featured_media %}
+{% if forloop.first %}
+{{ product.featured_media.preview_image | image_url: width: 800 | image_tag: widths: '240, 360, 480, 720, 800', sizes: '(min-width: 1024px) 16vw, (min-width: 761px) 28vw, 100vw', loading: 'eager', fetchpriority: 'high' }}
+{% else %}
+{{ product.featured_media.preview_image | image_url: width: 800 | image_tag: widths: '240, 360, 480, 720, 800', sizes: '(min-width: 1024px) 16vw, (min-width: 761px) 28vw, 100vw', loading: 'lazy' }}
+{% endif %}
+{% else %}
+{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+{% endif %}
+</span>
+<h3>{{ product.title | escape }}</h3>
+{% render 'decision-fact', product: product, fact: fact %}
+<span class="decision-meta"><span class="decision-price">{% render 'price', target: product %}</span><span class="decision-stock">{% if product.available %}{{ 'products.available' | t }}{% else %}{{ 'products.sold_out' | t }}{% endif %}</span></span>
+</a>
+<div class="decision-actions">
+{% if allow_quick_add %}{% form 'product', product, data-product-form: '' %}<input type="hidden" name="id" value="{{ card_variant.id }}"><button class="text-link" type="submit" name="add">{{ 'products.add' | t }}</button><p data-form-error role="alert" hidden></p>{% endform %}{% endif %}
+{% render 'compare-toggle', product: product %}
+</div>
+</article>
+{% else %}
+<p>{{ 'collections.empty' | t }}</p>
+{% endfor %}
+</div>
+{% endif %}
+</section>
+<section class="catalog-rest" aria-labelledby="CatalogRest-{{ section.id }}">
+<div class="decision-intro">
+<h2 id="CatalogRest-{{ section.id }}">{{ list_title | escape }}</h2>
+{% if catalog != blank %}<a class="text-link" href="{{ catalog.url }}">{{ 'collections.see_collection' | t: title: catalog.title }}</a>{% endif %}
+</div>
+<ul class="catalog-rows" role="list">
+{% assign listed = 0 %}
+{% for product in catalog.products limit: 50 %}
+{% assign token = '|' | append: product.id | append: '|' %}
+{% unless shown contains token %}
+{% if listed < list_limit %}
+<li>
+<a class="catalog-row" href="{{ product.url }}">
+<span class="catalog-row-media">
+{% if product.featured_media %}{{ product.featured_media.preview_image | image_url: width: 600 | image_tag: widths: '80, 160, 240, 360, 480, 600', sizes: '(min-width: 1024px) 16vw, 64px', loading: 'lazy' }}{% else %}{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}{% endif %}
+</span>
+<span class="catalog-row-title">{{ product.title | escape }}</span>
+{% render 'decision-fact', product: product, fact: fact %}
+<span class="decision-meta"><span class="decision-price">{% render 'price', target: product %}</span><span class="decision-stock">{% if product.available %}{{ 'products.available' | t }}{% else %}{{ 'products.sold_out' | t }}{% endif %}</span></span>
+</a>
+</li>
+{% assign listed = listed | plus: 1 %}
+{% endif %}
+{% endunless %}
+{% endfor %}
+</ul>
+</section>
+{% render 'comparison-rail' %}
+</div>
